@@ -1,25 +1,57 @@
-# Automotive-Security-Assessment
-Automotive-Security-Assessment
+# ECU-Cyber-Integrity-Lab
 
-Author: Zukhra Abdulaeva • Cybersecurity • Automotive Security • Embedded Systems • Security Testing
+## Automotive White-Box Security Assessment
 
-End-to-End Automotive White-Box Security Assessment
-Security Validation of a Connected Vehicle
+**Author:** Zukhra Abdulaeva  
+**Focus:** Automotive Cybersecurity • Embedded Systems • Security Testing • Python Automation
 
-White-Box Testing • Embedded Systems • ECU Security • CAN • UDS • Firmware Review • Python Automation • ISO/SAE 21434
+A practical laboratory project for the structured security assessment of
+connected vehicle systems and Electronic Control Units (ECUs).
 
-Project Overview
+The project demonstrates a White-Box approach to automotive cybersecurity,
+combining system and architecture analysis with technical security testing,
+diagnostic assessment, firmware review, risk assessment and engineering
+recommendations.
 
-Modern connected vehicles integrate dozens of Electronic Control Units (ECUs), multiple communication networks and complex software ecosystems. While these technologies enable advanced functionality, they also introduce new cybersecurity risks.
+The focus is on understanding how security weaknesses arise at the system
+and implementation level, evaluating their potential impact and translating
+the findings into practical security improvements.
 
-This project demonstrates a complete White-Box Automotive Security Assessment of a connected vehicle.
+---
 
-The assessment follows the methodology used during security validation before series production and covers the complete process—from system architecture analysis to technical recommendations for development teams.
+## Project Overview
 
-The objective is not only to identify vulnerabilities, but to understand their root causes, evaluate their impact and derive practical engineering improvements.
+Modern vehicles integrate numerous ECUs, communication networks, diagnostic
+interfaces and software components. This increasing connectivity creates a
+complex attack surface that must be considered throughout the development
+and validation process.
 
-Assessment Workflow
+`ECU-Cyber-Integrity-Lab` provides a structured environment for examining
+these security aspects from a White-Box perspective.
 
+The project combines:
+
+- system and architecture analysis
+- threat modeling
+- source-code and implementation review
+- CAN and automotive network security testing
+- UDS diagnostic security validation
+- firmware analysis
+- Python-based security testing and automation
+- risk assessment
+- technical reporting
+- engineering recommendations
+
+The assessment is organized around a reproducible workflow rather than a
+single vulnerability or attack technique.
+
+---
+
+## Assessment Workflow
+
+The assessment follows the following logical sequence:
+
+```text
 1. Scope Definition
 2. System Architecture Review
 3. Threat Modeling
@@ -32,71 +64,230 @@ Assessment Workflow
 10. Management Summary
 11. Technical Report
 12. Engineering Recommendations
+````
 
+The individual activities are supported by the project structure, test
+implementations, examples and generated assessment results.
 
-Assessment Scope
+---
 
-The assessment includes the security validation of typical automotive components such as:
-- Gateway ECU
-- Body Control Module (BCM)
-- Powertrain ECU
-- Infotainment ECU
-- Telematics Control Unit (TCU)
-- ADAS Controller
+## Assessment Scope
 
-Communication technologies:
-- CAN
-- CAN FD
-- Automotive Ethernet
-- LIN
-- FlexRay
+The assessment considers typical automotive components such as:
 
-External Interfaces:
-- OBD-II
-- Bluetooth
-- USB
-- WiFi
-- Cellular
-- OTA Updates
+```text
+Gateway ECU
+Body Control Module (BCM)
+Powertrain ECU
+Infotainment ECU
+Telematics Control Unit (TCU)
+ADAS Controller
+```
 
-Assessment Methodology
+Relevant communication technologies include:
 
-The project follows a White-Box approach using access to
-- ECU Documentation
-- Source Code
-- Firmware Images
-- ODX / PDX Diagnostic Descriptions
-- Communication Matrix
-- Network ArchitectureSecurity Requirements
+```text
+CAN
+CAN FD
+Automotive Ethernet
+LIN
+FlexRay
+```
 
-The methodology is aligned with modern Automotive Cybersecurity practices including concepts from
-- ISO/SAE 21434
-- Secure Development Lifecycle (SDL)
-- Threat Modeling
-- Secure Coding
-- Root Cause Analysis
+External interfaces considered within the assessment scope include:
 
-Technologies
+```text
+OBD-II
+Bluetooth
+USB
+Wi-Fi
+Cellular
+OTA Updates
+```
 
-- Communication:      CAN, CAN FD, Automotive Ethernet
-- Diagnostic:         UDS (ISO 14229)
-- Firmware	          Binwalk, Firmware Mod Kit
-- Static Analysis	    CodeQL, Coverity, SonarQube, Cppcheck
-- Network	            Wireshark, CANoe, SocketCAN, Scapy
-- Automation	        Python
-- Risk                Assessment	CVSS
+The exact scope of an individual assessment depends on the available
+system information, interfaces and test environment.
 
-Project Highlights ✔
+---
 
-- White-Box Security Assessment
-- Threat Modeling
-- ECU Security Validation
-- CAN Security Testing
-- Automotive Ethernet
-- UDS Security Access
-- Firmware Review
-- Secure Boot Validation
-- Python Test Automation
-- Risk Assessment
-- Technical Reporting
-- Root Cause Analysis
+## White-Box Approach
+
+The project is based on a White-Box assessment model in which technical
+information about the system is available for analysis.
+
+Depending on the assessment scope, this may include:
+
+```text
+ECU Documentation
+Source Code
+Firmware Images
+ODX / PDX Diagnostic Descriptions
+Communication Matrix
+Network Architecture
+Security Requirements
+```
+
+This approach allows security analysis to go beyond externally observable
+behavior and consider implementation details, architectural dependencies
+and potential root causes.
+
+---
+
+## Assessment Methodology
+
+The methodology incorporates established automotive cybersecurity
+practices and concepts including:
+
+```text
+ISO/SAE 21434
+Secure Development Lifecycle (SDL)
+Threat Modeling
+Secure Coding
+Root Cause Analysis
+Risk Assessment
+```
+
+The project uses these concepts as methodological guidance for structuring
+the assessment and documenting security findings.
+
+---
+
+## Technical Areas
+
+### Communication and Network Security
+
+```text
+CAN
+CAN FD
+Automotive Ethernet
+SocketCAN
+Wireshark
+Scapy
+CANoe
+```
+
+### Diagnostic Security
+
+```text
+UDS
+ISO 14229
+Security Access
+Diagnostic Services
+```
+
+### Firmware Security
+
+```text
+Firmware Images
+Binwalk
+Firmware Mod Kit
+Secure Boot
+Firmware Review
+```
+
+### Source-Code and Static Analysis
+
+```text
+CodeQL
+Coverity
+SonarQube
+Cppcheck
+```
+
+### Security Automation
+
+```text
+Python
+pytest
+python-can
+can-isotp
+python-nmap
+```
+
+### Risk Assessment
+
+```text
+CVSS
+Risk Assessment
+Security Findings
+Root Cause Analysis
+```
+
+---
+
+## Project Highlights
+
+* White-Box Automotive Security Assessment
+* Threat Modeling
+* ECU Security Validation
+* CAN Security Testing
+* Automotive Ethernet Assessment
+* UDS Security Validation
+* Firmware Review
+* Secure Boot Validation
+* Python Security Automation
+* Risk Assessment
+* Root Cause Analysis
+* Technical Security Reporting
+
+---
+
+## Project Structure
+
+The repository is organized into the following main areas:
+
+```text
+01_framework/
+    Common assessment framework components
+
+02_tests/
+    Technical security tests and test implementations
+
+03_reports/
+    Assessment reports and generated results
+
+04_examples/
+    Assessment methodology and example documentation
+
+docs/
+    Project documentation
+```
+
+The development environment and setup requirements are documented
+separately in:
+
+```text
+docs/environment.md
+```
+
+---
+
+## Project Goal
+
+The goal of the project is to demonstrate a structured and technically
+grounded approach to automotive cybersecurity assessment.
+
+The emphasis is not only on identifying security weaknesses, but also on:
+
+```text
+Understanding the affected system
+        |
+        v
+Identifying the security weakness
+        |
+        v
+Assessing potential impact
+        |
+        v
+Determining the root cause
+        |
+        v
+Documenting the finding
+        |
+        v
+Deriving practical security improvements
+```
+
+This connects technical security testing with the engineering decisions
+required to improve the security of automotive systems.
+

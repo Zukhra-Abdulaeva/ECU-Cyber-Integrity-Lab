@@ -1,0 +1,1 @@
+Wie werden die vorhandenen Tests ausgeführt und wie wird deren Ergebnis bewertet. 
