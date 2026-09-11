@@ -1,4 +1,3 @@
-````text
 # Development Environment
 
 ## 1. Purpose
