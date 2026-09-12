@@ -23,3 +23,5 @@ P1
 Recommendation
 
 Immediate Fix
+
+!Examples illustrate methodological artefacts. They do not illustrate confirmed security findings.!

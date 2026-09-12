@@ -19,3 +19,5 @@ Challenge Response
 Delay Timer
 
 Logging
+
+!Examples illustrate methodological artefacts. They do not illustrate confirmed security findings.!

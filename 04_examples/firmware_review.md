@@ -23,3 +23,5 @@ Remove Credentials
 Secure Boot
 
 Signed Firmware
+
+!Examples illustrate methodological artefacts. They do not illustrate confirmed security findings.!

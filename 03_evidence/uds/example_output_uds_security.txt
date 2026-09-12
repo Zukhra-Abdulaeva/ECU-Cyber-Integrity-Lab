@@ -9,3 +9,16 @@ Diagnostic Session     Positive Response
 Security Access        Positive Response
 Read VIN               Positive Response
 ECU Reset              Positive Response
+
+The planned governance-required separation is as follows:
+Artifact A
+→ No Response
+
+Artifact B
+→ Positive SecurityAccess response
+
+Artifact C
+→ Positive responses for four requests
+
+Common execution provenance
+→ NOT ESTABLISHED

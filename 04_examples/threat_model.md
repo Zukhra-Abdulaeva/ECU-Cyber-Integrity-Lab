@@ -25,3 +25,5 @@ High
 SecOC
 MAC Authentication
 Gateway Filtering
+
+!Examples illustrate methodological artefacts. They do not illustrate confirmed security findings.!
