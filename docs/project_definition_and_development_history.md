@@ -583,61 +583,37 @@ The Security Assessment Methodology defines how a security assessment is planned
 The methodology consists of five connected activities:
 
 1. SECURITY ANALYSIS
-
    System Understanding
-
    Asset Identification
-
    Security Property Definition
-
    Threat Analysis
-
    Attack Surface Analysis
-
    Attack Path Definition
 
 2. TEST ENGINEERING
-
    Test Objective
-
    Test Preconditions
-
    Test Design
-
    Expected Result / Oracle
 
 3. CONTROLLED EXECUTION
-
    Target and Environment
-
    Test Input / Action
-
    Test Execution
-
    Observation
 
 4. EVIDENCE AND ASSESSMENT
-
    Evidence Preservation
-
    Result Evaluation
-
    Security Assessment
-
    Finding
-
    Impact
-
    Risk
 
 5. REMEDIATION AND VERIFICATION
-
    Mitigation
-
    Retest
-
    Verification
-
    Residual Risk
 
 ```text
@@ -1420,11 +1396,11 @@ CONFIRMED SECURITY FINDINGS
 
 ## 20. Phase 0 - Project Definition
 
-*Objective*
+**Objective**
 
 Define the identity, purpose, technical scope, boundaries, methodology, and development framework of ECU-Cyber-Integrity-Lab.
 
-*Phase Work*
+**Phase Work**
 
 During Phase 0, the project definition and its technical boundaries were established and documented. The work included:
 
@@ -1440,7 +1416,7 @@ During Phase 0, the project definition and its technical boundaries were establi
 - establishing the documentation roles and the separation between stable project definition, phase history and the evolving current repository state
 - reviewing documentation consistency and synchronizing the resulting Phase-0 state
 
-*Phase Result*
+**Phase Result**
 
 - The project definition establishes:
 - Project Identity
@@ -1465,7 +1441,7 @@ The project definition and phase history are maintained in this document.
 
 The current repository and execution state are maintained separately in docs/current_state.md.
 
-*Status: COMPLETED*
+**Status: COMPLETED**
 
 The Phase-0 Completion Gate has been fulfilled and the resulting project state has been reviewed and documented. Phase 0 is therefore recorded as completed.
 
