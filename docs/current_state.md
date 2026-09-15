@@ -6,13 +6,13 @@
 Project: ECU-Cyber-Integrity-Lab
 Document: docs/current_state.md
 Document Type: Current Project State
-Current Phase: Phase 0 — Project Definition
+Current Phase: Phase 1 — Repository Foundation
 Phase Status: COMPLETED
 Overall Implementation State: PARTIALLY IMPLEMENTED
-Execution State: NOT VERIFIED
+Execution State: PARTIALLY VERIFIED
 Evidence State: PARTIALLY AVAILABLE
-Verification State: NOT ESTABLISHED
-Documentation State: PARTIALLY ESTABLISHED
+Verification State: PARTIALLY ESTABLISHED
+Documentation State: ESTABLISHED
 Regression State: NOT IMPLEMENTED
 CI/CD State: NOT IMPLEMENTED / NOT VERIFIED
 Traceability State: PARTIAL
@@ -441,45 +441,69 @@ real-world validation has been performed.
 
 # 4. Current Phase
 
-## Phase 0 — Project Definition
+## Phase 1 — Repository Foundation
 
 ```text
-Phase: 0 — Project Definition
-Status: INCOMPLETE
-Current Position: Active
-Next Planned Phase: Phase 1 — Repository Foundation
+Phase: 1 — Repository Foundation
+Status: COMPLETED
+Current Position: Phase-1 Completion Gate COMPLETED 
+Previous Phase: Phase 0 — Project Definition 
+Next Phase: Phase 2 — ECU / Security Domain Model
 ```
 
-Phase 0 establishes the project definition, scope, boundaries, engineering methodology, documentation structure and project-level decisions required before subsequent implementation phases.
+hase 1 established the repository foundation required for structured development and maintenance of the security assessment environment.
 
-The phase is not considered complete until the defined Phase-0 completion gate is fulfilled and the corresponding state is documented.
+The phase covered repository structure, project configuration, documentation structure, repository-to-documentation consistency, technical baseline and synchronization of the current project state.
+
+The defined Phase-1 verification criteria VC-01 through VC-12 were reviewed as part of the Phase-1 completion process.
+
+The Phase-1 completion gate was completed with no blocking Phase-1 issue identified.
+
+Phase 2 is the next allowed project phase. No Phase-2 implementation is included in this current-state update.
 
 ---
 
 # 5. Current Execution Position
 
-The repository contains executable Python components and test-related code, but the currently available project information does not establish a complete, consistent and reproducible end-to-end execution state.
+he repository contains executable Python components and test-related code. Phase 1 additionally established a verified technical baseline for the active development environment.
 
-The current execution position is therefore:
+The current execution position is:
 
 ```text
 Implementation
 → PARTIALLY IMPLEMENTED
 
+Environment Baseline
+→ ESTABLISHED
+
+Dependency Baseline
+→ VERIFIED AGAINST requirements.txt
+
+Python Environment
+→ OBSERVED
+
+Python Version
+→ 3.12.3
+
+pytest Version
+→ 9.1.1
+
 Execution
-→ NOT VERIFIED
+→ NOT VERIFIED AS A COMPLETE PROJECT TEST EXECUTION
 
 Observation
-→ PARTIALLY OBSERVED FROM SUPPLIED ARTIFACTS
+→ PARTIALLY OBSERVED FROM EXISTING ARTIFACTS AND EXECUTION CHECKS
 
 Evidence
 → AVAILABLE BUT INCONSISTENT / INSUFFICIENT FOR STRONG EXECUTION CLAIMS
 
 Verification
-→ NOT ESTABLISHED
+→ PARTIALLY ESTABLISHED FOR PHASE-1 BASELINE ITEMS
 ```
 
-Existing evidence files are treated as historical or supplied execution artifacts unless their execution context and provenance can be established.
+The technical baseline confirms the declared project dependencies against the active Python virtual environment. This does not establish successful execution of the complete project test suite or security validation.
+
+Existing evidence files remain subject to their documented provenance and execution context.
 
 ---
 
@@ -500,9 +524,7 @@ ECU-Cyber-Integrity-Lab/
 ├── docs/
 ├── .gitignore
 ├── README.md
-├── requirements.txt
-├── project_files.txt
-└── security_files.txt
+└── requirements.txt
 ```
 
 The detailed current file set includes:
@@ -523,12 +545,11 @@ The detailed current file set includes:
 │   └── test_can_sniffer.py
 ├── ethernet/
 │   ├── __init__.py
-│   └── ethernet_scan.py
+│   ├── ethernet_scan.py
+│   └── test_ethernet_scan.py
 ├── firmware/
 │   ├── __init__.py
 │   ├── firmware_validator.py
-│   ├── gateway_ecu.bin
-│   ├── gateway_ecu_v2.bin
 │   └── test_firmware_validator.py
 └── uds/
     ├── __init__.py
@@ -554,11 +575,11 @@ The detailed current file set includes:
 └── security_report.md
 
 docs/
-├── Automotive_Security_Assessment.pdf
 ├── White-Box-Ansatz.png
 ├── architecture_decisions.md
 ├── current_state.md
 ├── environment.md
+├── project_definition_and_development_history.md
 └── testing.md
 ```
 
@@ -1261,11 +1282,10 @@ The current documentation structure is:
 README.md
 → FINALIZED
 → Stable project entry point
-→ Not used as recurring phase-status tracker
 
 docs/project_definition_and_development_history.md
 → Project definition and historical phase information
-→ Intended stable reference
+→ Stable reference
 
 docs/current_state.md
 → Current implementation, execution, evidence and verification state
@@ -1279,11 +1299,10 @@ docs/testing.md
 → Testing documentation
 → Established project testing documentation
 
+
 docs/environment.md
 → Environment and setup documentation
-
-docs/Automotive_Security_Assessment.pdf
-→ Existing project document
+→ Established environment documentation
 
 docs/White-Box-Ansatz.png
 → Existing White-Box project material
@@ -1631,38 +1650,62 @@ The distinction between laboratory evidence and real-world automotive validation
 
 # 22. Remaining Work
 
-Phase-0 definition work is complete. No additional Phase-0 completion activity remains.
+The Phase-1 repository-foundation activities and the Phase-1 completion review have been completed.
 
-Later implementation activities remain governed by the project phase model and are not treated as current implementation.
+The following Phase-1 activities are therefore closed:
+
+```text
+Repository Structure Review
+Project Configuration Review
+Documentation Structure Review
+Repository/Documentation Consistency Review
+Technical Baseline
+Current-State Synchronization
+Phase-1 Review Record
+Phase-1 Verification Criteria Review
+Phase-1 Completion Gate
+```
+
+Open technical items documented in the current state remain project-level or later-phase activities. These include, where applicable:
+
+```text
+Complete project-wide test execution
+Resolution of existing implementation/test inconsistencies
+Evidence lifecycle implementation
+Evidence-backed security assessment workflows
+Complete implementation-to-test-to-evidence traceability
+Regression validation
+CI/CD security validation
+Further security-test development
+ECU / security-domain modelling
+```
+
+These items do not reopen Phase 1. Their implementation is governed by the applicable subsequent project phases.
 
 ---
 
 # 23. Next Allowed Action
 
-Phase-0 completion status has been recorded. The project now stops at the Phase-0 handover point before Phase 1 work begins.
+The Phase-1 completion process has been completed.
 
-The README remains finalized and is not part of recurring phase-status updates.
+The next allowed project action is the initiation of: Phase 2 — ECU / Security Domain Model
 
 # 24. Next Allowed Phase
 
-The next planned phase is:
+The next allowed project phase after successful completion of the Phase-1 completion gate is:
 
 ```text
-Phase 1 — Repository Foundation
-```
-
-Phase 1 is the next planned phase. Its actual execution begins only through the defined phase transition after the Phase-0 completion state has been recorded.
+Phase 2 — ECU / Security Domain Model
 
 Current transition status:
 
-```text
-Phase 0
+Phase 1
 → COMPLETED
 
-Transition to Phase 1
-→ ALLOWED
+Phase-1 completion gate
+→ COMPLETED
 
-Phase 1 execution
+Phase 2
 → NOT STARTED
 ```
 
@@ -1674,11 +1717,17 @@ Phase 1 execution
 Implementation
 → PARTIALLY IMPLEMENTED
 
+Technical Baseline
+→ ESTABLISHED
+
+Dependency Baseline
+→ VERIFIED AGAINST requirements.txt
+
 Execution
-→ NOT VERIFIED
+→ NOT VERIFIED AS A COMPLETE PROJECT TEST EXECUTION
 
 Observation
-→ PARTIALLY OBSERVED FROM SUPPLIED ARTIFACTS
+→ PARTIALLY OBSERVED FROM SUPPLIED ARTIFACTS AND EXECUTION CHECKS
 
 Evidence
 → INSUFFICIENT FOR STRONG EXECUTION CLAIMS
@@ -1699,7 +1748,7 @@ CI/CD
 → NOT IMPLEMENTED / NOT VERIFIED
 
 Documentation
-→ PARTIALLY ESTABLISHED
+→ ESTABLISHED
 
 Traceability
 → PARTIAL
@@ -1708,13 +1757,16 @@ Quality
 → Q2 — BASIC / PARTIALLY VERIFIED
 
 Current Phase
-→ PHASE 0 — PROJECT DEFINITION
+→ PHASE 1 — REPOSITORY FOUNDATION
 
-Phase Completion
+Phase Status
+→ COMPLETED
+
+Phase-1 Completion Gate
 → COMPLETED
 
 Next Phase
-→ PHASE 1 — REPOSITORY FOUNDATION
+→ PHASE 2 — ECU / SECURITY DOMAIN MODEL
 ```
 
 # 26. Project History

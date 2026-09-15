@@ -92,7 +92,7 @@ The project documentation uses separate documents for different technical respon
 README.md
     Stable project entry point and compact project overview
 
-docs/project_definition_and_phase_history.md
+docs/project_definition_and_development_history.md
     Project definition, scope, boundaries and historical phase information
 
 docs/architecture_decisions.md
@@ -958,7 +958,7 @@ These principles remain part of the architectural basis of the project.
 Detailed project and phase history is maintained in:
 
 ```text
-docs/project_definition_and_phase_history.md
+docs/project_definition_and_development_history.md
 ```
 
 ---
