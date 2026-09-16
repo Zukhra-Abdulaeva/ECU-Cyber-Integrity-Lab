@@ -1,533 +1,215 @@
-# CURRENT STATE
+# Current State — ECU-Cyber-Integrity-Lab
 
-## 1. Snapshot Metadata
+## 1. Snapshot
 
-```text
-Project: ECU-Cyber-Integrity-Lab
-Document: docs/current_state.md
-Document Type: Current Project State
-Current Phase: Phase 1 — Repository Foundation
-Phase Status: COMPLETED
-Overall Implementation State: PARTIALLY IMPLEMENTED
-Execution State: PARTIALLY VERIFIED
-Evidence State: PARTIALLY AVAILABLE
-Verification State: PARTIALLY ESTABLISHED
-Documentation State: ESTABLISHED
-Regression State: NOT IMPLEMENTED
-CI/CD State: NOT IMPLEMENTED / NOT VERIFIED
-Traceability State: PARTIAL
-Overall Quality Level: Q2 — BASIC / PARTIALLY VERIFIED
-```
+| Item | Current state |
+|---|---|
+| Project | ECU-Cyber-Integrity-Lab |
+| Current document | `docs/current_state.md` |
+| Current phase | Phase 1 — Repository Foundation |
+| Phase status | **COMPLETED** |
+| Overall implementation | **PARTIALLY IMPLEMENTED** |
+| Execution state | **PARTIALLY OBSERVED / NOT VERIFIED AS COMPLETE** |
+| Evidence state | **AVAILABLE / PARTIALLY CONSISTENT** |
+| Verification state | **PARTIALLY ESTABLISHED** |
+| Documentation state | **ESTABLISHED** |
+| Documentation completeness | **PARTIAL** |
+| Regression | **NOT IMPLEMENTED** |
+| CI/CD | **NOT IMPLEMENTED / NOT VERIFIED** |
+| Traceability | **PARTIAL** |
+| Quality level | **Q2** |
 
-This document records the actual project state at the time of the current review.
+This document describes the current technical state of the repository, including implementation, execution, evidence, verification, documentation, traceability and remaining work.
 
-It distinguishes implementation, execution, observation, evidence, verification, documentation and planned work. A documented capability is not treated as executed or verified unless corresponding technical evidence exists.
+The state description distinguishes between functionality that exists in the repository, results that have been observed, evidence that is available, and functionality that remains planned. Planned work is not treated as implemented, and available artifacts are not treated as verified execution unless their provenance and execution context support that conclusion.
 
-The document is maintained as the evolving technical state of the repository. Stable project definition and historical phase information are maintained separately in `docs/project_definition_and_development_history.md`.
+## 2. Quality Level
 
----
+The project currently corresponds to quality level **Q2**.
 
-## 2. Quality Level Definition
+| Level | Definition |
+|---|---|
+| Q0 | Initial or undefined project state |
+| Q1 | Repository and project structure established |
+| Q2 | Core implementation exists; execution and evidence are partially established |
+| Q3 | Core functionality executed and technically verified |
+| Q4 | Integrated security assessment and evidence workflow established |
+| Q5 | Reproducible, regression-capable and continuously validated security assessment environment |
 
-The current project state uses the following internal quality interpretation:
+The Q2 classification reflects the current engineering state: the repository structure and core implementation are established, while complete execution verification, consistent evidence handling, integrated traceability, regression capability and CI/CD remain incomplete.
 
-```text
-Q0 — Undefined
-Q1 — Initial / Fragmented
-Q2 — Basic / Partially Verified
-Q3 — Structured / Reproducible
-Q4 — Evidence-Based / Consistently Verified
-Q5 — Mature / Fully Controlled
-```
+## 3. Project Context
 
-The current project state is assessed as:
+### 3.1 Identity
 
-```text
-Q2 — BASIC / PARTIALLY VERIFIED
-```
+ECU-Cyber-Integrity-Lab is an automotive cybersecurity engineering laboratory for structured White-Box security assessment activities.
 
-This classification reflects the combination of implemented technical components, incomplete test infrastructure, inconsistent historical evidence, incomplete documentation and the absence of verified end-to-end execution.
+The repository contains security-test implementations, framework components, test files, evidence, examples, reports and project documentation.
 
-The quality level does not represent compliance with ISO/SAE 21434, ASPICE, UNECE R155 or another external standard.
+The current implementation covers selected CAN, UDS, Ethernet and firmware-related security-test capabilities. The repository also contains the technical basis for subsequent expansion toward a structured ECU and security-domain model.
 
----
+### 3.2 Engineering Chain
 
-# 3. Project Context
-
-## 3.1 Project Identity
-
-The project is an Automotive Cybersecurity Engineering Laboratory for structured White-Box security assessment of automotive-oriented software, communication interfaces, diagnostic functions and firmware artifacts.
-
-The repository combines:
-
-* security-test implementations,
-* supporting framework components,
-* test code,
-* locally generated evidence artifacts,
-* example assessment material,
-* security-reporting components,
-* project and engineering documentation.
-
-The current repository contains both implemented technical components and project material representing future or broader engineering scope. These states are kept separate.
-
----
-
-## 3.2 Intended Security Engineering Chain
-
-The project follows the following engineering chain when a security assessment is performed:
+The intended security-engineering relationship is:
 
 ```text
 Asset
-  ↓
 Security Property
-  ↓
 Threat
-  ↓
 Attack Surface
-  ↓
 Attack Vector
-  ↓
 Attacker Capability
-  ↓
 Preconditions
-  ↓
 Attack Path
-  ↓
 Test Objective
-  ↓
 Test Design
-  ↓
 Execution
-  ↓
 Observation
-  ↓
 Evidence
-  ↓
 Finding / Assessment
-  ↓
 Impact
-  ↓
 Risk
-  ↓
 Mitigation
-  ↓
 Retest / Verification
 ```
 
-The chain describes the intended relationship between security analysis and technical evidence.
+This chain defines the intended relationship between security requirements, assessment activities, execution results and subsequent verification.
 
-A conclusion may only be extended as far as the available execution and evidence support.
+Only parts of this chain are currently implemented. A complete implementation-to-test-to-evidence-to-finding lifecycle is not yet established.
 
----
+### 3.3 Scope Classification
 
-## 3.3 Current Scope Classification
+The current repository contains an implemented scope, a contextual automotive scope and planned future implementation areas.
 
-The current project scope is divided into three categories.
+#### Implemented scope
 
-### A — Currently Implemented
+The existing security-test functionality covers selected areas of CAN, UDS, Ethernet and firmware assessment.
 
-The following functionality is present in the repository:
+| Domain | Current implementation |
+|---|---|
+| CAN | Traffic capture, virtual CAN traffic generation, filtering, statistics, CSV export and fake CAN traffic generation |
+| UDS | Basic UDS request/response handling and SecurityAccess classification |
+| Ethernet | IP/network scanning, host discovery, service inventory and JSON export |
+| Firmware | SHA-256 hashing, firmware comparison and JSON reporting |
+| Framework | Base framework components, report generation and Python/pytest infrastructure |
 
-```text
-CAN traffic capture
-Virtual CAN traffic generation
-CAN message filtering
-CAN message statistics
-CAN CSV export
+#### Automotive context
 
-Basic UDS request/response interaction
-Basic UDS SecurityAccess response classification
+The wider project context includes the following ECU, network and interface areas:
 
-Nmap-based IP/network scanning
-Host discovery
-Network service inventory
-JSON export for Ethernet scan results
+| Area | Scope |
+|---|---|
+| ECU architectures | Gateway ECU, BCM, Powertrain ECU, Infotainment ECU, TCU, ADAS Controller |
+| Vehicle networks | CAN, CAN FD, Automotive Ethernet, LIN, FlexRay |
+| Diagnostic and external interfaces | OBD-II, Bluetooth, USB, Wi-Fi, Cellular |
+| Update and platform security | OTA, Secure Boot |
 
-SHA-256 firmware hashing
-Firmware comparison
-Firmware JSON reporting
+These areas define project context and scope; their presence in this section does not indicate complete implementation.
 
-Base security-test framework
-Basic report-generation components
+#### Planned and future implementation
 
-Python / pytest test infrastructure
-```
+The planned scope includes the ECU/security-domain model, a common security-test architecture, a unified evidence framework, extended test cases, evidence-backed findings and root-cause workflows, finding documentation, regression, CI/CD, packaging and final technical review.
 
-This classification describes implementation state only.
+Additional future assessment areas include extended Automotive Ethernet, SOME/IP, extended OBD-II, Bluetooth, USB, Wi-Fi, Cellular, OTA, extended firmware security assessment, Secure Boot, additional test automation and integrated evidence/finding workflows.
 
-`IMPLEMENTED` does not establish successful execution, security validation, verification or real ECU / vehicle validation.
+These items remain planned until their corresponding implementation, execution and verification are established.
 
-### B — Context / Engineering Scope
+### 3.4 White-Box Approach
 
-The project context includes automotive systems, interfaces and technologies such as:
+The project follows a White-Box assessment approach.
 
-```text
-ECU architectures
-Gateway ECU
-BCM
-Powertrain ECU
-Infotainment ECU
-TCU
-ADAS Controller
+The assessment environment is intended to operate with knowledge of relevant implementation, architecture, interfaces and technical behavior. This supports detailed analysis of ECU functions, communication paths, diagnostic services, firmware and security mechanisms.
 
-CAN FD
-Automotive Ethernet
-LIN
-FlexRay
-OBD-II
-Bluetooth
-USB
-Wi-Fi
-Cellular
-OTA
-Secure Boot
-```
+### 3.5 Simulation and Validation Boundary
 
-Their presence in the project context does not establish that the respective technology is currently implemented, tested or verified in the repository.
+The repository supports local, virtual and simulated assessment scenarios.
 
-### C — Planned / Future
+These scenarios provide a controlled environment for implementation development, functional testing and technical validation of individual components. They do not establish validation against a production ECU, production vehicle or production vehicle network.
 
-The following activities represent planned or future project scope:
+### 3.6 Simulation Classification
 
-```text
-ECU / security-domain model
-Common security-test architecture
-Unified evidence framework
-Extended security test cases
-Evidence-backed findings and root-cause analysis
-Finding documentation
-Regression validation
-CI/CD security validation
-Professional project packaging
-Final technical review
-```
+The current simulation classifications are:
 
-Planned or future status does not establish current implementation, execution or verification.
+| Classification | Meaning |
+|---|---|
+| REAL | Physical real-world system or ECU |
+| VIRTUAL | Software-defined or virtualized environment |
+| SIMULATED | Software-generated representation of system behavior |
+| LOCAL | Execution on the local development environment |
+| STATIC | Static artifact without live system interaction |
+| SYNTHETIC | Artificially generated test data or traffic |
 
-Additional capabilities as potential future implementation areas:
+Current examples:
 
-```text
-Communication and Network Security
+| Example | Classification |
+|---|---|
+| `vcan0` | VIRTUAL + LOCAL |
+| Fake CAN traffic | SYNTHETIC + VIRTUAL + LOCAL |
+| Local firmware artifact | LOCAL + STATIC |
 
-* Extended Automotive Ethernet analysis
-* SOME/IP security testing
+These classifications describe the execution environment and artifact origin. They do not by themselves establish security validation against a real ECU or vehicle.
 
-Diagnostics and External Interfaces
+### 3.7 Real-World Validation Boundary
 
-* Extended OBD-II security assessment
-* Bluetooth security assessment
-* USB security assessment
-* Wi-Fi security assessment
-* Cellular security assessment
-* OTA security assessment
+Validation against a physical ECU or vehicle requires an execution environment with a defined physical target, controlled test conditions, documented preconditions, reproducible execution information and evidence with sufficient provenance.
 
-Embedded and Firmware Security
+The current repository does not establish such a complete real-world validation chain.
 
-* Extended firmware analysis
-* Secure Boot security analysis
+## 4. Current Phase
 
-Security Engineering
+| Item | State |
+|---|---|
+| Phase | Phase 1 — Repository Foundation |
+| Status | **COMPLETED** |
+| Completion gate | **COMPLETED** |
+| Previous phase | Phase 0 — Project Definition and Engineering Foundation |
+| Next phase | Phase 2 — ECU / Security Domain Model |
 
-* Additional security test automation
-* Integrated evidence and finding workflows
-```
+Phase 1 established and reviewed the repository foundation required for subsequent structured development.
 
-These items represent planned or future engineering capabilities. They are not classified as implemented functionality unless corresponding implementation and supporting evidence are established.
+The completed Phase-1 activities covered repository structure and organization, project configuration and dependency definition, the technical development-environment baseline, documentation structure, repository-to-documentation consistency and synchronization of the current-state documentation. The identified documentation filename was also corrected.
 
-### Context and Implementation Boundary
+The Phase-1 verification controls VC-01 through VC-12 were reviewed.
 
-```text
-PROJECT SCOPE
+The Phase-1 completion state is `COMPLETED`.
 
-    |
-    +-- CURRENTLY IMPLEMENTED
-    |       |
-    |       +-- CAN
-    |       +-- UDS
-    |       +-- Firmware hashing / comparison
-    |       +-- Ethernet / IP scanning
-    |       +-- Python / pytest infrastructure
-    |       +-- Reporting components
-    |
-    +-- CONTEXT / ENGINEERING SCOPE
-    |       |
-    |       +-- CAN FD
-    |       +-- LIN
-    |       +-- FlexRay
-    |       +-- OBD-II
-    |       +-- Wi-Fi
-    |       +-- Bluetooth
-    |       +-- Cellular
-    |       +-- OTA
-    |       +-- Secure Boot
-    |       +-- SOME/IP
-    |
-    +-- PLANNED / FUTURE
-            |
-            +-- Extended security analysis
-            +-- Additional test automation
-            +-- Evidence and finding workflows
-            +-- Regression validation
-            +-- CI/CD security validation
-```
+## 5. Current Execution Position
 
-The three categories distinguish repository implementation from broader engineering context and planned future capabilities.
+The repository contains executable Python security-test code and a defined dependency baseline.
 
----
+The technical environment is documented as follows:
 
-## 3.4 White-Box Approach
+| Component | Version / source |
+|---|---|
+| Python | 3.12.3 |
+| pytest | 9.1.1 |
+| Dependency baseline | `requirements.txt` |
 
-The project uses a White-Box assessment perspective.
+The dependency baseline has been reviewed against `requirements.txt`.
 
-White-Box assessment may use available technical information such as:
+Executable test files are present, but complete project-wide execution has not been established as a verified current execution state.
+
+Available observations and artifacts provide partial execution information. They do not support a complete verification statement for the entire repository.
+
+## 6. Actual Implementation State
+
+### 6.1 Repository Structure
+
+The current repository is organized into framework, security-test, evidence, example, report and documentation areas.
 
 ```text
-Source code
-Firmware artifacts
-Interface specifications
-Configuration
-Architecture information
-Diagnostic definitions
-Other available engineering artifacts
+01_framework/
+02_security_tests/
+03_evidence/
+04_examples/
+05_security_reports/
+docs/
+.gitignore
+README.md
+requirements.txt
 ```
 
-The White-Box approach defines the assessment perspective and expected information depth. It does not imply that all such artifacts are currently available in the repository.
-
-The actual assessment depth remains limited by the artifacts, implementation state, execution environment and evidence available for the respective assessment activity.
-
----
-
-## 3.5 Simulation and Validation Boundary
-
-The current repository contains virtual, simulated and locally analysed security scenarios.
-
-Examples include:
-
-```text
-Virtual CAN communication
-Locally executed security-test code
-Firmware files analysed as local artifacts
-Nmap-based network scanning
-Locally generated JSON, CSV and text evidence
-```
-
-These activities can demonstrate software behaviour or laboratory test procedures within their respective environments.
-
-They do not by themselves establish validation against:
-
-```text
-A physical ECU
-A production vehicle
-An OEM vehicle network
-A production gateway
-A production diagnostic environment
-A production fleet
-```
-
-Real ECU or vehicle validation is therefore not established by the current repository state.
-
----
-
-## 3.6 Simulation Boundary — Current State
-
-Status: DEFINED
-
-The project simulation boundary is defined in
-docs/project_definition_and_development_history.md.
-
-The following classifications are established:
-
-REAL
-→ Physical ECU, vehicle, interface or traffic originating from a real
-  physical target. Real-world classification requires corresponding
-  execution, observation, evidence and provenance.
-
-VIRTUAL
-→ Software-defined or virtualized execution/interface environment.
-
-SIMULATED
-→ Generated or emulated behavior representing a target, protocol or
-  environment rather than originating from the real target.
-
-LOCAL
-→ Artifact or execution performed within the local controlled laboratory
-  environment.
-
-STATIC
-→ Analysis performed without executing the target artifact or observing
-  live target behavior.
-
-SYNTHETIC
-→ Intentionally generated test input or data that does not originate
-  from observed real-world traffic.
-
-Current repository classifications:
-
-vcan0
-→ VIRTUAL + LOCAL
-
-Fake CAN messages generated by send_fake_can.py
-→ SYNTHETIC + VIRTUAL + LOCAL
-
-Local firmware .bin files
-→ LOCAL + STATIC
-
-The following interpretation rules are binding for the current project:
-
-Virtual execution does not establish real ECU execution.
-Synthetic input does not establish observed vehicle traffic.
-Local firmware analysis does not establish production firmware validation.
-
-These classifications describe the execution or artifact context only.
-They do not establish successful security validation or verification.
-
----
-
-## 3.7 Real-World Validation Boundary — Current State
-
-Status: DEFINED
-
-The project defines real-world validation as a separate evidence level
-from virtual, simulated, local or static laboratory work.
-
-A statement about a real ECU requires, at minimum:
-
-1. identifiable physical ECU / hardware
-2. identifiable execution environment
-3. actual execution against the physical target
-4. observation of the target behavior
-5. supporting evidence
-6. provenance linking the evidence to the physical target and execution
-
-A statement about a real vehicle requires the corresponding basis for
-the physical vehicle and its actual vehicle environment.
-
-A statement about a real vehicle environment requires evidence that the
-observed environment is an actual physical vehicle environment and that
-the relevant execution and observation originated from that environment.
-
-The absence of any required evidence basis prevents classification as
-real-world validation.
-
-The following are therefore not sufficient on their own:
-
-- vcan0 execution
-- generated or fake CAN traffic
-- simulated protocol responses
-- local network targets
-- local firmware files
-- static firmware analysis
-- test code without execution evidence
-- example output without established provenance
-
-Current project boundary:
-
-Real ECU validation
-→ NOT ESTABLISHED
-
-Real vehicle validation
-→ NOT ESTABLISHED
-
-Real vehicle-environment validation
-→ NOT ESTABLISHED
-
-Virtual / simulated / local laboratory assessment
-→ WITHIN CURRENT PROJECT SCOPE
-
-The boundary is defined as a project rule. It does not imply that
-real-world validation has been performed.
-
----
-
-# 4. Current Phase
-
-## Phase 1 — Repository Foundation
-
-```text
-Phase: 1 — Repository Foundation
-Status: COMPLETED
-Current Position: Phase-1 Completion Gate COMPLETED 
-Previous Phase: Phase 0 — Project Definition 
-Next Phase: Phase 2 — ECU / Security Domain Model
-```
-
-hase 1 established the repository foundation required for structured development and maintenance of the security assessment environment.
-
-The phase covered repository structure, project configuration, documentation structure, repository-to-documentation consistency, technical baseline and synchronization of the current project state.
-
-The defined Phase-1 verification criteria VC-01 through VC-12 were reviewed as part of the Phase-1 completion process.
-
-The Phase-1 completion gate was completed with no blocking Phase-1 issue identified.
-
-Phase 2 is the next allowed project phase. No Phase-2 implementation is included in this current-state update.
-
----
-
-# 5. Current Execution Position
-
-he repository contains executable Python components and test-related code. Phase 1 additionally established a verified technical baseline for the active development environment.
-
-The current execution position is:
-
-```text
-Implementation
-→ PARTIALLY IMPLEMENTED
-
-Environment Baseline
-→ ESTABLISHED
-
-Dependency Baseline
-→ VERIFIED AGAINST requirements.txt
-
-Python Environment
-→ OBSERVED
-
-Python Version
-→ 3.12.3
-
-pytest Version
-→ 9.1.1
-
-Execution
-→ NOT VERIFIED AS A COMPLETE PROJECT TEST EXECUTION
-
-Observation
-→ PARTIALLY OBSERVED FROM EXISTING ARTIFACTS AND EXECUTION CHECKS
-
-Evidence
-→ AVAILABLE BUT INCONSISTENT / INSUFFICIENT FOR STRONG EXECUTION CLAIMS
-
-Verification
-→ PARTIALLY ESTABLISHED FOR PHASE-1 BASELINE ITEMS
-```
-
-The technical baseline confirms the declared project dependencies against the active Python virtual environment. This does not establish successful execution of the complete project test suite or security validation.
-
-Existing evidence files remain subject to their documented provenance and execution context.
-
----
-
-# 7. Actual Implementation State
-
-## 7.1 Repository Structure
-
-The currently known repository structure is:
-
-```text
-ECU-Cyber-Integrity-Lab/
-
-├── 01_framework/
-├── 02_security_tests/
-├── 03_evidence/
-├── 04_examples/
-├── 05_security_reports/
-├── docs/
-├── .gitignore
-├── README.md
-└── requirements.txt
-```
-
-The detailed current file set includes:
+The framework components are:
 
 ```text
 01_framework/
@@ -536,68 +218,82 @@ The detailed current file set includes:
 ├── config.py
 ├── logger.py
 └── report_generator.py
+```
 
-02_security_tests/
-├── can/
-│   ├── __init__.py
-│   ├── can_sniffer.py
-│   ├── send_fake_can.py
-│   └── test_can_sniffer.py
-├── ethernet/
-│   ├── __init__.py
-│   ├── ethernet_scan.py
-│   └── test_ethernet_scan.py
-├── firmware/
-│   ├── __init__.py
-│   ├── firmware_validator.py
-│   └── test_firmware_validator.py
-└── uds/
-    ├── __init__.py
-    ├── uds_security.py
-    └── test_uds_security.py
+The CAN security-test components are:
 
-03_evidence/
-├── can/
-├── ethernet/
-├── firmware/
-└── uds/
+```text
+02_security_tests/can/
+├── __init__.py
+├── can_sniffer.py
+├── send_fake_can.py
+└── test_can_sniffer.py
+```
 
+The Ethernet security-test components are:
+
+```text
+02_security_tests/ethernet/
+├── __init__.py
+├── ethernet_scan.py
+└── test_ethernet_scan.py
+```
+
+The firmware security-test components are:
+
+```text
+02_security_tests/firmware/
+├── __init__.py
+├── firmware_validator.py
+└── test_firmware_validator.py
+```
+
+The UDS security-test components are:
+
+```text
+02_security_tests/uds/
+├── __init__.py
+├── uds_security.py
+└── test_uds_security.py
+```
+
+Example material is located in:
+
+```text
 04_examples/
 ├── firmware_review.md
 ├── risk_assessment.md
 ├── threat_model.md
 └── uds_test.md
+```
 
+Security-report material is located in:
+
+```text
 05_security_reports/
 ├── example_output_security_assessment.txt
 ├── security_assessment.json
 ├── security_report.html
 └── security_report.md
+```
 
+The current documentation structure is:
+
+```text
 docs/
 ├── White-Box-Ansatz.png
 ├── architecture_decisions.md
 ├── current_state.md
 ├── environment.md
 ├── project_definition_and_development_history.md
-└── testing.md
+├── testing.md
 ```
 
----
+### 6.2 Framework Components
 
-## 7.2 Framework Components
+`01_framework/base_test.py` provides a base framework component. The existing domain-specific test implementations do not currently establish a consistent inheritance relationship to this base class.
 
-### `01_framework/base_test.py`
-
-A base security-test framework is present.
-
-The current domain-specific test modules do not establish that all security tests inherit from this base framework.
-
-### `01_framework/report_generator.py`
-
-A report-generation component is present.
-
-The current implementation expects JSON input names including:
+`01_framework/report_generator.py` expects the following report artifacts:
 
 ```text
 can_capture.json
@@ -606,152 +302,81 @@ ethernet_scan.json
 firmware_report.json
 ```
 
-The current CAN implementation exports CSV rather than the expected `can_capture.json`.
+The current CAN implementation exports CSV data rather than the expected `can_capture.json`. This represents an existing integration inconsistency between the CAN implementation and the report-generation component.
 
-This represents an integration inconsistency between the current CAN implementation and the report-generation component.
+`config.py` and `logger.py` are present as framework components. A complete established implementation and integration of their intended functionality is not currently documented as verified.
 
-### `01_framework/config.py`
+## 7. Security Test Components
 
-The file exists but currently contains no established configuration implementation.
+### 7.1 CAN
 
-### `01_framework/logger.py`
+The CAN implementation provides traffic capture, filtering, statistics and CSV export. It uses `vcan0` as the default virtual CAN interface and includes functionality for generating fake CAN traffic.
 
-The file exists but currently contains no established logging implementation.
+A CAN test file is present, but its execution is not established as verified.
 
----
-
-# 8. Security Test Components
-
-## 8.1 CAN
-
-The current CAN implementation provides:
-
-```text
-CANSniffer
-Virtual CAN default channel: vcan0
-Virtual CAN interface configuration
-CAN message capture
-CAN ID filtering
-Message statistics
-CSV export
-
-Fake CAN message generation
-```
-
-The fake CAN sender generates test traffic on the virtual CAN interface.
-
-The CAN test file contains test code, but the currently supplied repository structure indicates an import-path mismatch in the test implementation:
+The current test implementation contains the following import:
 
 ```text
 from can_sniffer.can_sniffer import CANSniffer
 ```
 
-The implementation is located under:
+The implementation itself is located at:
 
 ```text
 02_security_tests/can/can_sniffer.py
 ```
 
-The available information therefore does not establish that the CAN pytest module currently executes successfully.
+This represents an existing import-path inconsistency.
 
-### CAN Security Status
+| Aspect | Current state |
+|---|---|
+| Implementation | **IMPLEMENTED** |
+| Test file | Present |
+| Test execution | **NOT VERIFIED** |
+| Security validation | **NOT ESTABLISHED** |
+| Real ECU / vehicle validation | **NOT ESTABLISHED** |
 
-```text
-CAN implementation
-→ IMPLEMENTED
+### 7.2 UDS
 
-CAN test code
-→ EXISTS
+The UDS implementation uses Python CAN and `vcan0` / SocketCAN for local diagnostic communication.
 
-CAN execution
-→ NOT VERIFIED
+The current implementation defines:
 
-CAN security validation
-→ NOT ESTABLISHED
+| Element | Value |
+|---|---|
+| Request | `0x7E0` |
+| Response | `0x7E8` |
 
-Real ECU / vehicle CAN validation
-→ NOT ESTABLISHED
-```
+The implemented service-related handling includes:
 
----
+| Service | Function |
+|---|---|
+| `0x10 / 0x03` | Diagnostic Session Control |
+| `0x27 / 0x01` | SecurityAccess |
+| `0x22 / F190` | Read Data By Identifier |
+| `0x11 / 0x01` | ECU Reset |
 
-## 8.2 UDS
+The implementation provides basic response classification and SecurityAccess classification.
 
-The UDS implementation uses Python CAN communication with:
+A UDS test file exists, but no complete established test implementation is currently available.
 
-```text
-Default CAN interface: vcan0
-Default interface type: socketcan
-Request CAN ID: 0x7E0
-Response CAN ID: 0x7E8
-```
+| Aspect | Current state |
+|---|---|
+| Implementation | **IMPLEMENTED** |
+| SecurityAccess classification | Basic |
+| Test file | Present |
+| Test execution | **NOT VERIFIED** |
+| Security oracle | Partial |
+| Security validation | **NOT ESTABLISHED** |
+| Real ECU diagnostic validation | **NOT ESTABLISHED** |
 
-The current implementation contains interactions for:
+### 7.3 Ethernet
 
-```text
-Diagnostic Session Control
-Service: 0x10
-Sub-function: 0x03
+The Ethernet implementation uses `python-nmap` for IP and network scanning.
 
-Security Access
-Service: 0x27
-Sub-function: 0x01
+Implemented functionality includes host discovery, service discovery, port scanning and JSON export.
 
-Read VIN
-Service: 0x22
-Data Identifier: 0xF1 0x90
-
-ECU Reset
-Service: 0x11
-Sub-function: 0x01
-```
-
-Basic response classification is implemented.
-
-The UDS test file exists but currently contains no established test implementation.
-
-### UDS Security Status
-
-```text
-UDS request / response implementation
-→ IMPLEMENTED
-
-SecurityAccess response classification
-→ IMPLEMENTED / BASIC
-
-UDS test code
-→ FILE EXISTS
-
-UDS execution
-→ NOT VERIFIED
-
-SecurityAccess security oracle
-→ PARTIAL
-
-UDS security validation
-→ NOT ESTABLISHED
-
-Real ECU diagnostic validation
-→ NOT ESTABLISHED
-```
-
----
-
-## 8.3 Ethernet
-
-The Ethernet security-test component uses `python-nmap`.
-
-The implementation supports:
-
-```text
-IP/network scanning
-Host discovery
-Service discovery
-Port scanning
-JSON result export
-```
-
-The current configured ports include:
+The current implementation references the following ports:
 
 ```text
 22
@@ -761,1064 +386,441 @@ The current configured ports include:
 30490
 ```
 
-The Ethernet test file is present as a structural placeholder and is not implemented as a pytest test module.
+The Ethernet test file is currently a structural placeholder without an established pytest implementation.
 
-The available example output is therefore treated as an existing artifact rather than independently verified current execution.
+Existing example output is treated as an artifact and not as independently verified current execution.
 
-### Ethernet Security Status
+| Aspect | Current state |
+|---|---|
+| Implementation | **IMPLEMENTED** |
+| Test file | Present / structural |
+| Test execution | **NOT VERIFIED** |
+| Security assessment | **NOT ESTABLISHED** |
+| Production network validation | **NOT ESTABLISHED** |
 
-```text
-Nmap-based scanning
-→ IMPLEMENTED
+### 7.4 Firmware
 
-Network/service inventory
-→ IMPLEMENTED
+The firmware implementation provides SHA-256 hashing, expected-hash comparison, firmware A/B comparison and JSON reporting.
 
-Execution
-→ NOT VERIFIED
-
-Security assessment
-→ NOT ESTABLISHED
-
-Automotive Ethernet / production-network validation
-→ NOT ESTABLISHED
-```
-
----
-
-## 8.4 Firmware
-
-The firmware validator provides:
-
-```text
-SHA-256 calculation
-Expected-hash comparison
-Firmware A/B comparison
-JSON report generation
-```
-
-The repository contains:
+Referenced firmware artifacts include:
 
 ```text
 gateway_ecu.bin
 gateway_ecu_v2.bin
 ```
 
-The firmware test file exists but currently contains no established test implementation.
+The firmware test file does not currently establish a complete pytest implementation.
 
-### Firmware Security Status
+| Aspect | Current state |
+|---|---|
+| Implementation | **IMPLEMENTED** |
+| Test file | Present |
+| Test execution | **NOT VERIFIED** |
+| Integrity validation | **NOT ESTABLISHED BEYOND AVAILABLE ARTIFACT RESULTS** |
 
-```text
-Firmware hashing
-→ IMPLEMENTED
+## 8. Test Execution State
 
-Firmware comparison
-→ IMPLEMENTED
+### 8.1 Pytest
 
-Firmware JSON reporting
-→ IMPLEMENTED
+Pytest test files exist for CAN, UDS, Ethernet and firmware.
 
-Firmware pytest execution
-→ NOT VERIFIED
+The complete project test suite has not been established as a verified execution result.
 
-Firmware integrity validation
-→ NOT ESTABLISHED beyond available artifact results
-```
+Known structural conditions are:
 
----
+| Area | Current condition |
+|---|---|
+| CAN | Import-path mismatch present |
+| UDS | Test implementation not established |
+| Ethernet | Pytest implementation not established |
+| Firmware | Test implementation not established |
 
-# 9. Test Execution State
+Repository-wide pytest execution is therefore not a verified baseline.
 
-## 9.1 Pytest
+### 8.2 CAN Execution
 
-The repository contains pytest-oriented test files.
+The CAN implementation uses `vcan0` as its default virtual interface and supports fake traffic generation and capture.
 
-The currently available project information does not establish a clean, successful full-suite execution.
+Existing evidence includes differing interface conditions, including references to `can0`.
 
-Known issues include:
+The available artifacts therefore represent observations under different execution conditions and do not provide a consistent verified basis for the current CAN environment.
 
-```text
-CAN test import-path inconsistency
-Empty firmware test implementation
-Empty UDS test implementation
-No established Ethernet pytest implementation
-```
+### 8.3 UDS Execution
 
-Therefore:
+Existing UDS artifacts contain conflicting observations.
 
-```text
-Full pytest suite
-→ NOT VERIFIED
-```
+One current report documents no response, while another historical artifact documents a positive SecurityAccess-related result. Example output also contains a positive result.
 
----
+The available provenance does not establish a single reproducible execution state for these observations.
 
-## 9.2 CAN Execution
+Current UDS verification is therefore not established.
 
-The current CAN implementation defaults to virtual CAN:
+### 8.4 Ethernet Execution
 
-```text
-vcan0
-```
+Existing example reports document two discovered hosts and three services.
 
-The repository contains a fake CAN sender and CAN capture implementation.
+The execution environment, target and current reproducibility of these results are not independently established.
 
-Existing evidence refers to CAN execution under differing interface conditions, including an example referring to `can0`.
+The reports therefore remain available execution artifacts rather than verified current security-assessment results.
 
-The implementation default and historical example therefore do not provide a consistent basis for claiming one verified current CAN execution environment.
+### 8.5 Firmware Execution
 
-Current status:
+Available firmware reports contain different execution states.
 
-```text
-Implementation
-→ IMPLEMENTED
+A report dated 2026-08-22 documents:
 
-Virtual CAN test capability
-→ PRESENT
+| Field | Result |
+|---|---|
+| Result | **FAIL** |
+| Expected SHA-256 | `0123456789abcdef` |
+| Calculated SHA-256 | `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855` |
+| A/B identical | `TRUE` |
 
-Execution
-→ NOT VERIFIED
+A report dated 2026-07-25 documents:
 
-Observed result
-→ PARTIALLY REPRESENTED BY EXISTING ARTIFACTS
+| Field | Result |
+|---|---|
+| Result | **PASS** |
+| A/B identical | `FALSE` |
 
-Verification
-→ NOT ESTABLISHED
-```
+The calculated hash in the 2026-08-22 report is consistent with an empty input. No root-cause conclusion is derived from this observation.
 
----
+The differing reports represent different execution states or conditions and are not consolidated into one current verified firmware conclusion.
 
-## 9.3 UDS Execution
+## 9. Observed Results
 
-Existing UDS artifacts contain conflicting results.
+The currently available observations cover the following areas:
 
-One current report indicates no response for the tested requests, while another historical artifact contains a positive SecurityAccess response.
+| Domain | Available observation |
+|---|---|
+| CAN | Existing capture / example artifacts |
+| UDS | Conflicting historical and current artifacts |
+| Ethernet | Example reports |
+| Firmware | Conflicting execution reports |
 
-The example output also represents positive responses.
+These observations are not consolidated into a single verified project-wide security result.
 
-These artifacts are not treated as one consistent execution result.
+No conclusion is drawn beyond the technical content and provenance supported by the respective artifacts.
 
-Current status:
+## 10. Evidence State
 
-```text
-UDS implementation
-→ IMPLEMENTED
+### 10.1 Available Evidence
 
-Available execution artifacts
-→ PRESENT
-
-Execution provenance
-→ NOT SUFFICIENTLY ESTABLISHED
-
-Observed results
-→ CONFLICTING
-
-Verification
-→ NOT ESTABLISHED
-```
-
----
-
-## 9.4 Ethernet Execution
-
-An existing example output reports:
+Evidence-related material is present in:
 
 ```text
-2 hosts
-3 services
-```
-
-The available repository information does not independently establish the execution environment, target network or current reproducibility of this result.
-
-Current status:
-
-```text
-Implementation
-→ IMPLEMENTED
-
-Historical/example result
-→ AVAILABLE
-
-Current execution
-→ NOT VERIFIED
-
-Security conclusion
-→ NOT ESTABLISHED
-```
-
----
-
-## 9.5 Firmware Execution
-
-Existing firmware reports contain differing historical results.
-
-One report dated 2026-08-22 indicates:
-
-```text
-Integrity result: FAIL
-Expected SHA-256: 0123456789abcdef
-Calculated SHA-256: e3b0...b855
-Firmware A/B identical: true
-```
-
-Another historical report dated 2026-07-25 indicates:
-
-```text
-Integrity result: PASS
-Firmware A/B identical: false
-```
-
-The available artifacts therefore represent different execution states or test conditions.
-
-The calculated hash in the 2026-08-22 artifact is consistent with the SHA-256 digest of an empty input, but this observation alone does not establish why the artifact contains that value or what input was actually processed. It is therefore not used as a root-cause conclusion.
-
-Current status:
-
-```text
-Firmware implementation
-→ IMPLEMENTED
-
-Historical execution artifacts
-→ PRESENT
-
-Results
-→ CONFLICTING
-
-Current execution
-→ NOT VERIFIED
-
-Root cause
-→ NOT ESTABLISHED
-```
-
----
-
-# 10. Observed Results
-
-The current repository contains several result artifacts, but their execution context is not sufficiently consistent to support a single consolidated security conclusion.
-
-The main observed states are:
-
-```text
-CAN
-→ Existing capture and example artifacts
-→ Current execution not verified
-
-UDS
-→ Conflicting historical artifacts
-→ Current execution not verified
-
-Ethernet
-→ Existing scan example
-→ Current execution not verified
-
-Firmware
-→ Conflicting integrity/comparison reports
-→ Current execution not verified
-```
-
-These observations are retained as evidence of available project artifacts, not automatically as current verified test results.
-
----
-
-# 11. Evidence State
-
-## 11.1 Available Evidence
-
-The repository contains evidence artifacts for several security domains.
-
-```text
-03_evidence/can/
-03_evidence/ethernet/
-03_evidence/firmware/
-03_evidence/uds/
-```
-
-Examples include:
-
-```text
-CAN CSV capture
-CAN example output
-Ethernet scan example output
-Firmware JSON reports
-Firmware validator output
-UDS JSON report
-UDS example output
-```
-
-The repository also contains security-report artifacts under:
-
-```text
+03_evidence/
+04_examples/
 05_security_reports/
 ```
 
----
+The repository therefore contains existing artifacts representing test outputs, examples and security-report material.
 
-## 11.2 Evidence Classification
+### 10.2 Evidence Classification
 
-Evidence is evaluated according to its ability to establish the corresponding technical statement.
+The intended evidence classification contains:
 
-Where applicable, evidence should identify:
+| Field | Purpose |
+|---|---|
+| Evidence ID | Evidence identification |
+| Test ID | Association with a test |
+| Domain | Technical assessment domain |
+| Target | Assessed target |
+| Environment | Execution environment |
+| Preconditions | Conditions required for execution |
+| Input | Test input |
+| Expected Result | Expected behavior |
+| Actual Result | Observed result |
+| Observation | Recorded observation |
+| Result | Result classification |
+| Execution Status | Execution state |
+| Timestamp | Execution timing |
+| Artifacts | Associated artifacts |
+| Tooling | Tools used |
+| Command / Execution Method | Execution information |
+| Notes | Additional information |
+| Provenance | Origin and traceability information |
 
-```text
-Evidence ID
-Test ID
-Domain
-Target
-Environment
-Preconditions
-Input
-Expected Result
-Actual Result
-Observation
-Result
-Execution Status
-Timestamp
-Artifacts
-Tooling
-Command / Execution Method
-Notes
-Provenance
-```
+The current repository does not yet apply this classification consistently across all available artifacts.
 
-The current repository does not consistently provide this information for all available artifacts.
+### 10.3 Evidence Position
 
----
+| Evidence aspect | Current state |
+|---|---|
+| Evidence available | **YES** |
+| Evidence consistency | **PARTIAL** |
+| Evidence provenance | **PARTIAL / INSUFFICIENT FOR STRONG CLAIMS** |
+| Unified evidence lifecycle | **NOT ESTABLISHED** |
+| Evidence sufficient for confirmed findings | **NO** |
 
-## 11.3 Evidence Position
+An artifact documents an observation only to the extent that its origin, execution context and technical content support that observation.
 
-The current evidence position is:
+## 11. Security State
 
-```text
-Evidence artifacts
-→ AVAILABLE
+### 11.1 Assets
 
-Evidence consistency
-→ PARTIAL
+The project context includes ECU and vehicle-related assets such as:
 
-Execution provenance
-→ PARTIAL / INSUFFICIENT FOR SOME ARTIFACTS
+- Gateway ECU
+- BCM
+- Powertrain ECU
+- Infotainment ECU
+- TCU
+- ADAS Controller
+- Communication interfaces
+- Diagnostic interfaces
+- Firmware
 
-Evidence lifecycle management
-→ NOT YET ESTABLISHED AS A UNIFIED FRAMEWORK
+A complete ECU/security-domain model is planned for a subsequent phase.
 
-Evidence sufficient for confirmed security findings
-→ NO
-```
+### 11.2 Security Properties
 
-The evidence principle remains:
+Relevant security properties include the protection and integrity of:
 
-```text
-An artifact documents an observation only to the extent that
-its origin, execution context and technical content support it.
-```
+- Diagnostic functions
+- Communication interfaces
+- Firmware
+- ECU functions
+- Security-relevant services
+- Network-accessible services
 
----
+The current repository contains individual assessment implementations but does not yet provide a complete security-property model linked to all test activities.
 
-# 12. Security State
+### 11.3 Threats
 
-## 12.1 Assets
-
-The current project context includes assets such as:
-
-```text
-ECU software
-Firmware
-CAN communication
-Diagnostic services
-Network interfaces
-Automotive-oriented network services
-Vehicle communication paths
-```
-
-The detailed asset inventory is not yet established as a complete project-wide model.
-
----
-
-## 12.2 Security Properties
-
-Relevant security properties include:
-
-```text
-Integrity
-Authenticity
-Confidentiality
-Availability
-Access control
-Diagnostic security
-Communication security
-Firmware integrity
-```
-
-The current repository does not establish complete verification coverage for all listed properties.
-
----
-
-## 12.3 Threats
-
-Threat modelling material exists under:
+A threat model exists in:
 
 ```text
 04_examples/threat_model.md
 ```
 
-This material is treated as example/project context until corresponding threats are connected to implemented test objectives, execution and evidence.
+The document is currently treated as example/project context until its elements are linked to defined security objectives, test objectives, execution and evidence.
 
----
+### 11.4 Attack Surfaces
 
-## 12.4 Attack Surfaces
+Current assessment-related attack surfaces include:
 
-The implemented technical areas expose potential assessment surfaces including:
+- CAN
+- UDS diagnostics
+- Automotive Ethernet / IP network interfaces
+- Firmware artifacts
 
-```text
-CAN communication
-UDS diagnostic services
-IP-based network services
-Firmware artifacts
-```
+Additional automotive interfaces are part of the contextual and planned project scope.
 
-The current attack-surface definition is not yet a complete ECU/security-domain model.
+### 11.5 Attacker Capabilities
 
----
+The project uses a White-Box assessment context in which technical knowledge of relevant system behavior and implementation may be available.
 
-## 12.5 Attacker Capabilities
+Specific attacker capabilities are not yet represented by a complete unified attacker-capability model.
 
-The current repository does not establish a complete formal attacker-capability model.
+## 12. Findings State
 
-Where security tests are later defined, attacker capability must be explicitly connected to:
+No confirmed security finding is currently established from the available repository state.
 
-```text
-Access
-Knowledge
-Required equipment
-Network position
-Protocol access
-Preconditions
-Privileges
-```
+Example material exists, but example material is not automatically treated as a confirmed project finding.
 
-No broader attacker capability is inferred from the current implementation alone.
-
----
-
-# 13. Findings State
-
-No confirmed security finding has been established from the currently available project evidence.
-
-The repository contains example assessment material under:
-
-```text
-04_examples/
-```
-
-These examples may describe potential weaknesses or security-assessment scenarios, but they are not treated as confirmed project findings unless the corresponding technical chain is established.
-
-The required chain is:
+A finding requires a traceable chain:
 
 ```text
 Security Property
-      ↓
-Expected Behaviour
-      ↓
+Expected Behavior
 Test Objective
-      ↓
 Test Design
-      ↓
 Execution
-      ↓
 Observation
-      ↓
 Evidence
-      ↓
-Security Assessment
+Assessment
 ```
 
-Current finding status:
+The current repository does not establish this complete chain for a confirmed finding.
+
+## 13. Root Cause and Remediation State
+
+No complete root-cause analysis is currently established for a confirmed security finding.
+
+The repository does not yet provide a verified mitigation, retest and residual-risk workflow for a confirmed finding.
+
+The intended lifecycle is:
 
 ```text
-Confirmed findings
-→ NONE ESTABLISHED
-
-Potential / example findings
-→ PRESENT AS EXAMPLE MATERIAL
-
-Evidence-backed finding workflow
-→ PARTIALLY ESTABLISHED
-```
-
----
-
-# 14. Root Cause / Remediation State
-
-A confirmed root cause requires evidence-supported technical reasoning.
-
-The current repository does not establish a complete root-cause analysis for a confirmed security finding.
-
-Likewise, no mitigation has been verified through a complete retest cycle.
-
-Current status:
-
-```text
-Root-cause analysis
-→ NOT ESTABLISHED FOR CONFIRMED FINDINGS
-
-Remediation
-→ NOT ESTABLISHED AS VERIFIED
-
+Finding
+Root Cause
+Mitigation
 Retest
-→ NOT ESTABLISHED
-
-Residual-risk verification
-→ NOT ESTABLISHED
+Verification
+Residual Risk
 ```
 
----
+## 14. Documentation State
 
-# 15. Documentation State
+The current documentation structure includes:
 
-The current documentation structure is:
+| Document | Role |
+|---|---|
+| `README.md` | Project entry point / finalized project documentation |
+| `docs/project_definition_and_development_history.md` | Project definition and historical development information |
+| `docs/current_state.md` | Active current technical state |
+| `docs/architecture_decisions.md` | Architecture decisions |
+| `docs/testing.md` | Testing documentation |
+| `docs/environment.md` | Environment documentation |
+| `docs/White-Box-Ansatz.png` | White-Box approach illustration |
+
+The documentation structure is established.
+
+`docs/current_state.md` is an active and evolving document representing the current technical state.
+
+Project history is maintained separately in:
 
 ```text
-README.md
-→ FINALIZED
-→ Stable project entry point
-
 docs/project_definition_and_development_history.md
-→ Project definition and historical phase information
-→ Stable reference
-
-docs/current_state.md
-→ Current implementation, execution, evidence and verification state
-→ Evolving project-state document
-
-docs/architecture_decisions.md
-→ Architecture decisions
-→ Established project architecture-decision documentation
-
-docs/testing.md
-→ Testing documentation
-→ Established project testing documentation
-
-
-docs/environment.md
-→ Environment and setup documentation
-→ Established environment documentation
-
-docs/White-Box-Ansatz.png
-→ Existing White-Box project material
 ```
 
-The current documentation state is therefore:
+`PROJECT_STATUS.md` is not part of the defined project architecture.
 
-```text
-Documentation structure
-→ ESTABLISHED
+## 15. Regression State
 
-Project-definition documentation
-→ ESTABLISHED
+Regression capability is not currently implemented as a complete project function.
 
-Architecture decisions documentation
-→ ESTABLISHED
+The intended regression architecture requires repeatable execution, defined test cases, comparable results, persistent evidence and verification of changes.
 
-Testing documentation
-→ ESTABLISHED
+| Regression aspect | Current state |
+|---|---|
+| Architecture | Planned |
+| Execution | **NOT ESTABLISHED** |
+| Evidence | **NOT ESTABLISHED** |
+| Verification | **NOT ESTABLISHED** |
 
-Current-state documentation
-→ ACTIVE / EVOLVING
-```
+Regression remains part of the planned project scope.
 
-`PROJECT_STATUS.md` is not part of the current documentation architecture.
+## 16. CI/CD State
 
----
+The repository currently contains no `.github` directory.
 
-# 16. Regression State
+| CI/CD aspect | Current state |
+|---|---|
+| CI/CD implementation | **NOT IMPLEMENTED** |
+| Pipeline execution | **NOT VERIFIED** |
+| Automated test pipeline | **NOT ESTABLISHED** |
+| Automated evidence generation | **NOT ESTABLISHED** |
 
-Regression validation is not currently implemented as a complete project capability.
+CI/CD remains part of the planned project scope.
 
-The repository contains test-related files, but this does not establish a functioning regression-validation process.
+## 17. Traceability State
 
-Current status:
-
-```text
-Regression test architecture
-→ PLANNED
-
-Regression execution
-→ NOT ESTABLISHED
-
-Regression evidence
-→ NOT ESTABLISHED
-
-Regression verification
-→ NOT ESTABLISHED
-```
-
----
-
-# 17. CI/CD State
-
-No `.github` CI workflow directory is present in the current repository structure.
-
-The current CI/CD state is therefore:
-
-```text
-CI/CD implementation
-→ NOT IMPLEMENTED
-
-CI execution
-→ NOT VERIFIED
-
-Automated security validation pipeline
-→ NOT ESTABLISHED
-
-CI evidence
-→ NOT ESTABLISHED
-```
-
-CI/CD remains a later project activity and is not treated as an existing capability.
-
----
-
-# 18. Traceability State
-
-The intended project traceability chain is:
+The intended traceability chain is:
 
 ```text
 Security Requirement
-        ↓
 Security Objective / Property
-        ↓
 Security Design
-        ↓
 Implementation
-        ↓
 Test Objective
-        ↓
 Test Design
-        ↓
 Test Execution
-        ↓
 Evidence
-        ↓
 Result
-        ↓
 Finding / Assessment
-        ↓
 Mitigation
-        ↓
 Retest
-        ↓
 Verification
 ```
 
-For Phase 0, the traceability basis is established at project-definition level. The documented project definition, scope and boundaries provide the basis for relating security engineering goals and domains to the intended assessment methodology, truth-state model, evidence principles and later test activities.
-
-The Phase-0 traceability basis therefore consists of the following documented relationships:
+The Phase-0 project-definition work established the project-level traceability foundation:
 
 ```text
 Project Definition
-        ↓
 Security Engineering Goals / Security Domains
-        ↓
 Scope and Assessment Boundaries
-        ↓
 Assessment Methodology / Security Lifecycle
-        ↓
 Truth-State and Test Result Model
-        ↓
 Evidence Principle / Evidence Lifecycle
-        ↓
 Subsequent Test and Assessment Activities
 ```
 
-This establishes the Phase-0 basis for project-level traceability. It does not establish complete implementation-to-test-to-evidence traceability for the whole repository.
+This foundation defines the intended relationship between project definition, assessment methodology, evidence and subsequent engineering activities.
 
-Current status:
+It does not represent complete implementation-to-test-to-evidence traceability.
 
-```text
-Phase-0 traceability basis
-→ ESTABLISHED
+| Traceability area | Current state |
+|---|---|
+| Requirements | **PARTIAL** |
+| Security objectives | **PARTIAL** |
+| Implementation mapping | **PARTIAL** |
+| Test objectives | **PARTIAL** |
+| Test execution | **NOT VERIFIED** |
+| Evidence association | **PARTIAL** |
+| Finding traceability | **NOT ESTABLISHED FOR CONFIRMED FINDINGS** |
+| Mitigation / retest | **NOT ESTABLISHED** |
+| Overall traceability | **PARTIAL** |
 
-Requirements
-→ PARTIAL
+## 18. Quality Assessment
 
-Security objectives / properties
-→ PARTIAL
-
-Implementation mapping
-→ PARTIAL
-
-Test objectives
-→ PARTIAL
-
-Test execution
-→ NOT VERIFIED
-
-Evidence association
-→ PARTIAL
-
-Finding traceability
-→ NOT ESTABLISHED FOR CONFIRMED FINDINGS
-
-Mitigation / retest
-→ NOT ESTABLISHED
-
-Overall traceability
-→ PARTIAL
-```
-
----
-
-# 19. Phase-0 TARGET / ACTUAL / DIFFERENCE
-
-### Simulation Boundary
-
-TARGET
-
-→ Explicit classification of REAL, VIRTUAL, SIMULATED, LOCAL, STATIC
-  and SYNTHETIC execution/artifact states.
-
-ACTUAL
-
-→ Definitions established and repository examples classified.
-
-DIFFERENCE
-
-→ Definition established. No real-world execution is implied.
-
-### Real-World Validation Boundary
-
-TARGET
-
-→ Define the minimum evidence basis required for claims concerning real
-  ECUs, real vehicles and real vehicle environments.
-
-ACTUAL
-
-→ Hardware, environment, execution, observation, evidence and provenance
-  are established as minimum evidence prerequisites.
-
-DIFFERENCE
-
-→ Boundary defined. No real ECU, vehicle or vehicle-environment
-  validation is currently established.
-
-## 19.1 TARGET
-
-Phase 0 is intended to establish:
-
-```text
-Project identity
-Project purpose
-Automotive context
-Security engineering scope
-Implementation scope
-Planned scope
-Assessment methodology
-Security engineering goals
-Security domains
-Truth-state model
-Test result model
-Evidence lifecycle
-Project development model
-Phase structure
-Phase history
-Project-level engineering principles
-Documentation architecture
-White-Box boundary
-Simulation / real-world validation boundary
-Phase-0 traceability basis
-```
-
-## 19.2 ACTUAL
-
-Currently established:
-
-```text
-Project identity
-Project purpose
-Automotive security context
-Basic implementation scope
-Basic planned scope
-Assessment methodology
-Security domains
-Truth-state principles
-Test result concepts
-Evidence principles
-Phase structure
-Current phase definition
-Repository structure
-Current implementation overview
-Current execution observations
-White-Box assessment perspective
-Phase-0 traceability basis
-Implementation / context / planned scope separation
-Scope boundaries
-Simulation boundary
-Real-world validation boundary
-Documentation architecture decision
-```
-
-## 19.3 DIFFERENCE
-
-Remaining Phase-0 work:
-
-```text
-NONE
-```
-
-The White-Box assessment perspective and the current implementation, contextual, planned, simulation and real-world validation boundaries are established.
-
-The README is already considered finalized and is not part of recurring Phase-0 status updates.
-
-# 20. Quality Assessment
-
-The current project quality is assessed as:
-
-```text
-Q2 — BASIC / PARTIALLY VERIFIED
-```
+The current project quality level is **Q2**.
 
 The assessment is based on the following state:
 
-```text
-Repository structure
-→ Established
-
-Core security-test components
-→ Partially implemented
-
-Test infrastructure
-→ Partially implemented
-
-Execution
-→ Not verified as a consistent full project execution
-
-Evidence
-→ Available but inconsistent
-
-Security findings
-→ No confirmed finding established
-
-Root-cause analysis
-→ Not established for confirmed findings
-
-Regression
-→ Not implemented
-
-CI/CD
-→ Not implemented / not verified
-
-Documentation
-→ Partially established
-
-Traceability
-→ Partial
-```
-
-The quality classification describes the present project maturity and does not represent external certification or compliance.
-
----
-
-# 21. Automotive Authenticity / Simulation Boundary
-
-The current project provides an automotive-oriented laboratory environment.
-
-The available repository state supports assessment of:
-
-```text
-Software implementations
-Virtual CAN communication
-Diagnostic communication logic
-IP/network scanning
-Firmware artifacts
-Local security-test behaviour
-```
-
-The current state does not establish:
-
-```text
-Physical ECU validation
-Production vehicle validation
-OEM network validation
-Production gateway validation
-Fleet validation
-Production diagnostic infrastructure validation
-```
-
-The distinction between laboratory evidence and real-world automotive validation remains mandatory throughout the project.
-
-# 22. Remaining Work
-
-The Phase-1 repository-foundation activities and the Phase-1 completion review have been completed.
-
-The following Phase-1 activities are therefore closed:
-
-```text
-Repository Structure Review
-Project Configuration Review
-Documentation Structure Review
-Repository/Documentation Consistency Review
-Technical Baseline
-Current-State Synchronization
-Phase-1 Review Record
-Phase-1 Verification Criteria Review
-Phase-1 Completion Gate
-```
-
-Open technical items documented in the current state remain project-level or later-phase activities. These include, where applicable:
-
-```text
-Complete project-wide test execution
-Resolution of existing implementation/test inconsistencies
-Evidence lifecycle implementation
-Evidence-backed security assessment workflows
-Complete implementation-to-test-to-evidence traceability
-Regression validation
-CI/CD security validation
-Further security-test development
-ECU / security-domain modelling
-```
-
-These items do not reopen Phase 1. Their implementation is governed by the applicable subsequent project phases.
-
----
-
-# 23. Next Allowed Action
-
-The Phase-1 completion process has been completed.
-
-The next allowed project action is the initiation of: Phase 2 — ECU / Security Domain Model
-
-# 24. Next Allowed Phase
-
-The next allowed project phase after successful completion of the Phase-1 completion gate is:
-
-```text
-Phase 2 — ECU / Security Domain Model
-
-Current transition status:
-
-Phase 1
-→ COMPLETED
-
-Phase-1 completion gate
-→ COMPLETED
-
-Phase 2
-→ NOT STARTED
-```
-
----
-
-# 25. Final Truth Status
-
-```text
-Implementation
-→ PARTIALLY IMPLEMENTED
-
-Technical Baseline
-→ ESTABLISHED
-
-Dependency Baseline
-→ VERIFIED AGAINST requirements.txt
-
-Execution
-→ NOT VERIFIED AS A COMPLETE PROJECT TEST EXECUTION
-
-Observation
-→ PARTIALLY OBSERVED FROM SUPPLIED ARTIFACTS AND EXECUTION CHECKS
-
-Evidence
-→ INSUFFICIENT FOR STRONG EXECUTION CLAIMS
-
-Findings
-→ NO CONFIRMED SECURITY FINDING
-
-Root Cause
-→ NOT ESTABLISHED
-
-Remediation
-→ NOT VERIFIED
-
-Regression
-→ NOT IMPLEMENTED
-
-CI/CD
-→ NOT IMPLEMENTED / NOT VERIFIED
-
-Documentation
-→ ESTABLISHED
-
-Traceability
-→ PARTIAL
-
-Quality
-→ Q2 — BASIC / PARTIALLY VERIFIED
-
-Current Phase
-→ PHASE 1 — REPOSITORY FOUNDATION
-
-Phase Status
-→ COMPLETED
-
-Phase-1 Completion Gate
-→ COMPLETED
-
-Next Phase
-→ PHASE 2 — ECU / SECURITY DOMAIN MODEL
-```
-
-# 26. Project History
-
-The project has developed from an initial automotive-security assessment structure toward a more explicitly evidence-controlled engineering model.
-
-The following historical principles remain valid:
-
-```text
-Implementation, execution, observation and verification are distinct states.
-
-Security findings require evidence-backed technical reasoning.
-
-Simulation and virtual execution must remain distinguishable from
-physical ECU or vehicle validation.
-
-Example assessment material must remain distinguishable from confirmed
-project findings.
-
-Documentation must describe the actual technical state and must not
-substitute for execution evidence.
-
-Phase completion is controlled by explicit completion criteria.
-
-The current state is maintained separately from stable project definition
-and historical phase information.
-```
-
-Historical development and detailed phase results are maintained in:
+| Area | Assessment |
+|---|---|
+| Repository structure | **ESTABLISHED** |
+| Core security-test implementations | **PARTIALLY ESTABLISHED** |
+| Test infrastructure | **PARTIALLY ESTABLISHED** |
+| Complete test execution | **NOT VERIFIED** |
+| Evidence | **AVAILABLE / PARTIALLY CONSISTENT** |
+| Confirmed security finding | **NOT ESTABLISHED** |
+| Root-cause analysis | **NOT ESTABLISHED FOR CONFIRMED FINDINGS** |
+| Regression | **NOT IMPLEMENTED** |
+| CI/CD | **NOT IMPLEMENTED** |
+| Documentation | **ESTABLISHED / PARTIAL COMPLETENESS** |
+| Traceability | **PARTIAL** |
+
+The Q2 classification reflects the current engineering state and does not represent a security maturity rating of an ECU, vehicle or production system.
+
+## 19. Remaining Work
+
+The remaining project work includes:
+
+- Establish the ECU/security-domain model.
+- Establish the common security-test architecture.
+- Resolve existing implementation and integration inconsistencies.
+- Establish executable pytest coverage.
+- Establish reproducible test execution.
+- Establish unified evidence handling.
+- Establish complete execution-to-evidence traceability.
+- Extend security-test coverage.
+- Establish an evidence-backed finding workflow.
+- Establish the root-cause analysis workflow.
+- Establish mitigation and retest workflow.
+- Establish regression capability.
+- Establish CI/CD.
+- Establish packaging.
+- Perform the final technical review.
+
+Additional planned security-test areas remain defined in the project scope and are not considered implemented until corresponding implementation, execution and verification are established.
+
+## 20. Next Allowed Phase
+
+The next project phase is:
+
+**Phase 2 — ECU / Security Domain Model**
+
+Phase 2 may begin after completion of the Phase-1 completion gate.
+
+Phase 2 is not included in the current Phase-1 implementation state.
+
+## 21. Project History Reference
+
+Historical project development, including the relationship between previous project phases and their completed activities, is maintained separately in:
 
 ```text
 docs/project_definition_and_development_history.md
 ```
 
-This document therefore records the current state rather than reproducing the complete project history.
+This document remains focused on the current technical truth state rather than duplicating the project history.
 
-# Final Principle
+## Final Principle
 
-```text
-Implementation
-     |
-     v
-Execution
-     |
-     v
-Observation
-     |
-     v
-Evidence
-     |
-     v
-Conclusion
-```
+The repository state is represented according to the distinction between implementation, execution, observation, evidence, verification and planned work.
 
-Each conclusion remains within the scope established by the available technical evidence. Documentation, example material and planned functionality are not used as substitutes for execution evidence.
+An implemented component is not automatically a verified security result. An execution artifact is not automatically reproducible evidence. An example is not automatically a finding. Planned functionality is not treated as implemented functionality.
+
+The current state therefore reflects the technically supported repository condition at the time of documentation.
