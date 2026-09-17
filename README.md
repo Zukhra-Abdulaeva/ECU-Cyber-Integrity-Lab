@@ -67,6 +67,8 @@ The project covers engineering activities including:
 - risk assessment
 - technical reporting
 - engineering recommendations
+- establishment of an ECU‑oriented security‑domain model
+- structured definition of ECUs/components, communication domains, interfaces, assets, and security properties
 
 These activities describe the project scope. The repository currently contains implementations for selected areas, while other activities remain contextual or planned.
 
@@ -237,7 +239,16 @@ AUTOMOTIVE CONTEXT
     +-- Security mechanisms
     |
     v
-
+ECU / SECURITY DOMAIN MODEL
+    |
+    +-- ECU / component context
+    +-- Communication domains
+    +-- Interfaces
+    +-- Assets
+    +-- Security properties
+    +-- Security-domain relationships
+    |
+    v
 CURRENT IMPLEMENTATION
     |
     +-- CAN
@@ -381,6 +392,24 @@ The engineering focus is on traceability between security objectives, technical 
 ---
 
 ## Security Domains
+
+### ECU / Security Domain Model
+
+The project defines an ECU / Security Domain Model covering:
+
+```text
+ECU / Component
+Communication Domains
+Interfaces
+Assets
+Security Properties
+Security-Domain Relationships
+Attack-Surface Context
+Traceability
+Boundaries
+```
+
+The model provides the structural relationship between ECU-oriented elements and the existing technical security-assessment scope.
 
 ### Communication and Network Security
 
@@ -664,6 +693,12 @@ docs/architecture_decisions.md
 
 docs/testing.md
     Testing approach and execution guidance
+
+docs/ecu_security_domain_model.md
+
+    ECU-oriented security domain model including ECU / component
+    context, communication domains, interfaces, assets, security
+    properties, relationships, boundaries and model traceability
 
 docs/current_state.md
     Current repository, implementation, execution,

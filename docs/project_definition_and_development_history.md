@@ -1550,25 +1550,44 @@ These states are therefore not part of the Phase-1 completion result.
 
 **Status: COMPLETED**
 
-Phase 1 — Repository Foundation is formally completed.
-
-The next project phase is:
-
-```text
-Phase 2 — ECU / Security Domain Model
-```
-
 ## 20.2 Phase 2 - ECU / Security Domain Model
 
 Objective
 
 Define the ECU-oriented security domain model and establish the relationships between relevant ECU types, communication domains, interfaces, assets, and security properties.
 
-Expected Phase Result
+Expected Phase Result:
 
 A consistent ECU and Security Domain Model is established and connected to the technical assessment scope.
 
-Status: NOT STARTED
+The completed work included:
+
+- establishing the ECU-oriented model
+- documenting relevant communication domains
+- documenting relevant interfaces
+- establishing the scoped asset model
+- mapping applicable security properties
+- establishing security-domain relationships
+- documenting relevant security-domain boundaries
+- connecting established assessment surfaces to the model
+- establishing model-level traceability
+- explicitly classifying unresolved model elements
+- preserving the separation between model, implementation,
+  execution, evidence and verification
+
+Phase Result: 
+
+The defined Phase-2 model scope is established. 
+Remaining information gaps are explicitly classified. 
+Completion does not imply physical ECU validation, security-control verification, execution evidence or confirmed security findings.
+
+The resulting model is maintained in:
+
+ecu_security_domain_model.md
+
+The model does not establish security-test execution, security findings, evidence generation or security-control verification.
+
+**Status: COMPLETED**
 
 ## 20.3 Phase 3 - Security Test Architecture
 

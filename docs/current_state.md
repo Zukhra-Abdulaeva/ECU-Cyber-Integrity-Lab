@@ -6,18 +6,18 @@
 |---|---|
 | Project | ECU-Cyber-Integrity-Lab |
 | Current document | `docs/current_state.md` |
-| Current phase | Phase 1 — Repository Foundation |
-| Phase status | **COMPLETED** |
-| Overall implementation | **PARTIALLY IMPLEMENTED** |
-| Execution state | **PARTIALLY OBSERVED / NOT VERIFIED AS COMPLETE** |
-| Evidence state | **AVAILABLE / PARTIALLY CONSISTENT** |
-| Verification state | **PARTIALLY ESTABLISHED** |
-| Documentation state | **ESTABLISHED** |
-| Documentation completeness | **PARTIAL** |
-| Regression | **NOT IMPLEMENTED** |
-| CI/CD | **NOT IMPLEMENTED / NOT VERIFIED** |
-| Traceability | **PARTIAL** |
-| Quality level | **Q2** |
+| Current phase | Phase 2 — ECU / Security Domain Model |
+| Phase status | COMPLETED |
+| Overall implementation | ESTABLISHED |
+| Execution state | PARTIALLY OBSERVED / NOT VERIFIED AS COMPLETE |
+| Evidence state |AVAILABLE / PARTIALLY CONSISTENT |
+| Verification state | PARTIALLY ESTABLISHED |
+| Documentation state | ESTABLISHED |
+| Documentation completeness | PARTIAL |
+| Regression | NOT IMPLEMENTED |
+| CI/CD | NOT IMPLEMENTED / NOT VERIFIED |
+| Traceability | PARTIAL |
+| Quality level | Q2 |
 
 This document describes the current technical state of the repository, including implementation, execution, evidence, verification, documentation, traceability and remaining work.
 
@@ -159,19 +159,26 @@ The current repository does not establish such a complete real-world validation 
 
 | Item | State |
 |---|---|
-| Phase | Phase 1 — Repository Foundation |
-| Status | **COMPLETED** |
-| Completion gate | **COMPLETED** |
-| Previous phase | Phase 0 — Project Definition and Engineering Foundation |
-| Next phase | Phase 2 — ECU / Security Domain Model |
+| Phase | Phase 2 — ECU / Security Domain Model |
+| Status | COMPLETED |
+| Completion gate | COMPLETED |
+| Previous phase | Phase 1 — Repository Foundation |
+| Next phase | Phase 3 — Security Test Architecture |
 
-Phase 1 established and reviewed the repository foundation required for subsequent structured development.
+| Model state | Current state |
+|---|---|
+| ECU / component model | ESTABLISHED |
+| Communication domain inventory | ESTABLISHED |
+| Interface inventory | ESTABLISHED |
+| Asset model | ESTABLISHED |
+| Security property mapping | ESTABLISHED |
+| Security-domain relationships | ESTABLISHED |
+| Security-domain boundaries | DOCUMENTED WHERE ESTABLISHED |
+| Assessment-surface mapping | DOCUMENTED WHERE ESTABLISHED |
+| Model traceability | ESTABLISHED |
+| Unresolved model elements | EXPLICITLY CLASSIFIED |
 
-The completed Phase-1 activities covered repository structure and organization, project configuration and dependency definition, the technical development-environment baseline, documentation structure, repository-to-documentation consistency and synchronization of the current-state documentation. The identified documentation filename was also corrected.
-
-The Phase-1 verification controls VC-01 through VC-12 were reviewed.
-
-The Phase-1 completion state is `COMPLETED`.
+Concrete ECU instances, ECU-to-ECU topology, concrete vehicle communication paths, concrete Ethernet targets, service ownership and a complete project-wide security-property or attacker-capability model remain unresolved
 
 ## 5. Current Execution Position
 
@@ -330,11 +337,11 @@ This represents an existing import-path inconsistency.
 
 | Aspect | Current state |
 |---|---|
-| Implementation | **IMPLEMENTED** |
+| Implementation | IMPLEMENTED |
 | Test file | Present |
-| Test execution | **NOT VERIFIED** |
-| Security validation | **NOT ESTABLISHED** |
-| Real ECU / vehicle validation | **NOT ESTABLISHED** |
+| Test execution | NOT VERIFIED |
+| Security validation | NOT ESTABLISHED |
+| Real ECU / vehicle validation | NOT ESTABLISHED |
 
 ### 7.2 UDS
 
@@ -362,13 +369,13 @@ A UDS test file exists, but no complete established test implementation is curre
 
 | Aspect | Current state |
 |---|---|
-| Implementation | **IMPLEMENTED** |
+| Implementation | IMPLEMENTED |
 | SecurityAccess classification | Basic |
 | Test file | Present |
-| Test execution | **NOT VERIFIED** |
+| Test execution | NOT VERIFIED |
 | Security oracle | Partial |
-| Security validation | **NOT ESTABLISHED** |
-| Real ECU diagnostic validation | **NOT ESTABLISHED** |
+| Security validation | NOT ESTABLISHED |
+| Real ECU diagnostic validation | NOT ESTABLISHED |
 
 ### 7.3 Ethernet
 
@@ -392,11 +399,11 @@ Existing example output is treated as an artifact and not as independently verif
 
 | Aspect | Current state |
 |---|---|
-| Implementation | **IMPLEMENTED** |
+| Implementation | IMPLEMENTED |
 | Test file | Present / structural |
-| Test execution | **NOT VERIFIED** |
-| Security assessment | **NOT ESTABLISHED** |
-| Production network validation | **NOT ESTABLISHED** |
+| Test execution | NOT VERIFIED |
+| Security assessment | NOT ESTABLISHED |
+| Production network validation | NOT ESTABLISHED |
 
 ### 7.4 Firmware
 
@@ -413,10 +420,10 @@ The firmware test file does not currently establish a complete pytest implementa
 
 | Aspect | Current state |
 |---|---|
-| Implementation | **IMPLEMENTED** |
+| Implementation | IMPLEMENTED|
 | Test file | Present |
-| Test execution | **NOT VERIFIED** |
-| Integrity validation | **NOT ESTABLISHED BEYOND AVAILABLE ARTIFACT RESULTS** |
+| Test execution | NOT VERIFIED |
+| Integrity validation | NOT ESTABLISHED BEYOND AVAILABLE ARTIFACT RESULTS |
 
 ## 8. Test Execution State
 
@@ -471,7 +478,7 @@ A report dated 2026-08-22 documents:
 
 | Field | Result |
 |---|---|
-| Result | **FAIL** |
+| Result | FAIL |
 | Expected SHA-256 | `0123456789abcdef` |
 | Calculated SHA-256 | `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855` |
 | A/B identical | `TRUE` |
@@ -480,7 +487,7 @@ A report dated 2026-07-25 documents:
 
 | Field | Result |
 |---|---|
-| Result | **PASS** |
+| Result | PASS |
 | A/B identical | `FALSE` |
 
 The calculated hash in the 2026-08-22 report is consistent with an empty input. No root-cause conclusion is derived from this observation.
@@ -547,11 +554,11 @@ The current repository does not yet apply this classification consistently acros
 
 | Evidence aspect | Current state |
 |---|---|
-| Evidence available | **YES** |
-| Evidence consistency | **PARTIAL** |
-| Evidence provenance | **PARTIAL / INSUFFICIENT FOR STRONG CLAIMS** |
-| Unified evidence lifecycle | **NOT ESTABLISHED** |
-| Evidence sufficient for confirmed findings | **NO** |
+| Evidence available | YES |
+| Evidence consistency | PARTIAL |
+| Evidence provenance | PARTIAL / INSUFFICIENT FOR STRONG CLAIMS |
+| Unified evidence lifecycle | NOT ESTABLISHED |
+| Evidence sufficient for confirmed findings | NO |
 
 An artifact documents an observation only to the extent that its origin, execution context and technical content support that observation.
 
@@ -686,9 +693,9 @@ The intended regression architecture requires repeatable execution, defined test
 | Regression aspect | Current state |
 |---|---|
 | Architecture | Planned |
-| Execution | **NOT ESTABLISHED** |
-| Evidence | **NOT ESTABLISHED** |
-| Verification | **NOT ESTABLISHED** |
+| Execution | NOT ESTABLISHED |
+| Evidence | NOT ESTABLISHED |
+| Verification | NOT ESTABLISHED |
 
 Regression remains part of the planned project scope.
 
@@ -698,10 +705,10 @@ The repository currently contains no `.github` directory.
 
 | CI/CD aspect | Current state |
 |---|---|
-| CI/CD implementation | **NOT IMPLEMENTED** |
-| Pipeline execution | **NOT VERIFIED** |
-| Automated test pipeline | **NOT ESTABLISHED** |
-| Automated evidence generation | **NOT ESTABLISHED** |
+| CI/CD implementation | NOT IMPLEMENTED |
+| Pipeline execution | NOT VERIFIED |
+| Automated test pipeline | NOT ESTABLISHED |
+| Automated evidence generation | NOT ESTABLISHED |
 
 CI/CD remains part of the planned project scope.
 
@@ -743,15 +750,15 @@ It does not represent complete implementation-to-test-to-evidence traceability.
 
 | Traceability area | Current state |
 |---|---|
-| Requirements | **PARTIAL** |
-| Security objectives | **PARTIAL** |
-| Implementation mapping | **PARTIAL** |
-| Test objectives | **PARTIAL** |
-| Test execution | **NOT VERIFIED** |
-| Evidence association | **PARTIAL** |
-| Finding traceability | **NOT ESTABLISHED FOR CONFIRMED FINDINGS** |
-| Mitigation / retest | **NOT ESTABLISHED** |
-| Overall traceability | **PARTIAL** |
+| Requirements | PARTIAL |
+| Security objectives | PARTIAL |
+| Implementation mapping | PARTIAL |
+| Test objectives | PARTIAL |
+| Test execution | NOT VERIFIED |
+| Evidence association | PARTIAL |
+| Finding traceability | NOT ESTABLISHED FOR CONFIRMED FINDINGS |
+| Mitigation / retest | NOT ESTABLISHED |
+| Overall traceability | PARTIAL |
 
 ## 18. Quality Assessment
 
@@ -761,17 +768,17 @@ The assessment is based on the following state:
 
 | Area | Assessment |
 |---|---|
-| Repository structure | **ESTABLISHED** |
-| Core security-test implementations | **PARTIALLY ESTABLISHED** |
-| Test infrastructure | **PARTIALLY ESTABLISHED** |
-| Complete test execution | **NOT VERIFIED** |
-| Evidence | **AVAILABLE / PARTIALLY CONSISTENT** |
-| Confirmed security finding | **NOT ESTABLISHED** |
-| Root-cause analysis | **NOT ESTABLISHED FOR CONFIRMED FINDINGS** |
-| Regression | **NOT IMPLEMENTED** |
-| CI/CD | **NOT IMPLEMENTED** |
-| Documentation | **ESTABLISHED / PARTIAL COMPLETENESS** |
-| Traceability | **PARTIAL** |
+| Repository structure | ESTABLISHED |
+| Core security-test implementations | PARTIALLY ESTABLISHED |
+| Test infrastructure | PARTIALLY ESTABLISHED |
+| Complete test execution | NOT VERIFIED |
+| Evidence | AVAILABLE / PARTIALLY CONSISTENT |
+| Confirmed security finding | NOT ESTABLISHED |
+| Root-cause analysis | NOT ESTABLISHED FOR CONFIRMED FINDINGS |
+| Regression | NOT IMPLEMENTED |
+| CI/CD | NOT IMPLEMENTED |
+| Documentation | ESTABLISHED / PARTIAL COMPLETENESS |
+| Traceability | PARTIAL |
 
 The Q2 classification reflects the current engineering state and does not represent a security maturity rating of an ECU, vehicle or production system.
 
@@ -797,17 +804,7 @@ The remaining project work includes:
 
 Additional planned security-test areas remain defined in the project scope and are not considered implemented until corresponding implementation, execution and verification are established.
 
-## 20. Next Allowed Phase
-
-The next project phase is:
-
-**Phase 2 — ECU / Security Domain Model**
-
-Phase 2 may begin after completion of the Phase-1 completion gate.
-
-Phase 2 is not included in the current Phase-1 implementation state.
-
-## 21. Project History Reference
+## 20. Project History Reference
 
 Historical project development, including the relationship between previous project phases and their completed activities, is maintained separately in:
 
