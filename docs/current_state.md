@@ -2,22 +2,22 @@
 
 ## 1. Snapshot
 
-| Item | Current state |
-|---|---|
-| Project | ECU-Cyber-Integrity-Lab |
-| Current document | `docs/current_state.md` |
-| Current phase | Phase 2 — ECU / Security Domain Model |
-| Phase status | COMPLETED |
-| Overall implementation | ESTABLISHED |
-| Execution state | PARTIALLY OBSERVED / NOT VERIFIED AS COMPLETE |
-| Evidence state |AVAILABLE / PARTIALLY CONSISTENT |
-| Verification state | PARTIALLY ESTABLISHED |
-| Documentation state | ESTABLISHED |
-| Documentation completeness | PARTIAL |
-| Regression | NOT IMPLEMENTED |
-| CI/CD | NOT IMPLEMENTED / NOT VERIFIED |
-| Traceability | PARTIAL |
-| Quality level | Q2 |
+| Item                       | Current state                                 |
+| -------------------------- | --------------------------------------------- |
+| Project                    | ECU-Cyber-Integrity-Lab                       |
+| Current document           | `docs/current_state.md`                       |
+| Current phase              | Phase 3 — Security Test Architecture          |
+| Phase status               | COMPLETED                                     |
+| Overall implementation     | ESTABLISHED                                   |
+| Execution state            | PARTIALLY OBSERVED / NOT VERIFIED AS COMPLETE |
+| Evidence state             | AVAILABLE / PARTIALLY CONSISTENT              |
+| Verification state         | PARTIALLY ESTABLISHED                         |
+| Documentation state        | ESTABLISHED                                   |
+| Documentation completeness | PARTIAL                                       |
+| Regression                 | NOT IMPLEMENTED                               |
+| CI/CD                      | NOT IMPLEMENTED / NOT VERIFIED                |
+| Traceability               | PARTIALLY ESTABLISHED                         |
+| Quality level              | Q2                                            |
 
 This document describes the current technical state of the repository, including implementation, execution, evidence, verification, documentation, traceability and remaining work.
 
@@ -27,14 +27,14 @@ The state description distinguishes between functionality that exists in the rep
 
 The project currently corresponds to quality level **Q2**.
 
-| Level | Definition |
-|---|---|
-| Q0 | Initial or undefined project state |
-| Q1 | Repository and project structure established |
-| Q2 | Core implementation exists; execution and evidence are partially established |
-| Q3 | Core functionality executed and technically verified |
-| Q4 | Integrated security assessment and evidence workflow established |
-| Q5 | Reproducible, regression-capable and continuously validated security assessment environment |
+| Level | Definition                                                                                  |
+| ----- | ------------------------------------------------------------------------------------------- |
+| Q0    | Initial or undefined project state                                                          |
+| Q1    | Repository and project structure established                                                |
+| Q2    | Core implementation exists; execution and evidence are partially established                |
+| Q3    | Core functionality executed and technically verified                                        |
+| Q4    | Integrated security assessment and evidence workflow established                            |
+| Q5    | Reproducible, regression-capable and continuously validated security assessment environment |
 
 The Q2 classification reflects the current engineering state: the repository structure and core implementation are established, while complete execution verification, consistent evidence handling, integrated traceability, regression capability and CI/CD remain incomplete.
 
@@ -53,29 +53,25 @@ The current implementation covers selected CAN, UDS, Ethernet and firmware-relat
 The intended security-engineering relationship is:
 
 ```text
-Asset
-Security Property
-Threat
-Attack Surface
-Attack Vector
-Attacker Capability
-Preconditions
-Attack Path
+Assessment Objective
+Security Objective / Property
 Test Objective
-Test Design
-Execution
+Security Test Case
+Test Runner
+Domain Adapter
+Domain Module
+Target / Model
 Observation
+Result
 Evidence
 Finding / Assessment
-Impact
-Risk
 Mitigation
 Retest / Verification
 ```
 
-This chain defines the intended relationship between security requirements, assessment activities, execution results and subsequent verification.
+This chain defines the current common security-test architecture and its relationship between assessment objectives, test objectives, execution responsibilities, observations, results and subsequent evidence and assessment activities.
 
-Only parts of this chain are currently implemented. A complete implementation-to-test-to-evidence-to-finding lifecycle is not yet established.
+The common security-test architecture is established. Complete implementation-to-test-to-evidence-to-finding lifecycle integration is not yet established.
 
 ### 3.3 Scope Classification
 
@@ -85,30 +81,30 @@ The current repository contains an implemented scope, a contextual automotive sc
 
 The existing security-test functionality covers selected areas of CAN, UDS, Ethernet and firmware assessment.
 
-| Domain | Current implementation |
-|---|---|
-| CAN | Traffic capture, virtual CAN traffic generation, filtering, statistics, CSV export and fake CAN traffic generation |
-| UDS | Basic UDS request/response handling and SecurityAccess classification |
-| Ethernet | IP/network scanning, host discovery, service inventory and JSON export |
-| Firmware | SHA-256 hashing, firmware comparison and JSON reporting |
-| Framework | Base framework components, report generation and Python/pytest infrastructure |
+| Domain    | Current implementation                                                                                             |
+| --------- | ------------------------------------------------------------------------------------------------------------------ |
+| CAN       | Traffic capture, virtual CAN traffic generation, filtering, statistics, CSV export and fake CAN traffic generation |
+| UDS       | Basic UDS request/response handling and SecurityAccess classification                                              |
+| Ethernet  | IP/network scanning, host discovery, service inventory and JSON export                                             |
+| Firmware  | SHA-256 hashing, firmware comparison and JSON reporting                                                            |
+| Framework | Base framework components, report generation and Python/pytest infrastructure                                      |
 
 #### Automotive context
 
 The wider project context includes the following ECU, network and interface areas:
 
-| Area | Scope |
-|---|---|
-| ECU architectures | Gateway ECU, BCM, Powertrain ECU, Infotainment ECU, TCU, ADAS Controller |
-| Vehicle networks | CAN, CAN FD, Automotive Ethernet, LIN, FlexRay |
-| Diagnostic and external interfaces | OBD-II, Bluetooth, USB, Wi-Fi, Cellular |
-| Update and platform security | OTA, Secure Boot |
+| Area                               | Scope                                                                    |
+| ---------------------------------- | ------------------------------------------------------------------------ |
+| ECU architectures                  | Gateway ECU, BCM, Powertrain ECU, Infotainment ECU, TCU, ADAS Controller |
+| Vehicle networks                   | CAN, CAN FD, Automotive Ethernet, LIN, FlexRay                           |
+| Diagnostic and external interfaces | OBD-II, Bluetooth, USB, Wi-Fi, Cellular                                  |
+| Update and platform security       | OTA, Secure Boot                                                         |
 
 These areas define project context and scope; their presence in this section does not indicate complete implementation.
 
 #### Planned and future implementation
 
-The planned scope includes the ECU/security-domain model, a common security-test architecture, a unified evidence framework, extended test cases, evidence-backed findings and root-cause workflows, finding documentation, regression, CI/CD, packaging and final technical review.
+The planned scope includes a unified evidence framework, extended test cases, evidence-backed findings and root-cause workflows, finding documentation, regression, CI/CD, packaging and final technical review.
 
 Additional future assessment areas include extended Automotive Ethernet, SOME/IP, extended OBD-II, Bluetooth, USB, Wi-Fi, Cellular, OTA, extended firmware security assessment, Secure Boot, additional test automation and integrated evidence/finding workflows.
 
@@ -130,22 +126,22 @@ These scenarios provide a controlled environment for implementation development,
 
 The current simulation classifications are:
 
-| Classification | Meaning |
-|---|---|
-| REAL | Physical real-world system or ECU |
-| VIRTUAL | Software-defined or virtualized environment |
-| SIMULATED | Software-generated representation of system behavior |
-| LOCAL | Execution on the local development environment |
-| STATIC | Static artifact without live system interaction |
-| SYNTHETIC | Artificially generated test data or traffic |
+| Classification | Meaning                                              |
+| -------------- | ---------------------------------------------------- |
+| REAL           | Physical real-world system or ECU                    |
+| VIRTUAL        | Software-defined or virtualized environment          |
+| SIMULATED      | Software-generated representation of system behavior |
+| LOCAL          | Execution on the local development environment       |
+| STATIC         | Static artifact without live system interaction      |
+| SYNTHETIC      | Artificially generated test data or traffic          |
 
 Current examples:
 
-| Example | Classification |
-|---|---|
-| `vcan0` | VIRTUAL + LOCAL |
-| Fake CAN traffic | SYNTHETIC + VIRTUAL + LOCAL |
-| Local firmware artifact | LOCAL + STATIC |
+| Example                 | Classification              |
+| ----------------------- | --------------------------- |
+| `vcan0`                 | VIRTUAL + LOCAL             |
+| Fake CAN traffic        | SYNTHETIC + VIRTUAL + LOCAL |
+| Local firmware artifact | LOCAL + STATIC              |
 
 These classifications describe the execution environment and artifact origin. They do not by themselves establish security validation against a real ECU or vehicle.
 
@@ -157,26 +153,32 @@ The current repository does not establish such a complete real-world validation 
 
 ## 4. Current Phase
 
-| Item | State |
-|---|---|
-| Phase | Phase 2 — ECU / Security Domain Model |
-| Status | COMPLETED |
-| Completion gate | COMPLETED |
-| Previous phase | Phase 1 — Repository Foundation |
-| Next phase | Phase 3 — Security Test Architecture |
+| Item            | State                                 |
+| --------------- | ------------------------------------- |
+| Phase           | Phase 3 — Security Test Architecture  |
+| Status          | COMPLETED                             |
+| Completion gate | COMPLETED                             |
+| Previous phase  | Phase 2 — ECU / Security Domain Model |
+| Next phase      | Phase 4 — Evidence Framework          |
 
-| Model state | Current state |
-|---|---|
-| ECU / component model | ESTABLISHED |
-| Communication domain inventory | ESTABLISHED |
-| Interface inventory | ESTABLISHED |
-| Asset model | ESTABLISHED |
-| Security property mapping | ESTABLISHED |
-| Security-domain relationships | ESTABLISHED |
-| Security-domain boundaries | DOCUMENTED WHERE ESTABLISHED |
-| Assessment-surface mapping | DOCUMENTED WHERE ESTABLISHED |
-| Model traceability | ESTABLISHED |
-| Unresolved model elements | EXPLICITLY CLASSIFIED |
+| Architecture state              | Current state            |
+| ------------------------------- | ------------------------ |
+| Common Test Case Model          | IMPLEMENTED              |
+| Test Runner                     | IMPLEMENTED              |
+| Domain Adapter                  | IMPLEMENTED              |
+| Execution Interface             | IMPLEMENTED              |
+| Target / Model Context          | IMPLEMENTED              |
+| Observation / Result Model      | IMPLEMENTED              |
+| Oracle / Evaluation Boundary    | IMPLEMENTED              |
+| Traceability                    | IMPLEMENTED              |
+| Logging Boundary                | IMPLEMENTED              |
+| Reporting Integration           | IMPLEMENTED              |
+| CAN Adapter                     | IMPLEMENTED              |
+| UDS Adapter                     | IMPLEMENTED              |
+| Firmware Adapter                | IMPLEMENTED              |
+| Ethernet Adapter                | IMPLEMENTED              |
+| General Security Test Execution | NOT VERIFIED AS COMPLETE |
+| Evidence Framework              | NOT IMPLEMENTED          |
 
 Concrete ECU instances, ECU-to-ECU topology, concrete vehicle communication paths, concrete Ethernet targets, service ownership and a complete project-wide security-property or attacker-capability model remain unresolved
 
@@ -186,10 +188,10 @@ The repository contains executable Python security-test code and a defined depen
 
 The technical environment is documented as follows:
 
-| Component | Version / source |
-|---|---|
-| Python | 3.12.3 |
-| pytest | 9.1.1 |
+| Component           | Version / source   |
+| ------------------- | ------------------ |
+| Python              | 3.12.3             |
+| pytest              | 9.1.1              |
 | Dependency baseline | `requirements.txt` |
 
 The dependency baseline has been reviewed against `requirements.txt`.
@@ -206,13 +208,21 @@ The current repository is organized into framework, security-test, evidence, exa
 
 ```text
 01_framework/
+
 02_security_tests/
+
 03_evidence/
+
 04_examples/
+
 05_security_reports/
+
 docs/
+
 .gitignore
+
 README.md
+
 requirements.txt
 ```
 
@@ -220,20 +230,39 @@ The framework components are:
 
 ```text
 01_framework/
+
 ├── __init__.py
+
 ├── base_test.py
+
 ├── config.py
+
 ├── logger.py
-└── report_generator.py
+
+├── logging_boundary.py
+
+├── report_generator.py
+
+├── runner.py
+
+├── test_architecture.py
+
+└── traceability.py
 ```
 
 The CAN security-test components are:
 
 ```text
 02_security_tests/can/
+
 ├── __init__.py
+
+├── adapter.py
+
 ├── can_sniffer.py
+
 ├── send_fake_can.py
+
 └── test_can_sniffer.py
 ```
 
@@ -241,8 +270,13 @@ The Ethernet security-test components are:
 
 ```text
 02_security_tests/ethernet/
+
 ├── __init__.py
+
+├── adapter.py
+
 ├── ethernet_scan.py
+
 └── test_ethernet_scan.py
 ```
 
@@ -250,8 +284,13 @@ The firmware security-test components are:
 
 ```text
 02_security_tests/firmware/
+
 ├── __init__.py
+
+├── adapter.py
+
 ├── firmware_validator.py
+
 └── test_firmware_validator.py
 ```
 
@@ -259,8 +298,13 @@ The UDS security-test components are:
 
 ```text
 02_security_tests/uds/
+
 ├── __init__.py
+
+├── adapter.py
+
 ├── uds_security.py
+
 └── test_uds_security.py
 ```
 
@@ -268,9 +312,13 @@ Example material is located in:
 
 ```text
 04_examples/
+
 ├── firmware_review.md
+
 ├── risk_assessment.md
+
 ├── threat_model.md
+
 └── uds_test.md
 ```
 
@@ -278,9 +326,13 @@ Security-report material is located in:
 
 ```text
 05_security_reports/
+
 ├── example_output_security_assessment.txt
+
 ├── security_assessment.json
+
 ├── security_report.html
+
 └── security_report.md
 ```
 
@@ -288,30 +340,41 @@ The current documentation structure is:
 
 ```text
 docs/
+
 ├── White-Box-Ansatz.png
+
 ├── architecture_decisions.md
+
 ├── current_state.md
+
 ├── environment.md
+
 ├── project_definition_and_development_history.md
+
 ├── testing.md
 ```
 
 ### 6.2 Framework Components
 
-`01_framework/base_test.py` provides a base framework component. The existing domain-specific test implementations do not currently establish a consistent inheritance relationship to this base class.
+`01_framework/base_test.py` provides a base framework component. The common Phase-3 test architecture is established separately through `test_architecture.py` and `runner.py`.
 
 `01_framework/report_generator.py` expects the following report artifacts:
 
 ```text
 can_capture.json
+
 uds_report.json
+
 ethernet_scan.json
+
 firmware_report.json
 ```
 
 The current CAN implementation exports CSV data rather than the expected `can_capture.json`. This represents an existing integration inconsistency between the CAN implementation and the report-generation component.
 
-`config.py` and `logger.py` are present as framework components. A complete established implementation and integration of their intended functionality is not currently documented as verified.
+The common test architecture provides explicit boundaries for Test Case, Test Runner, Domain Adapter, Execution Interface, Target / Model Context, Observation, Result, Oracle / Evaluation, Traceability and logging.
+
+`config.py` and `logger.py` remain framework support components. The common logging boundary is established through `logging_boundary.py`.
 
 ## 7. Security Test Components
 
@@ -335,12 +398,15 @@ The implementation itself is located at:
 
 This represents an existing import-path inconsistency.
 
-| Aspect | Current state |
-|---|---|
-| Implementation | IMPLEMENTED |
-| Test file | Present |
-| Test execution | NOT VERIFIED |
-| Security validation | NOT ESTABLISHED |
+The CAN implementation is connected to the common Phase-3 execution architecture through the CAN domain adapter.
+
+| Aspect                        | Current state   |
+| ----------------------------- | --------------- |
+| Implementation                | IMPLEMENTED     |
+| Domain Adapter                | IMPLEMENTED     |
+| Test file                     | Present         |
+| Test execution                | NOT VERIFIED    |
+| Security validation           | NOT ESTABLISHED |
 | Real ECU / vehicle validation | NOT ESTABLISHED |
 
 ### 7.2 UDS
@@ -349,32 +415,35 @@ The UDS implementation uses Python CAN and `vcan0` / SocketCAN for local diagnos
 
 The current implementation defines:
 
-| Element | Value |
-|---|---|
-| Request | `0x7E0` |
+| Element  | Value   |
+| -------- | ------- |
+| Request  | `0x7E0` |
 | Response | `0x7E8` |
 
 The implemented service-related handling includes:
 
-| Service | Function |
-|---|---|
+| Service       | Function                   |
+| ------------- | -------------------------- |
 | `0x10 / 0x03` | Diagnostic Session Control |
-| `0x27 / 0x01` | SecurityAccess |
-| `0x22 / F190` | Read Data By Identifier |
-| `0x11 / 0x01` | ECU Reset |
+| `0x27 / 0x01` | SecurityAccess             |
+| `0x22 / F190` | Read Data By Identifier    |
+| `0x11 / 0x01` | ECU Reset                  |
 
 The implementation provides basic response classification and SecurityAccess classification.
 
 A UDS test file exists, but no complete established test implementation is currently available.
 
-| Aspect | Current state |
-|---|---|
-| Implementation | IMPLEMENTED |
-| SecurityAccess classification | Basic |
-| Test file | Present |
-| Test execution | NOT VERIFIED |
-| Security oracle | Partial |
-| Security validation | NOT ESTABLISHED |
+The UDS implementation is connected to the common Phase-3 execution architecture through the UDS domain adapter.
+
+| Aspect                         | Current state   |
+| ------------------------------ | --------------- |
+| Implementation                 | IMPLEMENTED     |
+| Domain Adapter                 | IMPLEMENTED     |
+| SecurityAccess classification  | Basic           |
+| Test file                      | Present         |
+| Test execution                 | NOT VERIFIED    |
+| Security oracle                | Partial         |
+| Security validation            | NOT ESTABLISHED |
 | Real ECU diagnostic validation | NOT ESTABLISHED |
 
 ### 7.3 Ethernet
@@ -387,9 +456,13 @@ The current implementation references the following ports:
 
 ```text
 22
+
 80
+
 443
+
 13400
+
 30490
 ```
 
@@ -397,13 +470,16 @@ The Ethernet test file is currently a structural placeholder without an establis
 
 Existing example output is treated as an artifact and not as independently verified current execution.
 
-| Aspect | Current state |
-|---|---|
-| Implementation | IMPLEMENTED |
-| Test file | Present / structural |
-| Test execution | NOT VERIFIED |
-| Security assessment | NOT ESTABLISHED |
-| Production network validation | NOT ESTABLISHED |
+The Ethernet implementation is connected to the common Phase-3 execution architecture through the Ethernet domain adapter.
+
+| Aspect                        | Current state        |
+| ----------------------------- | -------------------- |
+| Implementation                | IMPLEMENTED          |
+| Domain Adapter                | IMPLEMENTED          |
+| Test file                     | Present / structural |
+| Test execution                | NOT VERIFIED         |
+| Security assessment           | NOT ESTABLISHED      |
+| Production network validation | NOT ESTABLISHED      |
 
 ### 7.4 Firmware
 
@@ -413,16 +489,20 @@ Referenced firmware artifacts include:
 
 ```text
 gateway_ecu.bin
+
 gateway_ecu_v2.bin
 ```
 
 The firmware test file does not currently establish a complete pytest implementation.
 
-| Aspect | Current state |
-|---|---|
-| Implementation | IMPLEMENTED|
-| Test file | Present |
-| Test execution | NOT VERIFIED |
+The firmware implementation is connected to the common Phase-3 execution architecture through the firmware domain adapter.
+
+| Aspect               | Current state                                     |
+| -------------------- | ------------------------------------------------- |
+| Implementation       | IMPLEMENTED                                       |
+| Domain Adapter       | IMPLEMENTED                                       |
+| Test file            | Present                                           |
+| Test execution       | NOT VERIFIED                                      |
 | Integrity validation | NOT ESTABLISHED BEYOND AVAILABLE ARTIFACT RESULTS |
 
 ## 8. Test Execution State
@@ -433,14 +513,16 @@ Pytest test files exist for CAN, UDS, Ethernet and firmware.
 
 The complete project test suite has not been established as a verified execution result.
 
+The Phase-3 architecture verification establishes the common test-architecture boundaries and their domain integration, but does not establish complete execution or security validation of all domain test cases.
+
 Known structural conditions are:
 
-| Area | Current condition |
-|---|---|
-| CAN | Import-path mismatch present |
-| UDS | Test implementation not established |
+| Area     | Current condition                     |
+| -------- | ------------------------------------- |
+| CAN      | Import-path mismatch present          |
+| UDS      | Test implementation not established   |
 | Ethernet | Pytest implementation not established |
-| Firmware | Test implementation not established |
+| Firmware | Test implementation not established   |
 
 Repository-wide pytest execution is therefore not a verified baseline.
 
@@ -476,18 +558,18 @@ Available firmware reports contain different execution states.
 
 A report dated 2026-08-22 documents:
 
-| Field | Result |
-|---|---|
-| Result | FAIL |
-| Expected SHA-256 | `0123456789abcdef` |
+| Field              | Result                                                             |
+| ------------------ | ------------------------------------------------------------------ |
+| Result             | FAIL                                                               |
+| Expected SHA-256   | `0123456789abcdef`                                                 |
 | Calculated SHA-256 | `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855` |
-| A/B identical | `TRUE` |
+| A/B identical      | `TRUE`                                                             |
 
 A report dated 2026-07-25 documents:
 
-| Field | Result |
-|---|---|
-| Result | PASS |
+| Field         | Result  |
+| ------------- | ------- |
+| Result        | PASS    |
 | A/B identical | `FALSE` |
 
 The calculated hash in the 2026-08-22 report is consistent with an empty input. No root-cause conclusion is derived from this observation.
@@ -498,12 +580,12 @@ The differing reports represent different execution states or conditions and are
 
 The currently available observations cover the following areas:
 
-| Domain | Available observation |
-|---|---|
-| CAN | Existing capture / example artifacts |
-| UDS | Conflicting historical and current artifacts |
-| Ethernet | Example reports |
-| Firmware | Conflicting execution reports |
+| Domain   | Available observation                        |
+| -------- | -------------------------------------------- |
+| CAN      | Existing capture / example artifacts         |
+| UDS      | Conflicting historical and current artifacts |
+| Ethernet | Example reports                              |
+| Firmware | Conflicting execution reports                |
 
 These observations are not consolidated into a single verified project-wide security result.
 
@@ -517,7 +599,9 @@ Evidence-related material is present in:
 
 ```text
 03_evidence/
+
 04_examples/
+
 05_security_reports/
 ```
 
@@ -527,38 +611,38 @@ The repository therefore contains existing artifacts representing test outputs, 
 
 The intended evidence classification contains:
 
-| Field | Purpose |
-|---|---|
-| Evidence ID | Evidence identification |
-| Test ID | Association with a test |
-| Domain | Technical assessment domain |
-| Target | Assessed target |
-| Environment | Execution environment |
-| Preconditions | Conditions required for execution |
-| Input | Test input |
-| Expected Result | Expected behavior |
-| Actual Result | Observed result |
-| Observation | Recorded observation |
-| Result | Result classification |
-| Execution Status | Execution state |
-| Timestamp | Execution timing |
-| Artifacts | Associated artifacts |
-| Tooling | Tools used |
-| Command / Execution Method | Execution information |
-| Notes | Additional information |
-| Provenance | Origin and traceability information |
+| Field                      | Purpose                             |
+| -------------------------- | ----------------------------------- |
+| Evidence ID                | Evidence identification             |
+| Test ID                    | Association with a test             |
+| Domain                     | Technical assessment domain         |
+| Target                     | Assessed target                     |
+| Environment                | Execution environment               |
+| Preconditions              | Conditions required for execution   |
+| Input                      | Test input                          |
+| Expected Result            | Expected behavior                   |
+| Actual Result              | Observed result                     |
+| Observation                | Recorded observation                |
+| Result                     | Result classification               |
+| Execution Status           | Execution state                     |
+| Timestamp                  | Execution timing                    |
+| Artifacts                  | Associated artifacts                |
+| Tooling                    | Tools used                          |
+| Command / Execution Method | Execution information               |
+| Notes                      | Additional information              |
+| Provenance                 | Origin and traceability information |
 
 The current repository does not yet apply this classification consistently across all available artifacts.
 
 ### 10.3 Evidence Position
 
-| Evidence aspect | Current state |
-|---|---|
-| Evidence available | YES |
-| Evidence consistency | PARTIAL |
-| Evidence provenance | PARTIAL / INSUFFICIENT FOR STRONG CLAIMS |
-| Unified evidence lifecycle | NOT ESTABLISHED |
-| Evidence sufficient for confirmed findings | NO |
+| Evidence aspect                            | Current state                            |
+| ------------------------------------------ | ---------------------------------------- |
+| Evidence available                         | YES                                      |
+| Evidence consistency                       | PARTIAL                                  |
+| Evidence provenance                        | PARTIAL / INSUFFICIENT FOR STRONG CLAIMS |
+| Unified evidence lifecycle                 | NOT ESTABLISHED                          |
+| Evidence sufficient for confirmed findings | NO                                       |
 
 An artifact documents an observation only to the extent that its origin, execution context and technical content support that observation.
 
@@ -568,15 +652,15 @@ An artifact documents an observation only to the extent that its origin, executi
 
 The project context includes ECU and vehicle-related assets such as:
 
-- Gateway ECU
-- BCM
-- Powertrain ECU
-- Infotainment ECU
-- TCU
-- ADAS Controller
-- Communication interfaces
-- Diagnostic interfaces
-- Firmware
+* Gateway ECU
+* BCM
+* Powertrain ECU
+* Infotainment ECU
+* TCU
+* ADAS Controller
+* Communication interfaces
+* Diagnostic interfaces
+* Firmware
 
 A complete ECU/security-domain model is planned for a subsequent phase.
 
@@ -584,12 +668,12 @@ A complete ECU/security-domain model is planned for a subsequent phase.
 
 Relevant security properties include the protection and integrity of:
 
-- Diagnostic functions
-- Communication interfaces
-- Firmware
-- ECU functions
-- Security-relevant services
-- Network-accessible services
+* Diagnostic functions
+* Communication interfaces
+* Firmware
+* ECU functions
+* Security-relevant services
+* Network-accessible services
 
 The current repository contains individual assessment implementations but does not yet provide a complete security-property model linked to all test activities.
 
@@ -607,10 +691,10 @@ The document is currently treated as example/project context until its elements 
 
 Current assessment-related attack surfaces include:
 
-- CAN
-- UDS diagnostics
-- Automotive Ethernet / IP network interfaces
-- Firmware artifacts
+* CAN
+* UDS diagnostics
+* Automotive Ethernet / IP network interfaces
+* Firmware artifacts
 
 Additional automotive interfaces are part of the contextual and planned project scope.
 
@@ -630,12 +714,19 @@ A finding requires a traceable chain:
 
 ```text
 Security Property
+
 Expected Behavior
+
 Test Objective
+
 Test Design
+
 Execution
+
 Observation
+
 Evidence
+
 Assessment
 ```
 
@@ -651,10 +742,15 @@ The intended lifecycle is:
 
 ```text
 Finding
+
 Root Cause
+
 Mitigation
+
 Retest
+
 Verification
+
 Residual Risk
 ```
 
@@ -662,15 +758,15 @@ Residual Risk
 
 The current documentation structure includes:
 
-| Document | Role |
-|---|---|
-| `README.md` | Project entry point / finalized project documentation |
+| Document                                             | Role                                                      |
+| ---------------------------------------------------- | --------------------------------------------------------- |
+| `README.md`                                          | Project entry point / finalized project documentation     |
 | `docs/project_definition_and_development_history.md` | Project definition and historical development information |
-| `docs/current_state.md` | Active current technical state |
-| `docs/architecture_decisions.md` | Architecture decisions |
-| `docs/testing.md` | Testing documentation |
-| `docs/environment.md` | Environment documentation |
-| `docs/White-Box-Ansatz.png` | White-Box approach illustration |
+| `docs/current_state.md`                              | Active current technical state                            |
+| `docs/architecture_decisions.md`                     | Architecture decisions                                    |
+| `docs/testing.md`                                    | Testing documentation                                     |
+| `docs/environment.md`                                | Environment documentation                                 |
+| `docs/White-Box-Ansatz.png`                          | White-Box approach illustration                           |
 
 The documentation structure is established.
 
@@ -690,12 +786,12 @@ Regression capability is not currently implemented as a complete project functio
 
 The intended regression architecture requires repeatable execution, defined test cases, comparable results, persistent evidence and verification of changes.
 
-| Regression aspect | Current state |
-|---|---|
-| Architecture | Planned |
-| Execution | NOT ESTABLISHED |
-| Evidence | NOT ESTABLISHED |
-| Verification | NOT ESTABLISHED |
+| Regression aspect | Current state   |
+| ----------------- | --------------- |
+| Architecture      | Planned         |
+| Execution         | NOT ESTABLISHED |
+| Evidence          | NOT ESTABLISHED |
+| Verification      | NOT ESTABLISHED |
 
 Regression remains part of the planned project scope.
 
@@ -703,32 +799,44 @@ Regression remains part of the planned project scope.
 
 The repository currently contains no `.github` directory.
 
-| CI/CD aspect | Current state |
-|---|---|
-| CI/CD implementation | NOT IMPLEMENTED |
-| Pipeline execution | NOT VERIFIED |
-| Automated test pipeline | NOT ESTABLISHED |
+| CI/CD aspect                  | Current state   |
+| ----------------------------- | --------------- |
+| CI/CD implementation          | NOT IMPLEMENTED |
+| Pipeline execution            | NOT VERIFIED    |
+| Automated test pipeline       | NOT ESTABLISHED |
 | Automated evidence generation | NOT ESTABLISHED |
 
 CI/CD remains part of the planned project scope.
 
 ## 17. Traceability State
 
-The intended traceability chain is:
+The current common test-architecture traceability chain is:
 
 ```text
 Security Requirement
+
 Security Objective / Property
+
 Security Design
+
 Implementation
+
 Test Objective
+
 Test Design
+
 Test Execution
+
 Evidence
+
 Result
+
 Finding / Assessment
+
 Mitigation
+
 Retest
+
 Verification
 ```
 
@@ -736,11 +844,17 @@ The Phase-0 project-definition work established the project-level traceability f
 
 ```text
 Project Definition
+
 Security Engineering Goals / Security Domains
+
 Scope and Assessment Boundaries
+
 Assessment Methodology / Security Lifecycle
+
 Truth-State and Test Result Model
+
 Evidence Principle / Evidence Lifecycle
+
 Subsequent Test and Assessment Activities
 ```
 
@@ -748,17 +862,17 @@ This foundation defines the intended relationship between project definition, as
 
 It does not represent complete implementation-to-test-to-evidence traceability.
 
-| Traceability area | Current state |
-|---|---|
-| Requirements | PARTIAL |
-| Security objectives | PARTIAL |
-| Implementation mapping | PARTIAL |
-| Test objectives | PARTIAL |
-| Test execution | NOT VERIFIED |
-| Evidence association | PARTIAL |
-| Finding traceability | NOT ESTABLISHED FOR CONFIRMED FINDINGS |
-| Mitigation / retest | NOT ESTABLISHED |
-| Overall traceability | PARTIAL |
+| Traceability area      | Current state                            |
+| ---------------------- | ---------------------------------------- |
+| Requirements           | PARTIAL                                  |
+| Security objectives    | PARTIAL                                  |
+| Implementation mapping | ESTABLISHED FOR COMMON TEST ARCHITECTURE |
+| Test objectives        | PARTIALLY ESTABLISHED                    |
+| Test execution         | NOT VERIFIED                             |
+| Evidence association   | PARTIAL                                  |
+| Finding traceability   | NOT ESTABLISHED FOR CONFIRMED FINDINGS   |
+| Mitigation / retest    | NOT ESTABLISHED                          |
+| Overall traceability   | PARTIALLY ESTABLISHED                    |
 
 ## 18. Quality Assessment
 
@@ -766,19 +880,19 @@ The current project quality level is **Q2**.
 
 The assessment is based on the following state:
 
-| Area | Assessment |
-|---|---|
-| Repository structure | ESTABLISHED |
-| Core security-test implementations | PARTIALLY ESTABLISHED |
-| Test infrastructure | PARTIALLY ESTABLISHED |
-| Complete test execution | NOT VERIFIED |
-| Evidence | AVAILABLE / PARTIALLY CONSISTENT |
-| Confirmed security finding | NOT ESTABLISHED |
-| Root-cause analysis | NOT ESTABLISHED FOR CONFIRMED FINDINGS |
-| Regression | NOT IMPLEMENTED |
-| CI/CD | NOT IMPLEMENTED |
-| Documentation | ESTABLISHED / PARTIAL COMPLETENESS |
-| Traceability | PARTIAL |
+| Area                               | Assessment                             |
+| ---------------------------------- | -------------------------------------- |
+| Repository structure               | ESTABLISHED                            |
+| Core security-test implementations | PARTIALLY ESTABLISHED                  |
+| Test infrastructure                | ESTABLISHED FOR PHASE-3 ARCHITECTURE   |
+| Complete test execution            | NOT VERIFIED                           |
+| Evidence                           | AVAILABLE / PARTIALLY CONSISTENT       |
+| Confirmed security finding         | NOT ESTABLISHED                        |
+| Root-cause analysis                | NOT ESTABLISHED FOR CONFIRMED FINDINGS |
+| Regression                         | NOT IMPLEMENTED                        |
+| CI/CD                              | NOT IMPLEMENTED                        |
+| Documentation                      | ESTABLISHED / PARTIAL COMPLETENESS     |
+| Traceability                       | PARTIAL                                |
 
 The Q2 classification reflects the current engineering state and does not represent a security maturity rating of an ECU, vehicle or production system.
 
@@ -786,21 +900,31 @@ The Q2 classification reflects the current engineering state and does not repres
 
 The remaining project work includes:
 
-- Establish the ECU/security-domain model.
-- Establish the common security-test architecture.
-- Resolve existing implementation and integration inconsistencies.
-- Establish executable pytest coverage.
-- Establish reproducible test execution.
-- Establish unified evidence handling.
-- Establish complete execution-to-evidence traceability.
-- Extend security-test coverage.
-- Establish an evidence-backed finding workflow.
-- Establish the root-cause analysis workflow.
-- Establish mitigation and retest workflow.
-- Establish regression capability.
-- Establish CI/CD.
-- Establish packaging.
-- Perform the final technical review.
+* Resolve existing implementation and integration inconsistencies.
+
+* Establish executable pytest coverage.
+
+* Establish reproducible test execution.
+
+* Establish unified evidence handling.
+
+* Establish complete execution-to-evidence traceability.
+
+* Extend security-test coverage.
+
+* Establish an evidence-backed finding workflow.
+
+* Establish the root-cause analysis workflow.
+
+* Establish mitigation and retest workflow.
+
+* Establish regression capability.
+
+* Establish CI/CD.
+
+* Establish packaging.
+
+* Perform the final technical review.
 
 Additional planned security-test areas remain defined in the project scope and are not considered implemented until corresponding implementation, execution and verification are established.
 

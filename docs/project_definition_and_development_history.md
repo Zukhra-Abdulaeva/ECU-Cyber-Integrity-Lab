@@ -247,7 +247,7 @@ The White-Box approach is based on technical information available within the pr
 
 ## 5. Current Implementation Scope
 
-The current implementation scope contains selected Python-based security and assessment components together with associated test structures, examples, evidence artifacts, and documentation.
+The current implementation scope contains selected Python-based security and assessment components together with associated test structures, common security-test architecture components, examples, evidence artifacts, and documentation.
 
 The described implementation scope includes:
 
@@ -267,7 +267,7 @@ The described implementation scope includes:
 - Existing Evidence Artifacts
 - Technical Project Documentation
 
-The current implementation scope is assessed separately from its verification status. Source code or a test structure provides implementation artifacts; execution and verification require corresponding technical evidence.
+The current implementation scope is assessed separately from its execution and verification status. Source code, test structures, and common security-test architecture components provide implementation artifacts; execution and verification require corresponding technical evidence.
 
 The detailed current Repository, Test, Execution, Evidence, and Verification situation is maintained separately in `docs/current_state.md`.
 
@@ -278,7 +278,7 @@ The detailed current Repository, Test, Execution, Evidence, and Verification sit
 The intended engineering scope is extended incrementally. Planned components include:
 
 - Structured Security Test Architecture
-- Unified Domain Adapters
+- Unified Domain Adapter and Execution Architecture
 - Machine-Readable Evidence Framework
 - Evidence Validation and Provenance
 - Security Finding Lifecycle
@@ -1265,9 +1265,7 @@ The detailed project definition is therefore kept separate from the current exec
 
 This file defines the technical identity, purpose, intended scope, technical boundaries, and development history of the project.
 
-It is not the primary document for the day-to-day repository state.
-
-The current repository and execution state are maintained separately. `docs/current_state.md` is authoritative for that information.
+The current repository, implementation, execution, evidence, and verification state are maintained separately. `docs/current_state.md` is authoritative for that information.
 
 `docs/current_state.md` includes in particular:
 
@@ -1360,8 +1358,9 @@ PROJECT PURPOSE
 
 CURRENT IMPLEMENTATION
 
-    Selected Python-based security tools, test structures,
-    documentation and assessment artifacts
+    Selected Python-based security tools, common security-test
+    architecture components, test structures, documentation,
+    and assessment artifacts
 
 CURRENT VERIFICATION
 
@@ -1592,14 +1591,501 @@ The model does not establish security-test execution, security findings, evidenc
 ## 20.3 Phase 3 - Security Test Architecture
 
 Objective
-
-Establish the technical architecture for structured security testing across the supported security domains.
-
+        |
+        v
 Expected Phase Result
+        |
+        v
+Repository Architecture Mapping
+        |
+        v
+Status
 
-A consistent Security Test Architecture defines test organization, domain separation, reusable test structures, execution interfaces, and the relationship between tests and assessment objectives.
+**Objective :** Establish the technical architecture for structured security testing across the supported security domains.
 
-Status: NOT STARTED
+**Expected Phase Result :** A consistent Security Test Architecture defines test organization, domain separation, reusable test structures, execution interfaces, and the relationship between tests and assessment objectives.
+
+**Repository Architecture Mapping**
+
+The Phase-3 repository mapping establishes the relationship between existing repository components and the defined Security Test Architecture.
+
+The mapping reflects the repository structure reviewed during Phase 3 and distinguishes existing implementation from architectural responsibilities that are defined but not yet implemented.
+
+| Existing Component | Architecture Role | Domain | Current Implementation Status | Relevant Limitation | Required Architectural Relationship |
+|---|---|---|---|---|---|
+| `01_framework/base_test.py` | Common Test Framework Support | Common | IMPLEMENTED | Existing common test framework support is retained within the common security-test architecture. | Security Test Case → Test Runner |
+| `01_framework/logger.py` | Logging Support | Common | IMPLEMENTED | Common logging boundary is established through the Phase-3 architecture. | Test Execution → Logging Boundary |
+| `01_framework/config.py` | Configuration Support | Common | NOT IMPLEMENTED AS COMMON ARCHITECTURE | Configuration support exists as a repository component, but no common execution configuration architecture is established. | Test Runner / Execution Interface → Configuration |
+| `01_framework/report_generator.py` | Reporting Component | Common | IMPLEMENTED | Existing reporting is integrated with the common test-result architecture while preserving existing finding and module reporting. | Result → Reporting |
+| `02_security_tests/can/` | Domain Module | CAN | IMPLEMENTED | Domain-specific implementation is integrated through the common CAN Domain Adapter architecture. | Test Runner → CAN Domain Adapter → CAN Domain Module |
+| `02_security_tests/uds/` | Domain Module | UDS | IMPLEMENTED | Domain-specific implementation is integrated through the common UDS Domain Adapter architecture. | Test Runner → UDS Domain Adapter → UDS Domain Module |
+| `02_security_tests/firmware/` | Domain Module | Firmware | IMPLEMENTED | Domain-specific artifact analysis is integrated through the common Firmware Domain Adapter architecture. | Test Runner → Firmware Domain Adapter → Firmware Domain Module |
+| `02_security_tests/ethernet/` | Domain Module | Automotive Ethernet | IMPLEMENTED | Domain-specific network scanning is integrated through the common Ethernet Domain Adapter architecture. | Test Runner → Ethernet Domain Adapter → Ethernet Domain Module |
+| `02_security_tests/can/test_can_sniffer.py` | Existing Domain Test Structure | CAN | PARTIALLY IMPLEMENTED | Existing test structure is domain-specific and does not establish the common Phase-3 Test Case model. | Test Case → Test Runner → CAN Domain Module |
+| `02_security_tests/uds/test_uds_security.py` | Existing Domain Test Structure | UDS | PARTIALLY IMPLEMENTED | Existing test structure is domain-specific and does not establish the common Phase-3 Test Case model. | Test Case → Test Runner → UDS Domain Module |
+| `02_security_tests/firmware/test_firmware_validator.py` | Existing Domain Test Structure | Firmware | PARTIALLY IMPLEMENTED | Existing test structure is domain-specific and does not establish the common Phase-3 Test Case model. | Test Case → Test Runner → Firmware Domain Module |
+| `02_security_tests/ethernet/test_ethernet_scan.py` | Existing Domain Test Structure | Automotive Ethernet | PARTIALLY IMPLEMENTED | Existing test structure is domain-specific and does not establish the common Phase-3 Test Case model. | Test Case → Test Runner → Ethernet Domain Module |
+| `03_evidence/<domain>/` | Evidence Artifact Structure | Domain-specific | EXISTING STRUCTURE | Existing artifacts do not establish the Phase-4 Evidence Framework. | Execution / Observation → Evidence Boundary |
+| `05_security_reports/` | Reporting Artifacts | Common | EXISTING STRUCTURE | Existing reports do not establish the common Phase-3 result or reporting architecture. | Result → Reporting |
+
+Architecture DELTA Implementation
+- Identified architecture deviations D1–D11.
+- Implemented the technically necessary architecture corrections.
+- Preserved existing domain-specific functionality.
+- Added common architecture boundaries where required.
+- Verification performed after implementation.
+
+Result:
+- Phase-3 architecture implementation advanced from the previously
+  documented state to the current implementation state.
+
+Reference:
+- security_test_architecture_definition.md
+- architecture_decisions.md
+- current_state.md
+- domain_architecture_matrix.md
+
+The Phase-3 architecture implementation establishes the common Test Case, Test Runner, Domain Adapter, Execution Interface, Target / Model,
+Observation / Result, Oracle / Evaluation, Traceability, Logging, and Reporting boundaries required for the defined Security Test Architecture.
+
+The supported domain architecture is integrated through concrete adapters for CAN, UDS, Firmware, and Automotive Ethernet. Domain-specific security
+functionality remains within the respective domain modules.
+
+The Phase-3 implementation establishes architectural and implementation support. It does not establish successful execution of security test cases,
+confirmed security findings, Evidence Framework completion, regression validation, or CI/CD validation.
+
+**Status: COMPLETED**
+
+Ja. Für `docs/project_definition_and_development_history.md` sind wegen des aktuellen Phase-3-Stands nur wenige gezielte Änderungen erforderlich.
+
+**Wichtig:** Alles, was unten nicht ausdrücklich als Änderung genannt ist, bleibt **absolut unverändert**.
+
+---
+
+## Änderung 1 — Abschnitt `## 5. Current Implementation Scope`
+
+### Ersetzen
+
+Den bestehenden Absatz:
+
+```text
+The current implementation scope contains selected Python-based security and assessment components together with associated test structures, examples, evidence artifacts, and documentation.
+```
+
+durch:
+
+```text
+The current implementation scope contains selected Python-based security and assessment components together with associated test structures, common security-test architecture components, examples, evidence artifacts, and documentation.
+```
+
+### Zusätzlich ersetzen
+
+Den bestehenden Absatz:
+
+```text
+The current implementation scope is assessed separately from its verification status. Source code or a test structure provides implementation artifacts; execution and verification require corresponding technical evidence.
+```
+
+durch:
+
+```text
+The current implementation scope is assessed separately from its execution and verification status. Source code, test structures, and common security-test architecture components provide implementation artifacts; execution and verification require corresponding technical evidence.
+```
+
+---
+
+# Änderung 2 — Abschnitt `## 6. Target and Planned Scope`
+
+### Ersetzen
+
+In der Liste unter `Planned components include:` den Eintrag:
+
+```text
+- Structured Security Test Architecture
+
+- Unified Domain Adapters
+```
+
+durch:
+
+```text
+- Structured Security Test Architecture
+
+- Unified Domain Adapter and Execution Architecture
+```
+
+**Grund:** Die gemeinsame Testarchitektur einschließlich Test Runner, Domain Adapter und Execution Interface ist inzwischen als Architektur-/Implementierungsstand vorhanden und gehört nicht mehr ausschließlich zur geplanten Scope-Liste.
+
+---
+
+# Änderung 3 — Abschnitt `### 17.4 Current Phase Context`
+
+### Ersetzen
+
+Den ersten Absatz:
+
+```text
+This file defines the technical identity, purpose, intended scope, technical boundaries, and development history of the project.
+```
+
+nicht verändern.
+
+Den folgenden Satz:
+
+```text
+It is not the primary document for the day-to-day repository state.
+```
+
+ebenfalls **nicht verändern**.
+
+### Nur den anschließenden Absatz ersetzen
+
+Bisher:
+
+```text
+The current repository and execution state are maintained separately. `docs/current_state.md` is authoritative for that information.
+```
+
+Neu:
+
+```text
+The current repository, implementation, execution, evidence, and verification state are maintained separately. `docs/current_state.md` is authoritative for that information.
+```
+
+---
+
+# Änderung 4 — Abschnitt `## 20.3 Phase 3 - Security Test Architecture`
+
+Hier ist die wichtigste notwendige Aktualisierung.
+
+## 4.1 `Status: NOT STARTED` ersetzen
+
+Diesen bestehenden Block:
+
+```text
+**Status: NOT STARTED**
+```
+
+ersetzen durch:
+
+```text
+**Status: COMPLETED**
+```
+
+---
+
+## 4.2 Repository Architecture Mapping aktualisieren
+
+Die gesamte bestehende Tabelle unter:
+
+```text
+**\*\*Repository Architecture Mapping\*\***
+```
+
+enthält noch den **vor-WP-10-Zustand**. Insbesondere stehen dort:
+
+* Test Runner nicht als implementiert
+* Domain Adapter nicht implementiert
+* gemeinsame Execution Architecture nicht etabliert
+* Logging Boundary nicht etabliert
+* Reporting Integration nicht etabliert
+* Domain Tests ohne gemeinsame Adapter-/Runner-Integration
+
+Diese Aussagen sind nach der dokumentierten WP-10-Architektur-DELTA nicht mehr aktuell.
+
+### Daher nur die betroffenen Tabellenzeilen ersetzen:
+
+#### `base_test.py`
+
+Alt:
+
+```text
+| `01_framework/base_test.py` | Common Test Case / Test Framework Support | Common | PARTIALLY IMPLEMENTED | A common test-case structure exists, but the domain test structures do not consistently use a common architecture. | Security Test Case → Test Runner |
+```
+
+Neu:
+
+```text
+| `01_framework/base_test.py` | Common Test Framework Support | Common | IMPLEMENTED | Existing common test framework support is retained within the common security-test architecture. | Security Test Case → Test Runner |
+```
+
+#### `logger.py`
+
+Alt:
+
+```text
+| `01_framework/logger.py` | Logging Support | Common | NOT IMPLEMENTED AS COMMON ARCHITECTURE | Logging support exists as a repository component, but a defined common logging boundary is not established. | Test Execution → Logging Boundary |
+```
+
+Neu:
+
+```text
+| `01_framework/logger.py` | Logging Support | Common | IMPLEMENTED | Common logging boundary is established through the Phase-3 architecture. | Test Execution → Logging Boundary |
+```
+
+#### `config.py`
+
+Diese Zeile **nicht verändern**, sofern sie weiterhin nur Konfigurationssupport beschreibt und nicht Teil der WP-10 Architecture-DELTA war.
+
+#### `report_generator.py`
+
+Alt:
+
+```text
+| `01_framework/report_generator.py` | Reporting Component | Common | IMPLEMENTED | Reporting exists, but its integration with the common test result architecture is not established as a unified reporting path. | Result → Reporting |
+```
+
+Neu:
+
+```text
+| `01_framework/report_generator.py` | Reporting Component | Common | IMPLEMENTED | Existing reporting is integrated with the common test-result architecture while preserving existing finding and module reporting. | Result → Reporting |
+```
+
+#### CAN
+
+Alt:
+
+```text
+| `02_security_tests/can/` | Domain Module | CAN | IMPLEMENTED | Domain-specific implementation is present without a common Domain Adapter and common Test Runner integration. | Test Runner → Domain Adapter → CAN Domain Module |
+```
+
+Neu:
+
+```text
+| `02_security_tests/can/` | Domain Module | CAN | IMPLEMENTED | Domain-specific implementation is integrated through the common CAN Domain Adapter architecture. | Test Runner → CAN Domain Adapter → CAN Domain Module |
+```
+
+#### UDS
+
+Alt:
+
+```text
+| `02_security_tests/uds/` | Domain Module | UDS | IMPLEMENTED | Domain-specific implementation is present without a common Domain Adapter and common Test Runner integration. | Test Runner → Domain Adapter → UDS Domain Module |
+```
+
+Neu:
+
+```text
+| `02_security_tests/uds/` | Domain Module | UDS | IMPLEMENTED | Domain-specific implementation is integrated through the common UDS Domain Adapter architecture. | Test Runner → UDS Domain Adapter → UDS Domain Module |
+```
+
+#### Firmware
+
+Alt:
+
+```text
+| `02_security_tests/firmware/` | Domain Module | Firmware | IMPLEMENTED | Domain-specific artifact analysis is present without a common Domain Adapter and common Test Runner integration. | Test Runner → Domain Adapter → Firmware Domain Module |
+```
+
+Neu:
+
+```text
+| `02_security_tests/firmware/` | Domain Module | Firmware | IMPLEMENTED | Domain-specific artifact analysis is integrated through the common Firmware Domain Adapter architecture. | Test Runner → Firmware Domain Adapter → Firmware Domain Module |
+```
+
+#### Ethernet
+
+Alt:
+
+```text
+| `02_security_tests/ethernet/` | Domain Module | Automotive Ethernet | IMPLEMENTED | Domain-specific network scanning is present without a common Domain Adapter and common Test Runner integration. | Test Runner → Domain Adapter → Ethernet Domain Module |
+```
+
+Neu:
+
+```text
+| `02_security_tests/ethernet/` | Domain Module | Automotive Ethernet | IMPLEMENTED | Domain-specific network scanning is integrated through the common Ethernet Domain Adapter architecture. | Test Runner → Ethernet Domain Adapter → Ethernet Domain Module |
+```
+
+---
+
+# Änderung 5 — Phase-3 Result Block
+
+Der bestehende Block:
+
+```text
+Architecture DELTA Implementation
+
+- Identified architecture deviations D1–D11.
+
+- Implemented the technically necessary architecture corrections.
+
+- Preserved existing domain-specific functionality.
+
+- Added common architecture boundaries where required.
+
+- Verification performed after implementation.
+
+Result:
+
+- Phase-3 architecture implementation advanced from the previously
+
+  documented state to the current implementation state.
+
+Reference:
+
+- security_test_architecture_definition.md
+
+- architecture_decisions.md
+
+- current_state.md
+
+- domain_architecture_matrix.md
+```
+
+ist inhaltlich bereits passend und wird **nicht umgeschrieben**.
+
+### Direkt danach einfügen:
+
+```text
+The Phase-3 architecture implementation establishes the common Test Case,
+Test Runner, Domain Adapter, Execution Interface, Target / Model,
+Observation / Result, Oracle / Evaluation, Traceability, Logging, and
+Reporting boundaries required for the defined Security Test Architecture.
+
+The supported domain architecture is integrated through concrete adapters
+for CAN, UDS, Firmware, and Automotive Ethernet. Domain-specific security
+functionality remains within the respective domain modules.
+
+The Phase-3 implementation establishes architectural and implementation
+support. It does not establish successful execution of security test cases,
+confirmed security findings, Evidence Framework completion, regression
+validation, or CI/CD validation.
+```
+
+---
+
+# Änderung 6 — Phase-3 Status muss auch inhaltlich korrekt abgeschlossen werden
+
+Direkt nach dem neuen Absatz aus Änderung 5 einfügen:
+
+```text
+**\*\*Status: COMPLETED\*\***
+
+The Phase-3 Completion Gate has been fulfilled for the defined Security Test
+Architecture scope. The resulting architecture, implementation mapping,
+domain integration, and architectural boundaries have been documented.
+
+Phase 3 completion does not imply completion of Phase 4 Evidence Framework,
+Phase 5 Core Security Test Cases, later finding and regression workflows,
+CI/CD validation, or real ECU / vehicle validation.
+```
+
+---
+
+## Änderung 7 — Abschnitt `## 19. Project Definition Summary`
+
+Hier besteht eine konkrete Inkonsistenz.
+
+Der bestehende Eintrag:
+
+```text
+CURRENT IMPLEMENTATION
+
+    Selected Python-based security tools, test structures,
+
+    documentation and assessment artifacts
+```
+
+ersetzen durch:
+
+```text
+CURRENT IMPLEMENTATION
+
+    Selected Python-based security tools, common security-test
+
+    architecture components, test structures, documentation,
+
+    and assessment artifacts
+```
+
+### `CURRENT VERIFICATION` nicht ändern
+
+Dieser Teil:
+
+```text
+CURRENT VERIFICATION
+
+    Not established; assessed separately from implementation
+```
+
+bleibt **unverändert**, weil die Implementierung der Phase-3-Architektur nicht mit einer vollständigen Verifikation des Projekts gleichzusetzen ist.
+
+---
+
+# Änderung 8 — Phase-3 `Expected Phase Result`
+
+Der bestehende Abschnitt:
+
+```text
+**\*\*Expected Phase Result :\*\*** A consistent Security Test Architecture defines test organization, domain separation, reusable test structures, execution interfaces, and the relationship between tests and assessment objectives.
+```
+
+bleibt **unverändert**.
+
+Das ist wichtig, weil dies weiterhin die **ursprüngliche Zieldefinition** der Phase beschreibt und nicht durch den erreichten Status ersetzt werden sollte.
+
+---
+
+## Ergebnis der Änderungen
+
+Damit wird ausschließlich der inzwischen eingetretene Phase-3-Delta abgebildet:
+
+```text
+Phase 3
+
+Security Test Architecture
+
+        |
+
+        +-- Architecture Definition
+        |       → ESTABLISHED
+        |
+        +-- Common Test Architecture
+        |       → IMPLEMENTED
+        |
+        +-- Test Runner
+        |       → IMPLEMENTED
+        |
+        +-- Domain Adapters
+        |       → IMPLEMENTED
+        |
+        +-- Execution Interface
+        |       → IMPLEMENTED
+        |
+        +-- Target / Model Boundary
+        |       → IMPLEMENTED
+        |
+        +-- Observation / Result
+        |       → IMPLEMENTED
+        |
+        +-- Oracle / Evaluation
+        |       → IMPLEMENTED
+        |
+        +-- Traceability
+        |       → IMPLEMENTED
+        |
+        +-- CAN / UDS / Firmware / Ethernet Integration
+        |       → IMPLEMENTED
+        |
+        +-- Security Test Execution
+        |       → NOT ESTABLISHED AS GENERAL PROJECT STATE
+        |
+        +-- Evidence Framework
+        |       → PHASE 4
+        |
+        +-- Core Security Test Cases
+        |       → PHASE 5
+        |
+        +-- Regression
+        |       → PHASE 9
+        |
+        +-- CI/CD
+        |       → PHASE 10
+```
+
+The Phase-3 Completion Gate has been fulfilled for the defined Security Test Architecture scope. The resulting architecture, implementation mapping,
+domain integration, and architectural boundaries have been documented.
 
 ## 20.4 Phase 4 - Evidence Framework
 

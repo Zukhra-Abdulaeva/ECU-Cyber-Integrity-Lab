@@ -3,7 +3,8 @@ __pycache__/
 *.py[cod]
 .pytest_cache/
 
+code.sh
 project_files.txt
 security_files.txt
-Review_Phase_Completion_Gate.txt
+Review_Phase_Completion_Gate.md
 PhasenDefinition_MetaGovernance.md

@@ -571,33 +571,36 @@ This architectural boundary is separate from the current project status. The cur
 The project defines a common test architecture for security-test activities:
 
 ```text
-Security Requirement
-        |
-        v
-Threat / Attack Hypothesis
-        |
-        v
+Assessment Objective
+    |
+    v
+Security Objective / Property
+    |
+    v
+Test Objective
+    |
+    v
 Security Test Case
-        |
-        v
+    |
+    v
 Test Runner
-        |
-        v
+    |
+    v
 Domain Adapter
-        |
-        v
-CAN / UDS / Firmware / Ethernet
-        |
-        v
+    |
+    v
+Domain Module
+    |
+    v
 Target / Model
-        |
-        v
+    |
+    v
 Observation
-        |
-        v
+    |
+    v
 Evidence
-        |
-        v
+    |
+    v
 Result
 ```
 
@@ -719,6 +722,145 @@ Regression
 The complete sequence is not required for every individual activity.
 
 It defines the relationship between the engineering stages and provides the basis for traceability.
+
+### 10.1 Common Test-Case Model
+
+The common Test Case model provides a stable structure for security-test definitions.
+
+The common structure contains:
+
+Test Identifier
+Test Name
+Security Domain
+Assessment Objective
+Security Objective / Property
+Test Objective
+Preconditions
+Inputs
+Actions
+Expected Behaviour
+Oracle / Evaluation Criteria
+Validity Scope
+Applicable Target / Model
+
+The Test Case definition remains separate from actual execution and observation.
+
+### 10.2 Test Runner
+
+The Test Runner provides the common execution-control boundary.
+
+Its responsibilities include:
+
+Test selection
+Initialization
+Precondition handling
+Execution control
+Lifecycle handling
+Result collection
+Execution status
+Error / exception handling
+Completion handling
+
+Domain-specific protocol and target interaction remain outside the common Test Runner.
+
+### 10.3 Domain Adapter
+
+The Domain Adapter provides the integration boundary between the common test architecture and the domain-specific implementation.
+
+Concrete adapters are established for:
+
+CAN
+UDS
+Firmware
+Ethernet
+
+### 10.4 Execution Interface
+
+The common execution interface defines the contract for:
+
+Initialization
+Precondition handling
+Target / Model access
+Input handling
+Execution request
+Observation retrieval
+Execution status
+Error handling
+Result handoff
+
+### 10.5 Target / Model Context
+
+Target information is represented separately from the execution mechanism.
+
+The common target context preserves the distinction between the technical target/model and the execution mechanism.
+
+### 10.6 Observation and Result
+
+Observation and Result are separate technical concepts.
+
+The common result states are:
+
+PASS
+FAIL
+NOT_RUN
+INCONCLUSIVE
+BLOCKED
+
+A result is evaluated from execution, observation and the defined oracle/evaluation criteria.
+
+### 10.7 Oracle / Evaluation
+
+The common architecture provides an explicit oracle/evaluation boundary:
+
+Test Objective
+    |
+    v
+Expected Behaviour
+    |
+    v
+Oracle / Evaluation Criteria
+    |
+    v
+Actual Observation
+    |
+    v
+Result
+
+### 10.8 Traceability
+
+The common architecture maintains the relationship:
+
+Assessment Objective
+    |
+    v
+Security Objective / Property
+    |
+    v
+Test Objective
+    |
+    v
+Test Case
+    |
+    v
+Execution
+    |
+    v
+Observation
+    |
+    v
+Result
+
+### 10.9 Logging Boundary
+
+Logging remains an execution-support function.
+
+Logging does not itself constitute an Observation or Result.
+
+### 10.10 Reporting Boundary
+
+Reporting consumes test results.
+
+Reporting does not establish execution and does not create a result without an underlying result state.
 
 ---
 
