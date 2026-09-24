@@ -1611,23 +1611,22 @@ The Phase-3 repository mapping establishes the relationship between existing rep
 
 The mapping reflects the repository structure reviewed during Phase 3 and distinguishes existing implementation from architectural responsibilities that are defined but not yet implemented.
 
-| Component | Role | Domain | Status | Limitation | Relationship |
-|----------|------|--------|--------|------------|--------------|
-| `01_framework/base_test.py` | Common Test Framework Support | Common | IMPLEMENTED | Existing common test framework support is retained within the common security‑test architecture. | Security Test Case → Test Runner |
-| `01_framework/logger.py` | Logging Support | Common | IMPLEMENTED | Common logging boundary is established through the Phase‑3 architecture. | Test Execution → Logging Boundary |
-| `01_framework/config.py` | Configuration Support | Common | NOT IMPLEMENTED AS COMMON ARCHITECTURE | Configuration exists, but no common execution configuration architecture is established. | Test Runner / Execution Interface → Configuration |
-| `01_framework/report_generator.py` | Reporting Component | Common | IMPLEMENTED | Reporting integrated with common test‑result architecture; existing finding/module reporting preserved. | Result → Reporting |
-| `02_security_tests/can/` | Domain Module | CAN | IMPLEMENTED | Integrated through common CAN Domain Adapter architecture. | Test Runner → CAN Domain Adapter → CAN Domain Module |
-| `02_security_tests/uds/` | Domain Module | UDS | IMPLEMENTED | Integrated through common UDS Domain Adapter architecture. | Test Runner → UDS Domain Adapter → UDS Domain Module |
-| `02_security_tests/firmware/` | Domain Module | Firmware | IMPLEMENTED | Artifact analysis integrated through Firmware Domain Adapter architecture. | Test Runner → Firmware Domain Adapter → Firmware Domain Module |
-| `02_security_tests/ethernet/` | Domain Module | Automotive Ethernet | IMPLEMENTED | Network scanning integrated through Ethernet Domain Adapter architecture. | Test Runner → Ethernet Domain Adapter → Ethernet Domain Module |
-| `02_security_tests/can/test_can_sniffer.py` | Existing Domain Test Structure | CAN | PARTIALLY IMPLEMENTED | Domain‑specific; does not establish Phase‑3 Test Case model. | Test Case → Test Runner → CAN Domain Module |
-| `02_security_tests/uds/test_uds_security.py` | Existing Domain Test Structure | UDS | PARTIALLY IMPLEMENTED | Domain‑specific; does not establish Phase‑3 Test Case model. | Test Case → Test Runner → UDS Domain Module |
-| `02_security_tests/firmware/test_firmware_validator.py` | Existing Domain Test Structure | Firmware | PARTIALLY IMPLEMENTED | Domain‑specific; does not establish Phase‑3 Test Case model. | Test Case → Test Runner → Firmware Domain Module |
-| `02_security_tests/ethernet/test_ethernet_scan.py` | Existing Domain Test Structure | Automotive Ethernet | PARTIALLY IMPLEMENTED | Domain‑specific; does not establish Phase‑3 Test Case model. | Test Case → Test Runner → Ethernet Domain Module |
-| `03_evidence/<domain>/` | Evidence Artifact Structure | Domain‑specific | EXISTING STRUCTURE | Existing artifacts do not establish Phase‑4 Evidence Framework. | Execution / Observation → Evidence Boundary |
-| `05_security_reports/` | Reporting Artifacts | Common | EXISTING STRUCTURE | Existing reports do not establish common Phase‑3 result/reporting architecture. | Result → Reporting |
-
+| Component                                               | Role                             | Domain             | Status                                   | Limitation                                                                                   | Relationship                                           |
+|---------------------------------------------------------|----------------------------------|-------------------- |------------------------|--------------------------------------------------------------------------------|--------------------------------------------------|
+| `01_framework/base_test.py`                             | Common Test Framework Support    | Common              | IMPLEMENTED            | Common test framework support retained in common architecture                  | Security Test Case → Test Runner                 |
+| `01_framework/logger.py`                                | Logging Support                  | Common              | IMPLEMENTED            | Logging boundary established through Phase‑3 architecture                      | Test Execution → Logging Boundary                |
+| `01_framework/config.py`                                | Configuration Support            | Common              | NOT COMMON ARCHITECTURE| Exists, but no common execution configuration architecture                     | Test Runner / Execution Interface → Configuration|
+| `01_framework/report_generator.py`                      | Reporting Component              | Common              | IMPLEMENTED            | Integrated with common test‑result architecture                                | Result → Reporting                               |
+| `02_security_tests/can/`                                | Domain Module                    | CAN                 | IMPLEMENTED            | Integrated through CAN Domain Adapter                                          | Test Runner → CAN Domain Adapter → CAN Module    |
+| `02_security_tests/uds/`                                | Domain Module                    | UDS                 | IMPLEMENTED            | Integrated through UDS Domain Adapter                                          | Test Runner → UDS Domain Adapter → UDS Module    |
+| `02_security_tests/firmware/`                           | Domain Module                    | Firmware            | IMPLEMENTED            | Artifact analysis integrated through Firmware Domain Adapter                   | Test Runner → Firmware Domain Adapter → Firmware |
+| `02_security_tests/ethernet/`                           | Domain Module                    | Automotive Ethernet | IMPLEMENTED            | Network scanning integrated through Ethernet Domain Adapter                    | Test Runner → Ethernet Domain Adapter → Ethernet |
+| `02_security_tests/can/test_can_sniffer.py`             | Existing Domain Test Structure   | CAN                 | PARTIALLY IMPLEMENTED  | Domain‑specific; does not establish Phase‑3 Test Case model                    | Test Case → Test Runner → CAN Module             |
+| `02_security_tests/uds/test_uds_security.py`            | Existing Domain Test Structure   | UDS                 | PARTIALLY IMPLEMENTED  | Domain‑specific; does not establish Phase‑3 Test Case model                    | Test Case → Test Runner → UDS Module             |
+| `02_security_tests/firmware/test_firmware_validator.py` | Existing Domain Test Structure   | Firmware            | PARTIALLY IMPLEMENTED  | Domain‑specific; does not establish Phase‑3 Test Case model                    | Test Case → Test Runner → Firmware Module        |
+| `02_security_tests/ethernet/test_ethernet_scan.py`      | Existing Domain Test Structure   | Automotive Ethernet | PARTIALLY IMPLEMENTED  | Domain‑specific; does not establish Phase‑3 Test Case model                    | Test Case → Test Runner → Ethernet Module        |
+| `03_evidence/<domain>/`                                 | Evidence Artifact Structure      | Domain‑specific     | EXISTING STRUCTURE     | Existing artifacts do not establish Phase‑4 Evidence Framework                 | Execution / Observation → Evidence Boundary      |
+| `05_security_reports/`                                  | Reporting Artifacts              | Common              | EXISTING STRUCTURE     | Existing reports do not establish common Phase‑3 result/reporting architecture | Result → Reporting                               |
 
 Architecture DELTA Implementation
 - Identified architecture deviations D1–D11.
