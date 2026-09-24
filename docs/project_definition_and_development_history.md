@@ -286,8 +286,8 @@ The detailed current Repository, Test, Execution, Evidence, and Verification sit
   </thead>
   <tbody>
 
-    <!-- 01_framework -->
-    <tr style="background-color:#ffffff;">
+<!-- 01_framework -->
+<tr style="background-color:#ffffff;">
       <td><code>01_framework/base_test.py</code></td>
       <td>Common Test Framework Support</td>
       <td>Common</td>
@@ -296,7 +296,7 @@ The detailed current Repository, Test, Execution, Evidence, and Verification sit
       <td>Security Test Case → Test Runner</td>
     </tr>
 
-    <tr style="background-color:#f9f9f9;">
+<tr style="background-color:#f9f9f9;">
       <td><code>01_framework/logger.py</code></td>
       <td>Logging Support</td>
       <td>Common</td>
@@ -305,7 +305,7 @@ The detailed current Repository, Test, Execution, Evidence, and Verification sit
       <td>Test Execution → Logging Boundary</td>
     </tr>
 
-    <tr style="background-color:#ffffff;">
+<tr style="background-color:#ffffff;">
       <td><code>01_framework/config.py</code></td>
       <td>Configuration Support</td>
       <td>Common</td>
@@ -314,7 +314,7 @@ The detailed current Repository, Test, Execution, Evidence, and Verification sit
       <td>Test Runner / Execution Interface → Configuration</td>
     </tr>
 
-    <tr style="background-color:#f9f9f9;">
+<tr style="background-color:#f9f9f9;">
       <td><code>01_framework/report_generator.py</code></td>
       <td>Reporting Component</td>
       <td>Common</td>
@@ -323,8 +323,8 @@ The detailed current Repository, Test, Execution, Evidence, and Verification sit
       <td>Result → Reporting</td>
     </tr>
 
-    <!-- 02_security_tests domain modules -->
-    <tr style="background-color:#ffffff;">
+<!-- 02_security_tests domain modules -->
+<tr style="background-color:#ffffff;">
       <td><code>02_security_tests/can/</code></td>
       <td>Domain Module</td>
       <td>CAN</td>
@@ -333,7 +333,7 @@ The detailed current Repository, Test, Execution, Evidence, and Verification sit
       <td>Test Runner → CAN Domain Adapter → CAN Domain Module</td>
     </tr>
 
-    <tr style="background-color:#f9f9f9;">
+<tr style="background-color:#f9f9f9;">
       <td><code>02_security_tests/uds/</code></td>
       <td>Domain Module</td>
       <td>UDS</td>
@@ -342,7 +342,7 @@ The detailed current Repository, Test, Execution, Evidence, and Verification sit
       <td>Test Runner → UDS Domain Adapter → UDS Domain Module</td>
     </tr>
 
-    <tr style="background-color:#ffffff;">
+<tr style="background-color:#ffffff;">
       <td><code>02_security_tests/firmware/</code></td>
       <td>Domain Module</td>
       <td>Firmware</td>
@@ -351,7 +351,7 @@ The detailed current Repository, Test, Execution, Evidence, and Verification sit
       <td>Test Runner → Firmware Domain Adapter → Firmware Domain Module</td>
     </tr>
 
-    <tr style="background-color:#f9f9f9;">
+<tr style="background-color:#f9f9f9;">
       <td><code>02_security_tests/ethernet/</code></td>
       <td>Domain Module</td>
       <td>Automotive Ethernet</td>
@@ -360,8 +360,8 @@ The detailed current Repository, Test, Execution, Evidence, and Verification sit
       <td>Test Runner → Ethernet Domain Adapter → Ethernet Domain Module</td>
     </tr>
 
-    <!-- Existing domain test structures -->
-    <tr style="background-color:#ffffff;">
+<!-- Existing domain test structures -->
+<tr style="background-color:#ffffff;">
       <td><code>02_security_tests/can/test_can_sniffer.py</code></td>
       <td>Existing Domain Test Structure</td>
       <td>CAN</td>
@@ -370,7 +370,7 @@ The detailed current Repository, Test, Execution, Evidence, and Verification sit
       <td>Test Case → Test Runner → CAN Domain Module</td>
     </tr>
 
-    <tr style="background-color:#f9f9f9;">
+<tr style="background-color:#f9f9f9;">
       <td><code>02_security_tests/uds/test_uds_security.py</code></td>
       <td>Existing Domain Test Structure</td>
       <td>UDS</td>
@@ -379,7 +379,7 @@ The detailed current Repository, Test, Execution, Evidence, and Verification sit
       <td>Test Case → Test Runner → UDS Domain Module</td>
     </tr>
 
-    <tr style="background-color:#ffffff;">
+<tr style="background-color:#ffffff;">
       <td><code>02_security_tests/firmware/test_firmware_validator.py</code></td>
       <td>Existing Domain Test Structure</td>
       <td>Firmware</td>
@@ -388,7 +388,7 @@ The detailed current Repository, Test, Execution, Evidence, and Verification sit
       <td>Test Case → Test Runner → Firmware Domain Module</td>
     </tr>
 
-    <tr style="background-color:#f9f9f9;">
+<tr style="background-color:#f9f9f9;">
       <td><code>02_security_tests/ethernet/test_ethernet_scan.py</code></td>
       <td>Existing Domain Test Structure</td>
       <td>Automotive Ethernet</td>
@@ -397,8 +397,8 @@ The detailed current Repository, Test, Execution, Evidence, and Verification sit
       <td>Test Case → Test Runner → Ethernet Domain Module</td>
     </tr>
 
-    <!-- Evidence -->
-    <tr style="background-color:#ffffff;">
+<!-- Evidence -->
+<tr style="background-color:#ffffff;">
       <td><code>03_evidence/&lt;domain&gt;/</code></td>
       <td>Evidence Artifact Structure</td>
       <td>Domain-specific</td>
@@ -407,8 +407,8 @@ The detailed current Repository, Test, Execution, Evidence, and Verification sit
       <td>Execution / Observation → Evidence Boundary</td>
     </tr>
 
-    <!-- Reports -->
-    <tr style="background-color:#f9f9f9;">
+<!-- Reports -->
+ <tr style="background-color:#f9f9f9;">
       <td><code>05_security_reports/</code></td>
       <td>Reporting Artifacts</td>
       <td>Common</td>
@@ -1776,6 +1776,148 @@ The mapping reflects the repository structure reviewed during Phase 3 and distin
 | `02_security_tests/ethernet/test_ethernet_scan.py` | Existing Domain Test Structure | Automotive Ethernet | PARTIALLY IMPLEMENTED | Existing test structure is domain-specific and does not establish the common Phase-3 Test Case model. | Test Case → Test Runner → Ethernet Domain Module |
 | `03_evidence/<domain>/` | Evidence Artifact Structure | Domain-specific | EXISTING STRUCTURE | Existing artifacts do not establish the Phase-4 Evidence Framework. | Execution / Observation → Evidence Boundary |
 | `05_security_reports/` | Reporting Artifacts | Common | EXISTING STRUCTURE | Existing reports do not establish the common Phase-3 result or reporting architecture. | Result → Reporting |
+
+<table style="width:100%; border-collapse:collapse;">
+  <thead style="background-color:#f6f8fa;">
+    <tr>
+      <th>Existing Component</th>
+      <th>Architecture Role</th>
+      <th>Domain</th>
+      <th>Current Implementation Status</th>
+      <th>Relevant Limitation</th>
+      <th>Required Architectural Relationship</th>
+    </tr>
+  </thead>
+  <tbody>
+
+<tr style="background-color:#ffffff;">
+      <td><code>01_framework/base_test.py</code></td>
+      <td>Common Test Framework Support</td>
+      <td>Common</td>
+      <td><b style="color:#22863a;">IMPLEMENTED</b></td>
+      <td>Existing common test framework support<br>is retained within the common security-test architecture.</td>
+      <td>Security Test Case → Test Runner</td>
+    </tr>
+
+<tr style="background-color:#f9f9f9;">
+      <td><code>01_framework/logger.py</code></td>
+      <td>Logging Support</td>
+      <td>Common</td>
+      <td><b style="color:#22863a;">IMPLEMENTED</b></td>
+      <td>Common logging boundary is established<br>through the Phase‑3 architecture.</td>
+      <td>Test Execution → Logging Boundary</td>
+    </tr>
+
+<tr style="background-color:#ffffff;">
+      <td><code>01_framework/config.py</code></td>
+      <td>Configuration Support</td>
+      <td>Common</td>
+      <td><b style="color:#d73a49;">NOT IMPLEMENTED AS COMMON ARCHITECTURE</b></td>
+      <td>Configuration support exists as a repository component,<br>but no common execution configuration architecture is established.</td>
+      <td>Test Runner / Execution Interface → Configuration</td>
+    </tr>
+
+<tr style="background-color:#f9f9f9;">
+      <td><code>01_framework/report_generator.py</code></td>
+      <td>Reporting Component</td>
+      <td>Common</td>
+      <td><b style="color:#22863a;">IMPLEMENTED</b></td>
+      <td>Existing reporting is integrated with the common test-result architecture<br>while preserving existing finding and module reporting.</td>
+      <td>Result → Reporting</td>
+    </tr>
+
+<tr style="background-color:#ffffff;">
+      <td><code>02_security_tests/can/</code></td>
+      <td>Domain Module</td>
+      <td>CAN</td>
+      <td><b style="color:#22863a;">IMPLEMENTED</b></td>
+      <td>Domain-specific implementation is integrated<br>through the common CAN Domain Adapter architecture.</td>
+      <td>Test Runner → CAN Domain Adapter → CAN Domain Module</td>
+    </tr>
+
+<tr style="background-color:#f9f9f9;">
+      <td><code>02_security_tests/uds/</code></td>
+      <td>Domain Module</td>
+      <td>UDS</td>
+      <td><b style="color:#22863a;">IMPLEMENTED</b></td>
+      <td>Domain-specific implementation is integrated<br>through the common UDS Domain Adapter architecture.</td>
+      <td>Test Runner → UDS Domain Adapter → UDS Domain Module</td>
+    </tr>
+
+<tr style="background-color:#ffffff;">
+      <td><code>02_security_tests/firmware/</code></td>
+      <td>Domain Module</td>
+      <td>Firmware</td>
+      <td><b style="color:#22863a;">IMPLEMENTED</b></td>
+      <td>Domain-specific artifact analysis is integrated<br>through the common Firmware Domain Adapter architecture.</td>
+      <td>Test Runner → Firmware Domain Adapter → Firmware Domain Module</td>
+    </tr>
+
+<tr style="background-color:#f9f9f9;">
+      <td><code>02_security_tests/ethernet/</code></td>
+      <td>Domain Module</td>
+      <td>Automotive Ethernet</td>
+      <td><b style="color:#22863a;">IMPLEMENTED</b></td>
+      <td>Domain-specific network scanning is integrated<br>through the common Ethernet Domain Adapter architecture.</td>
+      <td>Test Runner → Ethernet Domain Adapter → Ethernet Domain Module</td>
+    </tr>
+
+<tr style="background-color:#ffffff;">
+      <td><code>02_security_tests/can/test_can_sniffer.py</code></td>
+      <td>Existing Domain Test Structure</td>
+      <td>CAN</td>
+      <td><b style="color:#fb8c00;">PARTIALLY IMPLEMENTED</b></td>
+      <td>Existing test structure is domain-specific<br>and does not establish the common Phase‑3 Test Case model.</td>
+      <td>Test Case → Test Runner → CAN Domain Module</td>
+    </tr>
+
+<tr style="background-color:#f9f9f9;">
+      <td><code>02_security_tests/uds/test_uds_security.py</code></td>
+      <td>Existing Domain Test Structure</td>
+      <td>UDS</td>
+      <td><b style="color:#fb8c00;">PARTIALLY IMPLEMENTED</b></td>
+      <td>Existing test structure is domain-specific<br>and does not establish the common Phase‑3 Test Case model.</td>
+      <td>Test Case → Test Runner → UDS Domain Module</td>
+    </tr>
+
+<tr style="background-color:#ffffff;">
+      <td><code>02_security_tests/firmware/test_firmware_validator.py</code></td>
+      <td>Existing Domain Test Structure</td>
+      <td>Firmware</td>
+      <td><b style="color:#fb8c00;">PARTIALLY IMPLEMENTED</b></td>
+      <td>Existing test structure is domain-specific<br>and does not establish the common Phase‑3 Test Case model.</td>
+      <td>Test Case → Test Runner → Firmware Domain Module</td>
+    </tr>
+
+<tr style="background-color:#f9f9f9;">
+      <td><code>02_security_tests/ethernet/test_ethernet_scan.py</code></td>
+      <td>Existing Domain Test Structure</td>
+      <td>Automotive Ethernet</td>
+      <td><b style="color:#fb8c00;">PARTIALLY IMPLEMENTED</b></td>
+      <td>Existing test structure is domain-specific<br>and does not establish the common Phase‑3 Test Case model.</td>
+      <td>Test Case → Test Runner → Ethernet Domain Module</td>
+    </tr>
+
+<tr style="background-color:#ffffff;">
+      <td><code>03_evidence/&lt;domain&gt;/</code></td>
+      <td>Evidence Artifact Structure</td>
+      <td>Domain-specific</td>
+      <td><b style="color:#6a737d;">EXISTING STRUCTURE</b></td>
+      <td>Existing artifacts do not establish<br>the Phase‑4 Evidence Framework.</td>
+      <td>Execution / Observation → Evidence Boundary</td>
+    </tr>
+
+<tr style="background-color:#f9f9f9;">
+      <td><code>05_security_reports/</code></td>
+      <td>Reporting Artifacts</td>
+      <td>Common</td>
+      <td><b style="color:#6a737d;">EXISTING STRUCTURE</b></td>
+      <td>Existing reports do not establish<br>the common Phase‑3 result or reporting architecture.</td>
+      <td>Result → Reporting</td>
+    </tr>
+
+  </tbody>
+</table>
 
 Architecture DELTA Implementation
 - Identified architecture deviations D1–D11.
