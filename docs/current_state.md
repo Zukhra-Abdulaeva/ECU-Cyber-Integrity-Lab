@@ -232,21 +232,13 @@ The framework components are:
 01_framework/
 
 ├── __init__.py
-
 ├── base_test.py
-
 ├── config.py
-
 ├── logger.py
-
 ├── logging_boundary.py
-
 ├── report_generator.py
-
-├── runner.py
-
+├── runner.p
 ├── test_architecture.py
-
 └── traceability.py
 ```
 
@@ -256,13 +248,9 @@ The CAN security-test components are:
 02_security_tests/can/
 
 ├── __init__.py
-
 ├── adapter.py
-
 ├── can_sniffer.py
-
 ├── send_fake_can.py
-
 └── test_can_sniffer.py
 ```
 
@@ -272,11 +260,8 @@ The Ethernet security-test components are:
 02_security_tests/ethernet/
 
 ├── __init__.py
-
 ├── adapter.py
-
 ├── ethernet_scan.py
-
 └── test_ethernet_scan.py
 ```
 
@@ -286,11 +271,8 @@ The firmware security-test components are:
 02_security_tests/firmware/
 
 ├── __init__.py
-
 ├── adapter.py
-
 ├── firmware_validator.py
-
 └── test_firmware_validator.py
 ```
 
@@ -300,11 +282,8 @@ The UDS security-test components are:
 02_security_tests/uds/
 
 ├── __init__.py
-
 ├── adapter.py
-
 ├── uds_security.py
-
 └── test_uds_security.py
 ```
 
@@ -314,11 +293,8 @@ Example material is located in:
 04_examples/
 
 ├── firmware_review.md
-
 ├── risk_assessment.md
-
 ├── threat_model.md
-
 └── uds_test.md
 ```
 
@@ -328,11 +304,8 @@ Security-report material is located in:
 05_security_reports/
 
 ├── example_output_security_assessment.txt
-
 ├── security_assessment.json
-
 ├── security_report.html
-
 └── security_report.md
 ```
 
@@ -342,15 +315,10 @@ The current documentation structure is:
 docs/
 
 ├── White-Box-Ansatz.png
-
 ├── architecture_decisions.md
-
 ├── current_state.md
-
 ├── environment.md
-
 ├── project_definition_and_development_history.md
-
 ├── testing.md
 ```
 
@@ -456,13 +424,9 @@ The current implementation references the following ports:
 
 ```text
 22
-
 80
-
 443
-
 13400
-
 30490
 ```
 
@@ -901,29 +865,17 @@ The Q2 classification reflects the current engineering state and does not repres
 The remaining project work includes:
 
 * Resolve existing implementation and integration inconsistencies.
-
 * Establish executable pytest coverage.
-
 * Establish reproducible test execution.
-
 * Establish unified evidence handling.
-
 * Establish complete execution-to-evidence traceability.
-
 * Extend security-test coverage.
-
 * Establish an evidence-backed finding workflow.
-
 * Establish the root-cause analysis workflow.
-
 * Establish mitigation and retest workflow.
-
 * Establish regression capability.
-
 * Establish CI/CD.
-
 * Establish packaging.
-
 * Perform the final technical review.
 
 Additional planned security-test areas remain defined in the project scope and are not considered implemented until corresponding implementation, execution and verification are established.
