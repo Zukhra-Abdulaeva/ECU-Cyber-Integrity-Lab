@@ -69,9 +69,11 @@ Mitigation
 Retest / Verification
 ```
 
-This chain defines the current common security-test architecture and its relationship between assessment objectives, test objectives, execution responsibilities, observations, results and subsequent evidence and assessment activities.
+This chain defines the intended relationship between assessment objectives, test objectives, execution responsibilities, observations, results and subsequent evidence and assessment activities.
 
-The common security-test architecture is established. The Evidence Framework now provides the defined evidence-record, provenance, validation, association, lifecycle and integrity boundaries required for subsequent execution-linked evidence. Complete implementation-to-test-to-evidence-to-finding lifecycle integration is not yet established.
+The current repository contains domain-specific test implementations and adapters, but the complete Phase-3 common architecture referenced by the historical/documented mapping is not present in the current repository snapshot.
+
+The Evidence Framework provides the defined evidence-record, provenance, validation, association, lifecycle and integrity boundaries required for subsequent execution-linked evidence. Complete implementation-to-test-to-evidence-to-finding lifecycle integration is not yet established.
 
 ### 3.3 Scope Classification
 
@@ -163,6 +165,22 @@ The current repository does not establish such a complete real-world validation 
 | Previous phase  | Phase 3 — Security Test Architecture |
 | Next phase      | Phase 5 — Core Security Test Cases   |
 
+The Phase-4 Evidence Framework establishes:
+
+| Component                     | Current State |
+| ----------------------------- | ------------- |
+| Evidence Record               | ESTABLISHED   |
+| Stable Evidence Identifier    | ESTABLISHED   |
+| Provenance Model              | ESTABLISHED   |
+| Context Classification        | ESTABLISHED   |
+| Validation Model              | ESTABLISHED   |
+| Association Model             | ESTABLISHED   |
+| Evidence Lifecycle            | ESTABLISHED   |
+| Evidence Storage              | ESTABLISHED   |
+| Integrity Handling            | ESTABLISHED   |
+| Evidence Traceability         | ESTABLISHED   |
+| Documentation Synchronization | ESTABLISHED   |
+
 | Architecture state              | Current state                            |
 | ------------------------------- | ---------------------------------------- |
 | Common Test Case Model          | NOT PRESENT                              |
@@ -240,26 +258,25 @@ README.md
 requirements.txt
 ```
 
-The framework components are:
+The currently present framework components are:
 
 ```text
 a_framework/
+
 ├── __init__.py
 ├── base_test.py
 ├── config.py
+├── evidence.py
 ├── logger.py
-├── logging_boundary.py
 ├── report_generator.py
-├── runner.p
-├── test_architecture.py
-├── test_evidence.py
-└── traceability.py
+└── test_evidence.py
 ```
 
-The CAN security-test components are:
+The current CAN security-test components are:
 
 ```text
 b_security_tests/can_tests/
+
 ├── __init__.py
 ├── adapter.py
 ├── can_sniffer.py
@@ -267,30 +284,33 @@ b_security_tests/can_tests/
 └── test_can_sniffer.py
 ```
 
-The Ethernet security-test components are:
+The current Ethernet security-test components are:
 
 ```text
 b_security_tests/ethernet_tests/
+
 ├── __init__.py
 ├── adapter.py
 ├── ethernet_scan.py
 └── test_ethernet_scan.py
 ```
 
-The firmware security-test components are:
+The current firmware security-test components are:
 
 ```text
 b_security_tests/firmware_tests/
+
 ├── __init__.py
 ├── adapter.py
 ├── firmware_validator.py
 └── test_firmware_validator.py
 ```
 
-The UDS security-test components are:
+The current UDS security-test components are:
 
 ```text
 b_security_tests/uds_tests/
+
 ├── __init__.py
 ├── adapter.py
 ├── uds_security.py
@@ -301,6 +321,7 @@ Example material is located in:
 
 ```text
 d_examples/
+
 ├── firmware_review.md
 ├── risk_assessment.md
 ├── threat_model.md
@@ -311,31 +332,44 @@ Security-report material is located in:
 
 ```text
 e_security_reports/
+
 ├── example_output_security_assessment.txt
 ├── security_assessment.json
 ├── security_report.html
 └── security_report.md
 ```
 
-The current documentation structure is:
+The current documentation structure includes:
 
 ```text
 docs/
+
 ├── White-Box-Ansatz.png
 ├── architecture_decisions.md
+├── assessment_objective_traceability_model.md
 ├── current_state.md
+├── domain_architecture_matrix.md
 ├── environment.md
+├── ecu_security_domain_model.md
 ├── evidence.md
+├── execution_interface_definition.md
 ├── project_definition_and_development_history.md
-├── testing.md
+├── security_test_architecture_definition.md
+├── test_lifecycle_definition.md
+├── test_responsibility_matrix.md
+└── testing.md
 ```
 
-The evidence structure additionally contains:
+The evidence verification structure currently contains:
 
 ```text
 c_evidence/
-├── records/
+
+├── can/
+├── ethernet/
+├── firmware/
 ├── reports/
+├── uds/
 └── verification/
 ```
 
@@ -343,44 +377,49 @@ Phase-4 verification artifacts include:
 
 ```text
 c_evidence/verification/
+
 ├── EV-P4-VER-001_test_execution.txt
 ├── EV-P4-VER-002_test_intent.txt
 ├── EV-P4-VER-003_test_framework.txt
-└── EV-P4-VER-004_framework_test_execution.txt
+├── EV-P4-VER-004_framework_test_execution.txt
+└── integration_notes.md
 ```
 
 Corresponding evidence records are stored under:
 
 ```text
 c_evidence/reports/
+
 ├── EV-P4-VER-001.json
 ├── EV-P4-VER-002.json
 ├── EV-P4-VER-003.json
 └── EV-P4-VER-004.json
 ```
 
+Domain evidence is present under:
+
+```text
+c_evidence/can/
+c_evidence/uds/
+c_evidence/ethernet/
+c_evidence/firmware/
+```
+
 ### 6.2 Framework Components
 
-`a_framework/base_test.py` provides a base framework component. The common Phase-3 test architecture is established separately through `test_architecture.py` and `runner.py`.
+`a_framework/base_test.py` provides a base framework component.
 
 `a_framework/evidence.py` provides the Phase-4 Evidence Framework core, including canonical evidence records, stable evidence identifiers, provenance, context classification, validation, association and lifecycle handling.
 
-`a_framework/report_generator.py` expects the following report artifacts:
+`a_framework/report_generator.py` provides report-generation functionality.
 
-```text
-can_capture.json
-uds_report.json
-ethernet_scan.json
-firmware_report.json
-```
+The current repository snapshot does not contain the previously referenced `runner.py`, `test_architecture.py`, `traceability.py` or `logging_boundary.py` framework modules. They are therefore not treated as present in the current implementation state.
 
-The current CAN implementation exports CSV data rather than the expected `can_capture.json`. This represents an existing integration inconsistency between the CAN implementation and the report-generation component.
+The domain adapter files are present under the respective security-test directories, but their presence does not establish the complete Phase-3 common architecture described by the historical/documented mapping.
 
-The common test architecture provides explicit boundaries for Test Case, Test Runner, Domain Adapter, Execution Interface, Target / Model Context, Observation, Result, Oracle / Evaluation, Traceability and logging.
+`a_framework/test_evidence.py` provides the dedicated Phase-4 Evidence Framework verification tests.
 
-The Evidence Framework provides a structured boundary for Evidence Record, Provenance, Context Classification, Validation, Association, Lifecycle, Storage and Integrity.
-
-`config.py` and `logger.py` remain framework support components. The common logging boundary is established through `logging_boundary.py`.
+`a_framework/config.py`, `a_framework/logger.py` and `a_framework/report_generator.py` remain framework support components.
 
 ## 7. Security Test Components
 
@@ -390,30 +429,30 @@ The CAN implementation provides traffic capture, filtering, statistics and CSV e
 
 A CAN test file is present, but its execution is not established as verified.
 
-The current test implementation contains the following import:
+The current CAN implementation and adapter are located under:
 
 ```text
-from can_sniffer.can_sniffer import CANSniffer
+b_security_tests/can_tests/
 ```
 
-The implementation itself is located at:
+Available CAN evidence includes:
 
 ```text
-b_security_tests/can_tests/can_sniffer.py
+c_evidence/can/example_output_can.txt
+c_evidence/can/new_can_capture.json
+c_evidence/can/can_capture.json
 ```
 
-This represents an existing import-path inconsistency.
+The available implementation contains an import-path condition that requires verification during execution.
 
-The CAN implementation is connected to the common Phase-3 execution architecture through the CAN domain adapter.
-
-| Aspect                        | Current state   |
-| ----------------------------- | --------------- |
-| Implementation                | IMPLEMENTED     |
-| Domain Adapter                | IMPLEMENTED     |
-| Test file                     | Present         |
-| Test execution                | NOT VERIFIED    |
-| Security validation           | NOT ESTABLISHED |
-| Real ECU / vehicle validation | NOT ESTABLISHED |
+| Aspect                        | Current state                   |
+| ----------------------------- | ------------------------------- |
+| Implementation                | IMPLEMENTED                     |
+| Domain Adapter                | PRESENT / DEPENDENCY UNRESOLVED |
+| Test file                     | Present                         |
+| Test execution                | NOT VERIFIED                    |
+| Security validation           | NOT ESTABLISHED                 |
+| Real ECU / vehicle validation | NOT ESTABLISHED                 |
 
 ### 7.2 UDS
 
@@ -439,18 +478,30 @@ The implementation provides basic response classification and SecurityAccess cla
 
 A UDS test file exists, but no complete established test implementation is currently available.
 
-The UDS implementation is connected to the common Phase-3 execution architecture through the UDS domain adapter.
+The UDS adapter is present under:
 
-| Aspect                         | Current state   |
-| ------------------------------ | --------------- |
-| Implementation                 | IMPLEMENTED     |
-| Domain Adapter                 | IMPLEMENTED     |
-| SecurityAccess classification  | Basic           |
-| Test file                      | Present         |
-| Test execution                 | NOT VERIFIED    |
-| Security oracle                | Partial         |
-| Security validation            | NOT ESTABLISHED |
-| Real ECU diagnostic validation | NOT ESTABLISHED |
+```text
+b_security_tests/uds_tests/adapter.py
+```
+
+Available UDS evidence includes:
+
+```text
+c_evidence/uds/new_uds_report
+c_evidence/uds/uds_report.json
+c_evidence/uds/example_output_uds_security.txt
+```
+
+| Aspect                         | Current state                   |
+| ------------------------------ | ------------------------------- |
+| Implementation                 | IMPLEMENTED                     |
+| Domain Adapter                 | PRESENT / DEPENDENCY UNRESOLVED |
+| SecurityAccess classification  | Basic                           |
+| Test file                      | Present                         |
+| Test execution                 | NOT VERIFIED                    |
+| Security oracle                | Partial                         |
+| Security validation            | NOT ESTABLISHED                 |
+| Real ECU diagnostic validation | NOT ESTABLISHED                 |
 
 ### 7.3 Ethernet
 
@@ -472,16 +523,26 @@ The Ethernet test file is currently a structural placeholder without an establis
 
 Existing example output is treated as an artifact and not as independently verified current execution.
 
-The Ethernet implementation is connected to the common Phase-3 execution architecture through the Ethernet domain adapter.
+The Ethernet adapter is present under:
 
-| Aspect                        | Current state        |
-| ----------------------------- | -------------------- |
-| Implementation                | IMPLEMENTED          |
-| Domain Adapter                | IMPLEMENTED          |
-| Test file                     | Present / structural |
-| Test execution                | NOT VERIFIED         |
-| Security assessment           | NOT ESTABLISHED      |
-| Production network validation | NOT ESTABLISHED      |
+```text
+b_security_tests/ethernet_tests/adapter.py
+```
+
+Available Ethernet evidence includes:
+
+```text
+c_evidence/ethernet/example_output_ethernet_scan.txt
+```
+
+| Aspect                        | Current state                   |
+| ----------------------------- | ------------------------------- |
+| Implementation                | IMPLEMENTED                     |
+| Domain Adapter                | PRESENT / DEPENDENCY UNRESOLVED |
+| Test file                     | Present / structural            |
+| Test execution                | NOT VERIFIED                    |
+| Security assessment           | NOT ESTABLISHED                 |
+| Production network validation | NOT ESTABLISHED                 |
 
 ### 7.4 Firmware
 
@@ -496,12 +557,26 @@ gateway_ecu_v2.bin
 
 The firmware test file does not currently establish a complete pytest implementation.
 
-The firmware implementation is connected to the common Phase-3 execution architecture through the firmware domain adapter.
+The firmware adapter is present under:
+
+```text
+b_security_tests/firmware_tests/adapter.py
+```
+
+Available firmware evidence includes:
+
+```text
+c_evidence/firmware/example_output_firmware_validator.txt
+c_evidence/firmware/gateway_ecu_v2.bin
+c_evidence/firmware/firmware_report.json
+c_evidence/firmware/gateway_ecu.bin
+c_evidence/firmware/new_firmware_report
+```
 
 | Aspect               | Current state                                     |
 | -------------------- | ------------------------------------------------- |
 | Implementation       | IMPLEMENTED                                       |
-| Domain Adapter       | IMPLEMENTED                                       |
+| Domain Adapter       | PRESENT / DEPENDENCY UNRESOLVED                   |
 | Test file            | Present                                           |
 | Test execution       | NOT VERIFIED                                      |
 | Integrity validation | NOT ESTABLISHED BEYOND AVAILABLE ARTIFACT RESULTS |
@@ -514,16 +589,16 @@ Pytest test files exist for CAN, UDS, Ethernet and firmware.
 
 The complete project test suite has not been established as a verified security-test execution result.
 
-The Phase-3 architecture verification establishes the common test-architecture boundaries and their domain integration, while the Phase-4 verification establishes the functional behavior of the Evidence Framework.
+The Phase-4 verification establishes the functional behavior of the Evidence Framework.
 
 Known structural conditions are:
 
-| Area     | Current condition                     |
-| -------- | ------------------------------------- |
-| CAN      | Import-path mismatch present          |
-| UDS      | Test implementation not established   |
-| Ethernet | Pytest implementation not established |
-| Firmware | Test implementation not established   |
+| Area     | Current condition                                   |
+| -------- | --------------------------------------------------- |
+| CAN      | Test implementation present; execution not verified |
+| UDS      | Test implementation not established                 |
+| Ethernet | Pytest implementation not established               |
+| Firmware | Test implementation not established                 |
 
 The currently available local repository execution produced 14 passed tests, including the targeted Phase-4 framework verification. This does not establish complete project-wide security-test execution or security validation.
 
@@ -531,51 +606,55 @@ The currently available local repository execution produced 14 passed tests, inc
 
 The CAN implementation uses `vcan0` as its default virtual interface and supports fake traffic generation and capture.
 
-Existing evidence includes differing interface conditions, including references to `can0`.
+Existing evidence includes:
 
-The available artifacts therefore represent observations under different execution conditions and do not provide a consistent verified basis for the current CAN environment.
+```text
+c_evidence/can/example_output_can.txt
+c_evidence/can/new_can_capture.json
+c_evidence/can/can_capture.json
+```
+
+The available artifacts represent observations under defined artifact conditions and do not provide a complete verified basis for physical CAN execution.
 
 ### 8.3 UDS Execution
 
-Existing UDS artifacts contain conflicting observations.
+Existing UDS artifacts are available under:
 
-One current report documents no response, while another historical artifact documents a positive SecurityAccess-related result. Example output also contains a positive result.
+```text
+c_evidence/uds/
+```
 
-The available provenance does not establish a single reproducible execution state for these observations.
+including `new_uds_report`, `uds_report.json` and `example_output_uds_security.txt`.
+
+The available artifacts do not establish a single reproducible and independently verified ECU-level execution state.
 
 Current UDS verification is therefore not established.
 
 ### 8.4 Ethernet Execution
 
-Existing example reports document two discovered hosts and three services.
+Existing Ethernet example output is available under:
 
-The execution environment, target and current reproducibility of these results are not independently established.
+```text
+c_evidence/ethernet/example_output_ethernet_scan.txt
+```
 
-The reports therefore remain available execution artifacts rather than verified current security-assessment results.
+The execution environment, target and current reproducibility of this result are not independently established.
+
+The report therefore remains an available execution artifact rather than a verified current security-assessment result.
 
 ### 8.5 Firmware Execution
 
-Available firmware reports contain different execution states.
+Available firmware artifacts include:
 
-A report dated 2026-08-22 documents:
+```text
+c_evidence/firmware/example_output_firmware_validator.txt
+c_evidence/firmware/firmware_report.json
+c_evidence/firmware/new_firmware_report
+```
 
-| Field              | Result                                                             |
-| ------------------ | ------------------------------------------------------------------ |
-| Result             | FAIL                                                               |
-| Expected SHA-256   | `0123456789abcdef`                                                 |
-| Calculated SHA-256 | `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855` |
-| A/B identical      | `TRUE`                                                             |
+The current repository contains firmware binaries and multiple firmware-report artifacts.
 
-A report dated 2026-07-25 documents:
-
-| Field         | Result  |
-| ------------- | ------- |
-| Result        | PASS    |
-| A/B identical | `FALSE` |
-
-The calculated hash in the 2026-08-22 report is consistent with an empty input. No root-cause conclusion is derived from this observation.
-
-The differing reports represent different execution states or conditions and are not consolidated into one current verified firmware conclusion.
+The available artifacts do not establish a single complete and independently verified production-firmware security-validation state.
 
 ## 9. Observed Results
 
@@ -584,9 +663,9 @@ The currently available observations cover the following areas:
 | Domain   | Available observation                          |
 | -------- | ---------------------------------------------- |
 | CAN      | Existing capture / example artifacts           |
-| UDS      | Conflicting historical and current artifacts   |
-| Ethernet | Example reports                                |
-| Firmware | Conflicting execution reports                  |
+| UDS      | Existing report / example artifacts            |
+| Ethernet | Example report artifact                        |
+| Firmware | Firmware validation and report artifacts       |
 | Evidence | Phase-4 local framework verification artifacts |
 
 These observations are not consolidated into a single verified project-wide security result.
@@ -603,7 +682,9 @@ Evidence-related material is present in:
 
 ```text
 c_evidence/
+
 d_examples/
+
 e_security_reports/
 ```
 
@@ -612,8 +693,8 @@ The repository therefore contains existing artifacts representing test outputs, 
 Phase 4 additionally established structured evidence records and execution-verification artifacts under:
 
 ```text
-c_evidence/records/
 c_evidence/reports/
+
 c_evidence/verification/
 ```
 
@@ -633,6 +714,12 @@ EV-P4-VER-001_test_execution.txt
 EV-P4-VER-002_test_intent.txt
 EV-P4-VER-003_test_framework.txt
 EV-P4-VER-004_framework_test_execution.txt
+```
+
+Additional verification context is documented in:
+
+```text
+c_evidence/verification/integration_notes.md
 ```
 
 ### 10.2 Evidence Classification
@@ -820,6 +907,14 @@ The current documentation structure includes:
 | `docs/testing.md`                                    | Testing documentation                                     |
 | `docs/environment.md`                                | Environment documentation                                 |
 | `docs/White-Box-Ansatz.png`                          | White-Box approach illustration                           |
+| `docs/security_test_architecture_definition.md`      | Security test architecture definition                     |
+| `docs/execution_interface_definition.md`             | Execution interface definition                            |
+| `docs/assessment_objective_traceability_model.md`    | Assessment-objective traceability model                   |
+| `docs/test_lifecycle_definition.md`                  | Test lifecycle definition                                 |
+| `docs/ecu_security_domain_model.md`                  | ECU security-domain model                                 |
+| `docs/domain_architecture_matrix.md`                 | Domain architecture mapping                               |
+| `docs/test_responsibility_matrix.md`                 | Test responsibility mapping                               |
+| `docs/evidence.md`                                   | Evidence Framework and evidence traceability              |
 
 The documentation structure is established.
 
@@ -838,8 +933,6 @@ Project history is maintained separately in:
 ```text
 docs/project_definition_and_development_history.md
 ```
-
-`PROJECT_STATUS.md` is not part of the defined project architecture.
 
 ## 15. Regression State
 
@@ -871,7 +964,7 @@ CI/CD remains part of the planned project scope.
 
 ## 17. Traceability State
 
-The current common test-architecture traceability chain is:
+The intended traceability chain is:
 
 ```text
 Security Requirement
@@ -911,7 +1004,7 @@ It does not represent complete implementation-to-test-to-evidence-to-finding tra
 | ---------------------- | ------------------------------------------------------ |
 | Requirements           | PARTIAL                                                |
 | Security objectives    | PARTIAL                                                |
-| Implementation mapping | ESTABLISHED FOR COMMON TEST ARCHITECTURE               |
+| Implementation mapping | PARTIAL / DOMAIN IMPLEMENTATIONS PRESENT               |
 | Test objectives        | PARTIALLY ESTABLISHED                                  |
 | Test execution         | NOT VERIFIED FOR COMPLETE PROJECT                      |
 | Evidence association   | ESTABLISHED FOR EVIDENCE FRAMEWORK                     |
@@ -929,7 +1022,7 @@ The assessment is based on the following state:
 | ---------------------------------- | ---------------------------------------- |
 | Repository structure               | ESTABLISHED                              |
 | Core security-test implementations | PARTIALLY ESTABLISHED                    |
-| Test infrastructure                | ESTABLISHED FOR PHASE-3 ARCHITECTURE     |
+| Test infrastructure                | PARTIAL / DOMAIN COMPONENTS PRESENT      |
 | Complete test execution            | NOT VERIFIED                             |
 | Evidence                           | FRAMEWORK VERIFIED / LEGACY PARTIAL      |
 | Confirmed security finding         | NOT ESTABLISHED                          |
