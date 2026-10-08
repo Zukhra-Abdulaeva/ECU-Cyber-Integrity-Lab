@@ -1,0 +1,84 @@
+ECU-Cyber-Integrity-Lab
+Evidence Artifact: Framework Test Execution
+
+Evidence ID: EV-P4-VER-004
+Evidence Type: Local framework test execution
+Context Classification: LOCAL
+Execution Status: EXECUTED
+Result: PASS
+Evidence Status: CREATED
+
+Purpose
+-------
+This artifact records the locally executed pytest verification of Evidence Framework tests. 
+It is based exclusively on the terminal output provided for this execution.
+
+Execution Environment
+---------------------
+Repository: ECU-Cyber-Integrity-Lab
+Host: LAPTOP-I65CD153
+Shell context: WSL/Linux terminal
+Python environment: .venv (activated)
+Working directory:
+~/ECU-Cyber-Integrity-Lab
+
+Execution 1
+-----------
+Command:
+python -m pytest -q a_framework/test_evidence.py
+
+Observed terminal result:
+.......... [100%]                                                                                                                                                                                                                                                                       [100%]
+10 passed in 0.33s
+
+Observed result:
+PASS
+
+Execution 2
+-----------
+Command:
+python -m pytest -q
+
+Observed terminal result:
+.............. [100%]
+14 passed in 1.35s
+
+Observed result:
+PASS
+
+Provenance
+----------
+Source of observation: terminal output supplied by the repository operator in the project workflow.
+Execution was performed locally in the activated .venv environment.
+
+Timestamp:
+Not captured in the supplied terminal output. No timestamp is inferred or fabricated here.
+
+Artifacts / Raw Observation
+---------------------------
+The raw terminal output supplied for this execution was:
+
+(.venv) zukhra@LAPTOP-I65CD153:~/ECU-Cyber-Integrity-Lab$ python -m pytest -q a_framework/test_evidence.py
+..........                                                                                                                                                                                                                                                                        [100%]
+10 passed in 0.33s
+
+(.venv) zukhra@LAPTOP-I65CD153:~/GitHub_Automotive-Security/ECU-Cyber-Integrity-Lab$ python -m pytest -q
+..............                                                                                                                                                                                                                                                                    [100%]
+14 passed in 1.35s
+(.venv) zukhra@LAPTOP-I65CD153:~/ECU-Cyber-Integrity-Lab$
+
+Interpretation Boundary
+-----------------------
+PASS means that pytest reported all discovered tests as passing for the
+executions recorded above. This artifact does not by itself prove:
+- real ECU or vehicle validation,
+- security effectiveness of the complete project,
+- absence of vulnerabilities,
+- production/OEM validation,
+- completeness of Phase 4,
+- or successful execution of tests outside the recorded pytest scope.
+
+Integrity
+---------
+This artifact records the observation supplied by the operator. 
+A cryptographic hash of the original terminal session was not available and is therefore not claimed.

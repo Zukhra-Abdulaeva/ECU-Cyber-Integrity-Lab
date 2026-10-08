@@ -70,10 +70,10 @@ VERIFIED DOMAIN
 
 | Domain           | Domain Module                                      | Domain Adapter                                           | Target / Model                                        | Main Technical Responsibility                                                 | Implementation Status               | Execution Status | Verification Status |
 | ---------------- | -------------------------------------------------- | -------------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------- | ---------------- | ------------------- |
-| CAN              | `02_security_tests/can/can_sniffer.py`             | `02_security_tests/can/adapter.py::CANAdapter`           | CAN interface / virtual CAN                           | Capture, generation, filtering, statistics and CSV handling                   | IMPLEMENTED                         | NOT VERIFIED     | NOT ESTABLISHED     |
-| UDS              | `02_security_tests/uds/uds_security.py`            | `02_security_tests/uds/adapter.py::UDSAdapter`           | Diagnostic target / simulated or local target context | UDS request / response interaction and SecurityAccess response classification | IMPLEMENTED                         | NOT VERIFIED     | NOT ESTABLISHED     |
-| Firmware         | `02_security_tests/firmware/firmware_validator.py` | `02_security_tests/firmware/adapter.py::FirmwareAdapter` | Firmware artifact / local artifact                    | Firmware hashing, comparison and reporting                                    | IMPLEMENTED                         | NOT VERIFIED     | NOT ESTABLISHED     |
-| Ethernet         | `02_security_tests/ethernet/ethernet_scan.py`      | `02_security_tests/ethernet/adapter.py::EthernetAdapter` | Network / host / service environment                  | Host discovery, IP/network scanning and service inventory                     | IMPLEMENTED                         | NOT VERIFIED     | NOT ESTABLISHED     |
+| CAN              | `b_security_tests/can_tests/can_sniffer.py`             | `b_security_tests/can_tests/adapter.py::CANAdapter`           | CAN interface / virtual CAN                           | Capture, generation, filtering, statistics and CSV handling                   | IMPLEMENTED                         | NOT VERIFIED     | NOT ESTABLISHED     |
+| UDS              | `b_security_tests/uds_tests/uds_security.py`            | `b_security_tests/uds_tests/adapter.py::UDSAdapter`           | Diagnostic target / simulated or local target context | UDS request / response interaction and SecurityAccess response classification | IMPLEMENTED                         | NOT VERIFIED     | NOT ESTABLISHED     |
+| Firmware         | `b_security_tests/firmware_tests/firmware_validator.py` | `b_security_tests/firmware_tests/adapter.py::FirmwareAdapter` | Firmware artifact / local artifact                    | Firmware hashing, comparison and reporting                                    | IMPLEMENTED                         | NOT VERIFIED     | NOT ESTABLISHED     |
+| Ethernet         | `b_security_tests/ethernet_tests/ethernet_scan.py`      | `b_security_tests/ethernet_tests/adapter.py::EthernetAdapter` | Network / host / service environment                  | Host discovery, IP/network scanning and service inventory                     | IMPLEMENTED                         | NOT VERIFIED     | NOT ESTABLISHED     |
 | Bootloader / OTA | No concrete implementation established             | No concrete adapter established                          | Project-defined target / model                        | Architecturally supported security-testing domain                             | PLANNED / ARCHITECTURALLY SUPPORTED | NOT RUN          | NOT ESTABLISHED     |
 
 The matrix separates the domain implementation from execution and verification status.
@@ -93,7 +93,7 @@ The domain-specific implementation covers the technical processing of CAN traffi
 ### 4.2 Domain Module
 
 ```text
-02_security_tests/can/can_sniffer.py
+b_security_tests/can_tests/can_sniffer.py
 ```
 
 The CAN module provides the existing CAN-specific functionality, including:
@@ -109,7 +109,7 @@ CAN CSV export
 ### 4.3 Domain Adapter
 
 ```text
-02_security_tests/can/adapter.py::CANAdapter
+b_security_tests/can_tests/adapter.py::CANAdapter
 ```
 
 The `CANAdapter` connects the common security-test execution architecture with the CAN-specific implementation.
@@ -152,7 +152,7 @@ The UDS domain provides diagnostic communication and SecurityAccess-related secu
 ### 5.2 Domain Module
 
 ```text
-02_security_tests/uds/uds_security.py
+b_security_tests/uds_tests/uds_security.py
 ```
 
 The existing UDS implementation provides basic:
@@ -165,7 +165,7 @@ SecurityAccess response classification
 ### 5.3 Domain Adapter
 
 ```text
-02_security_tests/uds/adapter.py::UDSAdapter
+b_security_tests/uds_tests/adapter.py::UDSAdapter
 ```
 
 The `UDSAdapter` provides the integration boundary between the common test architecture and the UDS implementation.
@@ -207,7 +207,7 @@ The Firmware domain provides security-testing functionality for firmware artifac
 ### 6.2 Domain Module
 
 ```text
-02_security_tests/firmware/firmware_validator.py
+b_security_tests/firmware_tests/firmware_validator.py
 ```
 
 The firmware implementation provides:
@@ -221,7 +221,7 @@ Firmware JSON reporting
 ### 6.3 Domain Adapter
 
 ```text
-02_security_tests/firmware/adapter.py::FirmwareAdapter
+b_security_tests/firmware_tests/adapter.py::FirmwareAdapter
 ```
 
 The `FirmwareAdapter` connects the common test architecture with firmware-specific processing.
@@ -261,7 +261,7 @@ The Ethernet domain provides network and service-discovery capabilities for secu
 ### 7.2 Domain Module
 
 ```text
-02_security_tests/ethernet/ethernet_scan.py
+b_security_tests/ethernet_tests/ethernet_scan.py
 ```
 
 The Ethernet implementation provides:
@@ -276,7 +276,7 @@ JSON export for Ethernet scan results
 ### 7.3 Domain Adapter
 
 ```text
-02_security_tests/ethernet/adapter.py::EthernetAdapter
+b_security_tests/ethernet_tests/adapter.py::EthernetAdapter
 ```
 
 The `EthernetAdapter` provides the integration boundary between the common test architecture and Ethernet-specific network interaction.
@@ -477,7 +477,7 @@ OEM Validation
 
 ## 12. Architecture-DELTA Implementation
 
-WP-10 established the common architecture integration required to connect the existing security domains with the Security Test Architecture.
+This established the common architecture integration required to connect the existing security domains with the Security Test Architecture.
 
 The implementation is structured around the smallest common architectural elements required for domain integration.
 
@@ -486,7 +486,7 @@ The implementation is structured around the smallest common architectural elemen
 The common Test Case structure is represented by:
 
 ```text
-01_framework/test_architecture.py::TestCase
+a_framework/test_architecture.py::TestCase
 ```
 
 The common model contains the architectural test metadata required for structured security testing, including:
@@ -520,7 +520,7 @@ IMPLEMENTED
 The common execution controller is represented by:
 
 ```text
-01_framework/runner.py::TestRunner
+a_framework/runner.py::TestRunner
 ```
 
 The Test Runner provides the common execution lifecycle and separates execution orchestration from domain-specific protocol or target interaction.
@@ -712,7 +712,7 @@ The common Test Case structure includes the objective relationship required for 
 The traceability structure is represented by:
 
 ```text
-01_framework/traceability.py::Traceability
+a_framework/traceability.py::Traceability
 ```
 
 The minimum relationship is:
@@ -754,7 +754,7 @@ IMPLEMENTED
 The logging boundary is represented by:
 
 ```text
-01_framework/logging_boundary.py
+a_framework/logging_boundary.py
 ```
 
 The logging boundary exposes logging functionality without treating log output itself as a test result.
@@ -811,13 +811,13 @@ IMPLEMENTED
 
 The concrete domain adapter mapping established for the architecture is:
 
-| Domain           | Domain Module                                      | Adapter                | Target / Model Context         | Status                    |
-| ---------------- | -------------------------------------------------- | ---------------------- | ------------------------------ | ------------------------- |
-| CAN              | `02_security_tests/can/can_sniffer.py`             | `CANAdapter`           | CAN interface / virtual CAN    | IMPLEMENTED               |
-| UDS              | `02_security_tests/uds/uds_security.py`            | `UDSAdapter`           | Diagnostic / simulated target  | IMPLEMENTED               |
-| Firmware         | `02_security_tests/firmware/firmware_validator.py` | `FirmwareAdapter`      | Firmware artifact              | IMPLEMENTED               |
-| Ethernet         | `02_security_tests/ethernet/ethernet_scan.py`      | `EthernetAdapter`      | Network / host environment     | IMPLEMENTED               |
-| Bootloader / OTA | No concrete module established                     | No adapter established | Project-defined target / model | ARCHITECTURALLY SUPPORTED |
+| Domain           | Domain Module                                           | Adapter                | Target / Model Context         | Status                    |
+| ---------------- | ------------------------------------------------------- | ---------------------- | ------------------------------ | ------------------------- |
+| CAN              | `b_security_tests/can_tests/can_sniffer.py`             | `CANAdapter`           | CAN interface / virtual CAN    | IMPLEMENTED               |
+| UDS              | `b_security_tests/uds_tests/uds_security.py`            | `UDSAdapter`           | Diagnostic / simulated target  | IMPLEMENTED               |
+| Firmware         | `b_security_tests/firmware_tests/firmware_validator.py` | `FirmwareAdapter`      | Firmware artifact              | IMPLEMENTED               |
+| Ethernet         | `b_security_tests/ethernet_tests/ethernet_scan.py`      | `EthernetAdapter`      | Network / host environment     | IMPLEMENTED               |
+| Bootloader / OTA | No concrete module established                          | No adapter established | Project-defined target / model | ARCHITECTURALLY SUPPORTED |
 
 The adapter mapping establishes the intended and implemented integration boundary for the concrete repository domains.
 

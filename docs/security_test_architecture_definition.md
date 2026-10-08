@@ -1050,15 +1050,15 @@ The architecture is mapped against the repository implementation.
 Relevant repository components include:
 
 ```text
-01_framework/base_test.py
-01_framework/logger.py
-01_framework/config.py
-01_framework/report_generator.py
+a_framework/base_test.py
+a_framework/logger.py
+a_framework/config.py
+a_framework/report_generator.py
 
-02_security_tests/can/
-02_security_tests/uds/
-02_security_tests/firmware/
-02_security_tests/ethernet/
+b_security_tests/can_tests/
+b_security_tests/uds_tests/
+b_security_tests/firmware_tests/
+b_security_tests/ethernet_tests/
 
 Existing test files
 Existing evidence artifacts

@@ -683,7 +683,7 @@ A log record does not automatically constitute evidence.
 PARTIALLY IMPLEMENTED
 ```
 
-The common `BaseSecurityTest` configures and uses Python logging, while `01_framework/logger.py` is documented as a structural placeholder. The current repository therefore contains logging functionality but not a complete common Phase-3 logging architecture.
+The common `BaseSecurityTest` configures and uses Python logging, while `a_framework/logger.py` is documented as a structural placeholder. The current repository therefore contains logging functionality but not a complete common Phase-3 logging architecture.
 
 ---
 

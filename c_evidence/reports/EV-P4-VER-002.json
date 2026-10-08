@@ -1,0 +1,67 @@
+{
+  "evidence_id": "EV-P4-VER-002",
+  "test_id": "TEST-P4-EVIDENCE-FRAMEWORK-002",
+  "target": "ECU-Cyber-Integrity-Lab Evidence Framework",
+  "environment": "local isolated Phase-4 evidence-framework revision; Python runtime with pytest",
+  "preconditions": [
+    "revised a_framework/evidence.py available",
+    "revised a_framework/test_evidence.py available",
+    "pytest available",
+    "EV-P4-VER-001 execution evidence available"
+  ],
+  "input": {
+    "test_intent_artifact": "c_evidence/verification/EV-P4-VER-002_test_intent.txt",
+    "referenced_execution_artifact": "c_evidence/verification/EV-P4-VER-001_test_execution.txt"
+  },
+  "expected_behaviour": "The Evidence Framework evidence record defines the required structural, lifecycle, provenance, association, traceability, repository and artifact-integrity conditions. The referenced framework test execution provides the actual execution evidence for these conditions.",
+  "actual_observation": "The framework test execution is documented by EV-P4-VER-001_test_execution.txt. The execution reported 10 passed tests. This record does not duplicate the execution result.",
+  "execution_status": "VERIFIED_BY_REFERENCE",
+  "result": "PASS",
+  "timestamp": null,
+  "artifacts": [
+    {
+      "path": "c_evidence/verification/EV-P4-VER-002_test_intent.txt",
+      "artifact_type": "TEXT/TEST_INTENT",
+      "sha256": null,
+      "size_bytes": null,
+      "integrity_checked_at": null
+    },
+    {
+      "path": "c_evidence/verification/EV-P4-VER-001_test_execution.txt",
+      "artifact_type": "TEXT/TEST_EXECUTION_REFERENCE",
+      "sha256": "be5c7c2a77651d7dbb2df36d92841b653019bc5a0572bffa08bd3c43016c9b08",
+      "size_bytes": "2598",
+      "integrity_checked_at": null
+    }
+  ],
+  "tooling": "pytest invoked through the Python module interface",
+  "execution_method": "Referenced execution documented by EV-P4-VER-001",
+  "context_classification": [
+    "LOCAL",
+    "SYNTHETIC"
+  ],
+  "provenance": {
+    "observation_source": "EV-P4-VER-001_test_execution.txt and current Phase-4 Evidence Framework test intent",
+    "execution_timestamp": null,
+    "terminal_session_hash": null
+  },
+  "evidence_status": "VALIDATED",
+  "associations": {
+    "test_ids": [
+      "TEST-P4-EVIDENCE-FRAMEWORK-002"
+    ],
+    "execution_ids": [
+      "EXEC-P4-VER-001"
+    ],
+    "evidence_ids": [
+      "EV-P4-VER-001"
+    ]
+  },
+  "integrity": {
+    "artifact_sha256": "be5c7c2a77651d7dbb2df36d92841b653019bc5a0572bffa08bd3c43016c9b08",
+    "integrity_checked_at": null
+  },
+  "supersedes_evidence_id": null,
+  "superseded_by_evidence_id": null,
+  "limitation": "This record references the framework test execution documented by EV-P4-VER-001 and does not represent a second execution. The verification validates Evidence Framework behavior and evidence-integrity controls only; it does not establish CAN, UDS, Ethernet, firmware, ECU, vehicle, production or OEM security validation."
+}

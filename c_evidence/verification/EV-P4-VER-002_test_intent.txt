@@ -1,0 +1,41 @@
+ECU-Cyber-Integrity-Lab
+Evidence Artifact: Test Intent
+
+Test ID
+-------
+TEST-P4-EVIDENCE-FRAMEWORK-002
+
+Purpose
+-------
+Verify that the Evidence Framework enforces the structural and integrity
+conditions required for evidence records without treating framework tests as
+ECU or vehicle security validation.
+
+Test Scope
+----------
+Framework behavior:
+- acceptance of a well-formed synthetic evidence record
+- controlled evidence lifecycle transitions
+- repository persistence/load behavior and overwrite protection
+- rejection of PASS records without required execution metadata
+
+Evidence-integrity controls:
+- detection of modified artifacts through SHA-256 and size comparison
+- detection of missing artifacts
+- rejection of malformed SHA-256 values
+- traceability requirements for VALIDATED/ASSOCIATED/ACTIVE records
+- validation of association values
+- repository refusal to persist an invalid record
+
+Expected Behaviour
+------------------
+All defined test assertions pass. Invalid evidence conditions are rejected
+by the framework validator or repository, while valid synthetic framework
+records are accepted and persisted according to the model.
+
+Boundary
+--------
+These tests validate the Evidence Framework implementation and its evidence
+integrity controls. They do not execute CAN, UDS, Ethernet, firmware, ECU,
+vehicle, production, or OEM security tests and therefore do not establish
+security effectiveness of those domains.

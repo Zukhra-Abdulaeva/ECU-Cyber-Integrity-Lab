@@ -1,8 +1,8 @@
 import importlib
 
-DomainAdapter = importlib.import_module("01_framework.domain_adapter").DomainAdapter
-Observation = importlib.import_module("01_framework.test_architecture").Observation
-ExecutionStatus = importlib.import_module("01_framework.test_architecture").ExecutionStatus
+DomainAdapter = importlib.import_module("a_framework.domain_adapter").DomainAdapter
+Observation = importlib.import_module("a_framework.test_architecture").Observation
+ExecutionStatus = importlib.import_module("a_framework.test_architecture").ExecutionStatus
 
 
 class FirmwareAdapter(DomainAdapter):

@@ -1,0 +1,51 @@
+{
+  "evidence_id": "EV-P4-VER-001",
+  "test_id": "TEST-P4-EVIDENCE-FRAMEWORK-001",
+  "execution_id": "EXEC-P4-VER-001",
+  "target": "ECU-Cyber-Integrity-Lab Evidence Framework",
+  "environment": "Local repository execution with Python virtual environment and pytest",
+  "preconditions": [
+    "Repository working directory available",
+    "a_framework/evidence.py available",
+    "a_framework/test_evidence.py available",
+    "pytest available"
+  ],
+  "input": {
+    "command": "python -m pytest -q a_framework/test_evidence.py"
+  },
+  "expected_behaviour": "All tests defined in a_framework/test_evidence.py execute successfully. Evidence validation, lifecycle handling, repository persistence, execution guards, artifact integrity checks, provenance requirements and association validation are evaluated by the test module.",
+  "actual_observation": "The current a_framework/test_evidence.py was executed successfully. The test module completed with 10 passed tests in 0.30 seconds.",
+  "execution_status": "EXECUTED",
+  "result": "PASS",
+  "timestamp": null,
+  "artifacts": [
+    "c_evidence/verification/EV-P4-VER-001_test_execution.txt"
+  ],
+  "tooling": "pytest invoked through the Python module interface",
+  "execution_method": "Local command-line execution",
+  "context_classification": [
+    "LOCAL",
+    "SYNTHETIC"
+  ],
+  "provenance": {
+    "observation_source": "Current repository test module and persisted test execution artifact",
+    "execution_timestamp": null,
+    "terminal_session_hash": null
+  },
+  "evidence_status": "VERIFIED",
+  "associations": {
+    "test_ids": [
+      "a_framework/test_evidence.py"
+    ],
+    "execution_ids": [
+      "EXEC-P4-VER-001"
+    ]
+  },
+  "integrity": {
+    "artifact_sha256": "be5c7c2a77651d7dbb2df36d92841b653019bc5a0572bffa08bd3c43016c9b08",
+    "integrity_checked_at": null
+  },
+  "supersedes_evidence_id": null,
+  "superseded_by_evidence_id": null,
+  "limitation": "This record documents verification of the Evidence Framework through local synthetic repository tests. It does not establish ECU, vehicle, production or OEM security validation."
+}

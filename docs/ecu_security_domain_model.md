@@ -215,3 +215,23 @@ These are model-review results, not security-test execution results.
 | Unresolved Model Elements | EXPLICITLY CLASSIFIED |
 | Verification Criteria | REVIEWED |
 | Current State | SYNCHRONIZED IN PROVIDED UPDATE |
+
+## 17. Evidence Gap Record
+
+| Gap ID | Evidence Artifact | Missing Information | Technical Impact | Current Classification | Required Action | Status |
+| --- | --- | --- | --- | --- | --- | --- |
+| GAP-EV-001 | `c_evidence/can/can_capture.json` | Execution ID, target, environment, tooling, method, provenance, result evaluation | Capture cannot be reliably associated with a defined execution | UNVERIFIED ARTIFACT | Preserve artifact; associate only when original execution information is available | OPEN |
+| GAP-EV-002 | `c_evidence/can/new_can_capture.json` | Observation data, timestamp, target, environment, provenance | Header-only artifact does not support an execution observation | UNKNOWN PROVENANCE | Retain as historical artifact; do not treat as evidence | OPEN |
+| GAP-EV-003 | Ethernet example output | Execution identity and provenance | Example cannot support a real scan result | EXAMPLE / SAMPLE | Keep under evidence/examples boundary; no promotion without provenance | DOCUMENTED |
+| GAP-EV-004 | `c_evidence/firmware/firmware_report.json` | Target, source artifact identity, execution ID, environment, method, provenance, oracle basis | Embedded FAIL/identical values cannot be independently assessed as execution evidence | UNVERIFIED ARTIFACT | Preserve report; establish original execution provenance before assessment use | OPEN |
+| GAP-EV-005 | `c_evidence/firmware/new_firmware_report` | Execution provenance and observation | Embedded PASS text is not sufficient for a PASS claim | UNKNOWN PROVENANCE | Do not use PASS text as verification | OPEN |
+| GAP-EV-006 | Firmware binaries | Binary content, source identity, acquisition provenance | Firmware analysis cannot be reproduced from the supplied snapshot | UNKNOWN PROVENANCE | Preserve source artifact in repository and record provenance when available | OPEN |
+| GAP-EV-007 | `c_evidence/uds/uds_report.json` | Target, diagnostic interface, execution ID, environment, method, provenance, oracle | UDS observations cannot be associated with a verified execution | UNVERIFIED ARTIFACT | Preserve report; associate original execution when available | OPEN |
+| GAP-EV-008 | `c_evidence/uds/new_uds_report` | Execution provenance, target, diagnostic context | Positive SecurityAccess response is not independently established | UNKNOWN PROVENANCE | Do not treat positive response as verified security behavior | OPEN |
+| GAP-EV-009 | Existing domain tests | Complete execution linkage and evidence records | Test-to-evidence traceability remains partial | UNVERIFIED | Add evidence association during later executable test phases | DEFERRED TO PHASE 5 |
+| GAP-EV-010 | Repository snapshot | Git metadata / live working-tree state | Git status cannot be independently verified from the supplied text snapshot | UNVERIFIED | Verify against live repository when available | BLOCKED BY SNAPSHOT BOUNDARY |
+| GAP-EV-011 | Phase-3 architecture claims | Several documented Phase-3 modules are absent from the supplied top-level repository tree | Phase-4 association integration cannot be verified against those claimed interfaces | UNVERIFIED | Reconcile documentation with the live repository before relying on those interfaces | OPEN |
+
+### Gap Handling Rule
+
+A gap is not resolved by replacing missing information with an assumption. The artifact remains identifiable and its limitation remains explicit until the missing technical basis is established.

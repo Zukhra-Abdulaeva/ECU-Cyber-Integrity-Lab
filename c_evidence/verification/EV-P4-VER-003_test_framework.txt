@@ -1,0 +1,49 @@
+ECU-Cyber-Integrity-Lab
+Evidence Artifact: Test Framework Definition
+
+Test ID
+-------
+TEST-P4-EVIDENCE-FRAMEWORK-002
+
+Implementation Under Test
+-------------------------
+a_framework/evidence.py
+
+Test Module
+-----------
+a_framework/test_evidence.py
+
+Test Structure
+--------------
+The module contains two explicitly separated test groups.
+
+1. Framework behavior tests
+   - test_framework_accepts_well_formed_synthetic_record
+   - test_lifecycle_allows_valid_path_and_rejects_reverse_transition
+   - test_repository_round_trip_and_no_overwrite
+   - test_pass_without_execution_metadata_is_rejected
+
+2. Evidence integrity tests
+   - test_artifact_tampering_is_detected
+   - test_missing_artifact_is_detected
+   - test_malformed_hash_is_rejected
+   - test_active_record_requires_traceable_identity_and_provenance
+   - test_invalid_association_values_are_rejected
+   - test_repository_refuses_invalid_record_without_writing
+
+Execution Method
+----------------
+Local pytest execution against the isolated evidence-framework revision. 
+The tests use synthetic/local artifacts and temporary repository
+locations where required.
+
+Evaluation Basis
+----------------
+pytest assertion outcome. A PASS result means that all tests discovered in
+the selected test module completed without assertion failure.
+
+Security Boundary
+-----------------
+The test framework validates evidence-management behavior. It is not a
+substitute for execution of automotive security-domain tests against CAN,
+UDS, Ethernet, firmware, an ECU, or a vehicle.

@@ -119,19 +119,19 @@ This separation keeps stable project definition, architectural rationale, testin
 The repository separates the main technical artifact roles:
 
 ```text
-01_framework/
+a_framework/
     Common framework and assessment components
 
-02_security_tests/
+b_security_tests/
     Security-test implementations and domain-specific test components
 
-03_evidence/
+c_evidence/
     Evidence and assessment artifacts
 
-04_examples/
+d_examples/
     Example assessment material and methodology examples
 
-05_security_reports/
+e_security_reports/
     Assessment reports and report-generation outputs
 
 docs/
@@ -375,6 +375,10 @@ ARCHIVED
 ```
 
 The lifecycle defines the architectural model. It does not establish that a unified evidence-management implementation is already available.
+The lifecycle is implemented for evidence records in `a_framework/evidence.py`. 
+The implementation enforces permitted transitions for stored evidence records. 
+This does not establish the validation or association of all existing project evidence.
+
 
 ### 6.3 Evidence Provenance
 
@@ -388,6 +392,10 @@ Environment
 Execution Method
 Timestamp
 Input
+Source Artifact
+Generating Process
+Relevant Test
+Relevant Execution
 Observation
 Artifacts
 Tooling
@@ -395,6 +403,26 @@ Association with the respective test
 ```
 
 Evidence is interpreted according to the context that can be established for the respective artifact.
+The missing provenance remains missing. The provenance of the original capture cannot be proven by stored-artifact hashes, which identify the current stored bytes.
+
+### 6.4 Evidence Record and Validation Implementation
+
+The implementation by `a_framework/evidence.py` provides:
+
+```text
+EvidenceRecord
+EvidenceValidator
+EvidenceRepository
+ArtifactReference
+ResultStatus
+ContextClassification
+EvidenceLifecycle
+```
+
+The implementation separates result status from evidence lifecycle and context classification. It rejects `PASS` / `FAIL` records without execution, actual observation and supporting artifacts.
+
+The implementation establishes the evidence framework capability. It does not establish security-test execution, real ECU validation or confirmed findings.
+
 
 ---
 
@@ -651,24 +679,28 @@ The separation allows domain-specific implementation details to remain distingui
 
 ### 9.3 Evidence Classification
 
-Security-test evidence is classified according to its origin and execution context.
-
-The project distinguishes in particular:
+Evidence context is classified independently from execution result and lifecycle state.
 
 ```text
-SYNTHETIC
-    Generated test data or input.
-
+REAL
+VIRTUAL
 SIMULATED
-    Behavior or execution involving a simulated target or condition.
-
-EXECUTED
-    Evidence originating from an actual test execution.
+LOCAL
+STATIC
+SYNTHETIC
 ```
 
-The evidence classification must correspond to the actual origin of the artifact.
+Execution state is represented separately through the execution status and result model:
 
-Synthetic or simulated material is not classified as executed evidence merely because it represents an executable scenario.
+```text
+PASS
+FAIL
+NOT_RUN
+INCONCLUSIVE
+BLOCKED
+```
+
+Security-test evidence is classified according to its origin and execution context.
 
 ---
 
@@ -861,6 +893,32 @@ Logging does not itself constitute an Observation or Result.
 Reporting consumes test results.
 
 Reporting does not establish execution and does not create a result without an underlying result state.
+
+### 10.11 Phase-3 Common Architecture Implementation
+
+The architecture establishes explicit common implementation boundaries for:
+
+Test Case
+Test Runner
+Domain Adapter
+Execution Interface
+Target / Model Context
+Observation
+Result
+Oracle / Evaluation
+Traceability
+Logging
+Reporting
+
+Concrete domain adapters are established for:
+
+CAN
+UDS
+Firmware
+Ethernet
+
+The implementation preserves the distinction between general execution orchestration and domain-specific interaction. 
+However, implementing these architectural boundaries does not establish complete, project-wide security testing, observation or verification.
 
 ---
 

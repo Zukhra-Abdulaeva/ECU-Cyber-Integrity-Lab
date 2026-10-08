@@ -247,23 +247,32 @@ Evidence is separate from examples and reports.
 
 ### 11.1 Evidence Types
 
-The following evidence classifications are used:
+Evidence context is classified independently from result and lifecycle state:
 
 ```text
-SYNTHETIC
+REAL
+VIRTUAL
 SIMULATED
-EXECUTED
+LOCAL
+STATIC
+SYNTHETIC
 ```
 
-**SYNTHETIC** evidence represents constructed or generated material that does not document an actual execution.
+The classification describes the origin or execution context that can be established.
 
-**SIMULATED** evidence represents output produced in a simulated or virtual execution context.
+Execution result is represented separately by:
 
-**EXECUTED** evidence represents evidence originating from an actual execution of the corresponding test.
+```text
+PASS
+FAIL
+NOT_RUN
+INCONCLUSIVE
+BLOCKED
+```
 
-The classification must remain visible when evidence is used for assessment.
+Synthetic, simulated, virtual or local evidence must not be represented as real-world ECU or vehicle validation.
 
-Synthetic or simulated material must not be presented as real-world execution evidence.
+The implemented evidence record and validation model is provided by `a_framework/evidence.py`.
 
 ---
 
@@ -283,7 +292,8 @@ CREATED
 The lifecycle describes how evidence can be created, checked, associated with the relevant test context, used for assessment, replaced, and retained historically.
 
 Lifecycle terminology does not by itself establish that an evidence-management implementation exists.
-
+The lifecycle transitions are implemented for evidence records in `a_framework/evidence.py`. 
+The lifecycle does not establish that every existing artifact has been validated.
 ---
 
 ## 13. Test Result Model
@@ -511,9 +521,19 @@ Security Test Case
 → Domain Adapter
 → Domain Module
 → Target / Model
+→ Execution
 → Observation
-→ Evidence
+→ Oracle / Evaluation
 → Result
+```
+
+The architecture also defines the downstream boundaries for evidence and reporting:
+```text
+Execution / Observation
+→ Evidence Boundary
+
+Result
+→ Reporting Boundary
 ```
 
 The responsibilities are separated conceptually:
@@ -537,20 +557,30 @@ Target / Model
 Observation
     records the actual execution outcome
 
-Evidence
-    supports traceability of the observation
+Oracle / Evaluation
+    determines the result from the observation and defined criteria
 
 Result
     represents the assessed test outcome
+
+Result
+    represents the evaluated test outcome
+
+Evidence Boundary
+    connects execution and observation to the later Evidence Framework
+
+Reporting Boundary
+   consumes established technical results without creating unsupported execution claims
 ```
 
-This architecture describes the testing model and separation of responsibilities. It must not be interpreted as proof that every component is implemented.
+This architecture describes the testing model and separation of responsibilities. 
+Do not interpret this as proof that every component is implemented or that every security test has been executed across the project.
 
 ---
 
 ## 23. Verification and Test Quality
 
-A security test is technically meaningful when its purpose, preconditions, action, expected behaviour, oracle, observation, evidence, result, and validity scope can be traced.
+A security test is technically meaningful when its purpose, preconditionsed, action, expected behaviour, oracle, observation, evidence, result, and validity scope can be traced.
 
 Test quality therefore depends on more than the existence of test code.
 

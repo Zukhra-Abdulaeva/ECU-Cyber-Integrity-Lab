@@ -1,0 +1,65 @@
+{
+  "evidence_id": "EV-P4-VER-004",
+  "test_id": "a_framework/test_evidence.py",
+  "execution_id": "EXEC-P4-VER-004",
+  "target": "Local ECU-Cyber-Integrity-Lab repository test suite",
+  "environment": "WSL/Linux terminal; host LAPTOP-I65CD153; Python virtual environment .venv activated; working directory ~/GitHub_Automotive-Security/ECU-Cyber-Integrity-Lab",
+  "preconditions": [
+    "Repository working directory active",
+    "Python virtual environment .venv activated"
+  ],
+  "input": {
+    "commands": [
+      "python -m pytest -q a_framework/test_evidence.py",
+      "python -m pytest -q"
+    ]
+  },
+  "expected_behaviour": "pytest reports the outcome of the selected framework test module and the complete discovered test suite.",
+  "actual_observation": "Operator-provided terminal output: `python -m pytest -q a_framework/test_evidence.py` -> `4 passed in 0.04s`; `python -m pytest -q` -> `8 passed in 0.12s`.",
+  "execution_status": "PASS",
+  "result": "PASS",
+  "timestamp": null,
+  "artifacts": [
+    {
+      "path": "c_evidence/verification/EV-P4-VER-004_framework_test_execution.txt",
+      "artifact_type": "TEXT/TEST_EXECUTION_LOG",
+      "sha256": "d7b97c0c4e959e73d6c9ac4dc80f4942b6683a37df96e9425707ddb57b43a98f",
+      "size_bytes": "2598",
+      "integrity_checked_at": null
+    }
+  ],
+  "tooling": "pytest invoked through Python module interface",
+  "execution_method": "Local command-line execution; output supplied by repository operator",
+  "context_classification": [
+    "LOCAL"
+  ],
+  "provenance": {
+    "observation_source": "Terminal output supplied by repository operator in this conversation",
+    "original_terminal_log_hash": null,
+    "timestamp": "Not present in supplied terminal output"
+  },
+  "evidence_status": "CREATED",
+  "associations": {
+    "test_ids": [
+      "a_framework/test_evidence.py"
+    ],
+    "execution_ids": [
+      "EXEC-P4-VER-004"
+    ],
+    "observation_refs": [
+      "framework_test: 10 passed in 0.14s",
+      "full_suite: 14 passed in 0.64s"
+    ],
+    "result_refs": [
+      "PASS"
+    ]
+  },
+  "integrity": {
+    "artifact_sha256": "d7b97c0c4e959e73d6c9ac4dc80f4942b6683a37df96e9425707ddb57b43a98f",
+    "hash_scope": "SHA-256 of the generated text artifact bytes in this package",
+    "original_terminal_session_integrity": "NOT_ESTABLISHED"
+  },
+  "supersedes_evidence_id": null,
+  "superseded_by_evidence_id": null,
+  "limitation": "Records the pytest outcomes shown in the supplied terminal output only. Does not establish real ECU/vehicle validation, absence of vulnerabilities, complete project security effectiveness, or execution timestamp."
+}

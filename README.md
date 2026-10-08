@@ -650,19 +650,19 @@ A `PASS` or `FAIL` result requires actual execution, a defined evaluation criter
 The repository is organized into the following main areas:
 
 ```text
-01_framework/
+a_framework/
     Common assessment framework components
 
-02_security_tests/
+b_security_tests/
     Technical security tests and test implementations
 
-03_evidence/
+c_evidence/
     Assessment evidence and execution-related artifacts
 
-04_examples/
+d_examples/
     Assessment methodology and example documentation
 
-05_security_reports/
+e_security_reports/
     Assessment reports and report-generation outputs
 
 docs/
