@@ -54,31 +54,18 @@ The intended security-engineering relationship is:
 
 ```text
 Assessment Objective
-
 Security Objective / Property
-
 Test Objective
-
 Security Test Case
-
 Test Runner
-
 Domain Adapter
-
 Domain Module
-
 Target / Model
-
 Observation
-
 Result
-
 Evidence
-
 Finding / Assessment
-
 Mitigation
-
 Retest / Verification
 ```
 
@@ -243,21 +230,13 @@ The current repository is organized into framework, security-test, evidence, exa
 
 ```text
 a_framework/
-
 b_security_tests/
-
 c_evidence/
-
 d_examples/
-
 e_security_reports/
-
 docs/
-
 .gitignore
-
 README.md
-
 requirements.txt
 ```
 
@@ -265,25 +244,15 @@ The framework components are:
 
 ```text
 a_framework/
-
 ├── __init__.py
-
 ├── base_test.py
-
 ├── config.py
-
 ├── logger.py
-
 ├── logging_boundary.py
-
 ├── report_generator.py
-
 ├── runner.p
-
 ├── test_architecture.py
-
 ├── test_evidence.py
-
 └── traceability.py
 ```
 
@@ -291,15 +260,10 @@ The CAN security-test components are:
 
 ```text
 b_security_tests/can_tests/
-
 ├── __init__.py
-
 ├── adapter.py
-
 ├── can_sniffer.py
-
 ├── send_fake_can.py
-
 └── test_can_sniffer.py
 ```
 
@@ -307,13 +271,9 @@ The Ethernet security-test components are:
 
 ```text
 b_security_tests/ethernet_tests/
-
 ├── __init__.py
-
 ├── adapter.py
-
 ├── ethernet_scan.py
-
 └── test_ethernet_scan.py
 ```
 
@@ -321,13 +281,9 @@ The firmware security-test components are:
 
 ```text
 b_security_tests/firmware_tests/
-
 ├── __init__.py
-
 ├── adapter.py
-
 ├── firmware_validator.py
-
 └── test_firmware_validator.py
 ```
 
@@ -335,13 +291,9 @@ The UDS security-test components are:
 
 ```text
 b_security_tests/uds_tests/
-
 ├── __init__.py
-
 ├── adapter.py
-
 ├── uds_security.py
-
 └── test_uds_security.py
 ```
 
@@ -349,13 +301,9 @@ Example material is located in:
 
 ```text
 d_examples/
-
 ├── firmware_review.md
-
 ├── risk_assessment.md
-
 ├── threat_model.md
-
 └── uds_test.md
 ```
 
@@ -363,13 +311,9 @@ Security-report material is located in:
 
 ```text
 e_security_reports/
-
 ├── example_output_security_assessment.txt
-
 ├── security_assessment.json
-
 ├── security_report.html
-
 └── security_report.md
 ```
 
@@ -377,19 +321,12 @@ The current documentation structure is:
 
 ```text
 docs/
-
 ├── White-Box-Ansatz.png
-
 ├── architecture_decisions.md
-
 ├── current_state.md
-
 ├── environment.md
-
 ├── evidence.md
-
 ├── project_definition_and_development_history.md
-
 ├── testing.md
 ```
 
@@ -397,11 +334,8 @@ The evidence structure additionally contains:
 
 ```text
 c_evidence/
-
 ├── records/
-
 ├── reports/
-
 └── verification/
 ```
 
@@ -409,13 +343,9 @@ Phase-4 verification artifacts include:
 
 ```text
 c_evidence/verification/
-
 ├── EV-P4-VER-001_test_execution.txt
-
 ├── EV-P4-VER-002_test_intent.txt
-
 ├── EV-P4-VER-003_test_framework.txt
-
 └── EV-P4-VER-004_framework_test_execution.txt
 ```
 
@@ -423,13 +353,9 @@ Corresponding evidence records are stored under:
 
 ```text
 c_evidence/reports/
-
 ├── EV-P4-VER-001.json
-
 ├── EV-P4-VER-002.json
-
 ├── EV-P4-VER-003.json
-
 └── EV-P4-VER-004.json
 ```
 
@@ -443,11 +369,8 @@ c_evidence/reports/
 
 ```text
 can_capture.json
-
 uds_report.json
-
 ethernet_scan.json
-
 firmware_report.json
 ```
 
@@ -539,13 +462,9 @@ The current implementation references the following ports:
 
 ```text
 22
-
 80
-
 443
-
 13400
-
 30490
 ```
 
@@ -572,7 +491,6 @@ Referenced firmware artifacts include:
 
 ```text
 gateway_ecu.bin
-
 gateway_ecu_v2.bin
 ```
 
@@ -685,9 +603,7 @@ Evidence-related material is present in:
 
 ```text
 c_evidence/
-
 d_examples/
-
 e_security_reports/
 ```
 
@@ -697,9 +613,7 @@ Phase 4 additionally established structured evidence records and execution-verif
 
 ```text
 c_evidence/records/
-
 c_evidence/reports/
-
 c_evidence/verification/
 ```
 
@@ -707,11 +621,8 @@ The current Phase-4 verification records include:
 
 ```text
 EV-P4-VER-001.json
-
 EV-P4-VER-002.json
-
 EV-P4-VER-003.json
-
 EV-P4-VER-004.json
 ```
 
@@ -719,11 +630,8 @@ with corresponding verification artifacts:
 
 ```text
 EV-P4-VER-001_test_execution.txt
-
 EV-P4-VER-002_test_intent.txt
-
 EV-P4-VER-003_test_framework.txt
-
 EV-P4-VER-004_framework_test_execution.txt
 ```
 
@@ -967,29 +875,17 @@ The current common test-architecture traceability chain is:
 
 ```text
 Security Requirement
-
 Security Objective / Property
-
 Security Design
-
 Implementation
-
 Test Objective
-
 Test Design
-
 Test Execution
-
 Evidence
-
 Result
-
 Finding / Assessment
-
 Mitigation
-
 Retest
-
 Verification
 ```
 
@@ -997,17 +893,11 @@ The Phase-0 project-definition work established the project-level traceability f
 
 ```text
 Project Definition
-
 Security Engineering Goals / Security Domains
-
 Scope and Assessment Boundaries
-
 Assessment Methodology / Security Lifecycle
-
 Truth-State and Test Result Model
-
 Evidence Principle / Evidence Lifecycle
-
 Subsequent Test and Assessment Activities
 ```
 
