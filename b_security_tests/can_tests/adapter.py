@@ -16,7 +16,6 @@ class CANAdapter(DomainAdapter):
             duration=inputs.get("duration", 10),
             filter_ids=inputs.get("filter_ids"),
         )
-        self._status = importlib.import_module("a_framework.test_architecture").ExecutionStatus.COMPLETED
         return list(self.sniffer.messages)
 
     def get_observation(self, execution_output):

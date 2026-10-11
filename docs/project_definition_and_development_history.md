@@ -1810,7 +1810,6 @@ Phase 4 introduces the following Evidence Framework capabilities:
 * Stable Evidence Identifier
 * Structured Provenance Model
 * Formal Context Classification
-
   * `REAL`
   * `VIRTUAL`
   * `SIMULATED`

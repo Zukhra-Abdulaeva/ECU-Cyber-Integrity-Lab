@@ -21,10 +21,9 @@ Derived modules
 """
 
 from abc import ABC, abstractmethod
-from datetime import datetime
+from datetime import datetime, timezone
 import json
-import logging
-from pathlib import Path
+from a_framework.logging_boundary import configure_logging, get_logger
 
 
 class BaseSecurityTest(ABC):
@@ -33,8 +32,10 @@ class BaseSecurityTest(ABC):
     """
 
     def __init__(self, test_name: str):
+        if not isinstance(test_name, str) or not test_name.strip():
+            raise ValueError("test_name must be a non-empty string")
 
-        self.test_name = test_name
+        self.test_name = test_name.strip()
         self.start_time = None
         self.end_time = None
         self.results = []
@@ -44,30 +45,14 @@ class BaseSecurityTest(ABC):
     # -----------------------------------------------------
 
     def _configure_logger(self):
-
-        logger = logging.getLogger(self.test_name)
-
-        if not logger.handlers:
-
-            logger.setLevel(logging.INFO)
-
-            formatter = logging.Formatter(
-                "[%(asctime)s] %(levelname)s - %(message)s"
-            )
-
-            console = logging.StreamHandler()
-
-            console.setFormatter(formatter)
-
-            logger.addHandler(console)
-
-        return logger
+        configure_logging()
+        return get_logger(self.test_name)
 
     # -----------------------------------------------------
 
     def start(self):
 
-        self.start_time = datetime.now()
+        self.start_time = datetime.now(timezone.utc)
 
         self.logger.info(
             f"Starting {self.test_name}"
@@ -76,8 +61,9 @@ class BaseSecurityTest(ABC):
     # -----------------------------------------------------
 
     def stop(self):
-
-        self.end_time = datetime.now()
+        if self.start_time is None:
+            raise RuntimeError("Cannot stop a test before it has started")
+        self.end_time = datetime.now(timezone.utc)
 
         duration = self.end_time - self.start_time
 
@@ -103,7 +89,7 @@ class BaseSecurityTest(ABC):
 
             "timestamp":
 
-                datetime.now().isoformat(),
+                datetime.now(timezone.utc).isoformat(),
 
             "finding":
 
@@ -168,7 +154,7 @@ class BaseSecurityTest(ABC):
 
             "generated":
 
-                datetime.now().isoformat(),
+                datetime.now(timezone.utc).isoformat(),
 
             "start_time":
 
@@ -186,7 +172,7 @@ class BaseSecurityTest(ABC):
 
         }
 
-        with open(filename, "w") as file:
+        with open(filename, "w", encoding="utf-8") as file:
 
             json.dump(
                 report,
@@ -211,17 +197,15 @@ class BaseSecurityTest(ABC):
                 + ".md"
             )
 
-        with open(filename, "w") as file:
+        with open(filename, "w", encoding="utf-8") as file:
 
             file.write(f"# {self.test_name}\n\n")
 
             file.write(
-                f"Generated: {datetime.now()}\n\n"
+                f"Generated: {datetime.now(timezone.utc)}\n\n"
             )
 
             for result in self.results:
-
-                file.write("## Finding\n\n")
 
                 file.write(
                     f"**Finding**: {result['finding']}\n\n"

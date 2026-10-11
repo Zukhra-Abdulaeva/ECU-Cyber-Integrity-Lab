@@ -13,9 +13,7 @@ class UDSAdapter(DomainAdapter):
         self.tester = tester
 
     def execute(self, inputs):
-        response = self.tester.send_request(inputs["request"])
-        self._status = ExecutionStatus.COMPLETED
-        return response
+        return self.tester.send_request(inputs["request"])
 
     def get_observation(self, execution_output):
         # Raw protocol response is the observation; evaluation remains outside the adapter.

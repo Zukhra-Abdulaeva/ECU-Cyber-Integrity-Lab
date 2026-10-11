@@ -13,8 +13,9 @@ class EthernetAdapter(DomainAdapter):
         self.scanner = scanner
 
     def execute(self, inputs):
-        self.scanner.scan(ports=inputs.get("ports", "22,80,443,13400,30490"))
-        self._status = ExecutionStatus.COMPLETED
+        self.scanner.scan(
+            ports=inputs.get("ports", "22,80,443,13400,30490")
+        )
         return list(self.scanner.results)
 
     def get_observation(self, execution_output):

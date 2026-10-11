@@ -14,15 +14,25 @@ class FirmwareAdapter(DomainAdapter):
 
     def execute(self, inputs):
         operation = inputs.get("operation", "information")
+
         if operation == "information":
-            output = self.validator.firmware_information(inputs["filename"])
+            output = self.validator.firmware_information(
+                inputs["filename"]
+            )
         elif operation == "verify_integrity":
-            output = self.validator.verify_integrity(inputs["filename"], inputs["expected_hash"])
+            output = self.validator.verify_integrity(
+                inputs["filename"],
+                inputs["expected_hash"],
+            )
         elif operation == "compare":
-            output = self.validator.compare_firmware(inputs["firmware_a"], inputs["firmware_b"])
+            output = self.validator.compare_firmware(
+                inputs["firmware_a"],
+                inputs["firmware_b"],
+            )
         else:
-            raise ValueError(f"Unsupported firmware operation: {operation}")
-        self._status = ExecutionStatus.COMPLETED
+            raise ValueError(
+                f"Unsupported firmware operation: {operation}"
+            )
         return output
 
     def get_observation(self, execution_output):

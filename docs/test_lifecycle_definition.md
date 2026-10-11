@@ -1,4 +1,3 @@
-````text
 # Test Lifecycle Definition
 
 ## 1. Purpose
@@ -30,9 +29,7 @@ Result
   |
   v
 Reporting / Evidence Boundary
-````
-
-The lifecycle does not establish implementation, execution, observation, evidence, or verification.
+```
 
 ## 2. Lifecycle States
 

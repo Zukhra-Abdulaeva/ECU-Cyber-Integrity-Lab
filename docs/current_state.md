@@ -183,21 +183,21 @@ The Phase-4 Evidence Framework establishes:
 
 | Architecture state              | Current state                            |
 | ------------------------------- | ---------------------------------------- |
-| Common Test Case Model          | NOT PRESENT                              |
-| Test Runner                     | NOT PRESENT                              |
-| Domain Adapter                  | NOT PRESENT                              |
-| Execution Interface             | NOT PRESENT                              |
-| Target / Model Context          | NOT PRESENT                              |
-| Observation / Result Model      | NOT PRESENT                              |
-| Oracle / Evaluation Boundary    | NOT PRESENT                              |
-| Traceability                    | NOT PRESENT                              |
-| Logging Boundary                | NOT PRESENT                              |
-| Reporting Integration           | PARTIAL / REPORT COMPONENT PRESENT       |
-| CAN Adapter                     | PRESENT / DEPENDENCY UNRESOLVED          |
-| UDS Adapter                     | PRESENT / DEPENDENCY UNRESOLVED          |
-| Firmware Adapter                | PRESENT / DEPENDENCY UNRESOLVED          |
-| Ethernet Adapter                | PRESENT / DEPENDENCY UNRESOLVED          |
-| General Security Test Execution | BLOCKED / NOT VERIFIED                   |
+| Common Test Case Model          | IMPLEMENTED / TARGETED VERIFICATION PASS |
+| Test Runner                     | IMPLEMENTED / TARGETED VERIFICATION PASS |
+| Domain Adapter                  | IMPLEMENTED / TARGETED VERIFICATION PASS |
+| Execution Interface             | IMPLEMENTED / TARGETED VERIFICATION PASS |
+| Target / Model Context          | IMPLEMENTED / TARGETED VERIFICATION PASS |
+| Observation / Result Model      | IMPLEMENTED / TARGETED VERIFICATION PASS |
+| Oracle / Evaluation Boundary    | IMPLEMENTED / TARGETED VERIFICATION PASS |
+| Traceability                    | IMPLEMENTED / TARGETED VERIFICATION PASS |
+| Logging Boundary                | IMPLEMENTED / TARGETED VERIFICATION PASS |
+| Reporting Integration           | IMPLEMENTED / TARGETED VERIFICATION PASS |
+| CAN Adapter                     | IMPLEMENTED / TARGETED VERIFICATION PASS |
+| UDS Adapter                     | IMPLEMENTED / TARGETED VERIFICATION PASS |
+| Firmware Adapter                | IMPLEMENTED / TARGETED VERIFICATION PASS |
+| Ethernet Adapter                | IMPLEMENTED / TARGETED VERIFICATION PASS |
+| General Security Test Execution | IMPLEMENTED / TARGETED VERIFICATION PASS |
 | Evidence Framework              | IMPLEMENTED / TARGETED VERIFICATION PASS |
 
 The Phase-4 Evidence Framework is implemented and locally verified. Targeted verification executed the Evidence Framework verification tests with **10 passed**.
