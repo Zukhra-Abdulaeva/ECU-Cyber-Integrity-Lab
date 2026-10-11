@@ -4,6 +4,7 @@ __pycache__/
 .pytest_cache/
 
 code.sh
+integration_notes.md
 project_files.txt
 security_files.txt
 Review_Phase_Completion_Gate.md
