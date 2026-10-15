@@ -636,3 +636,7 @@ Current status:
 - Observation: `NOT ESTABLISHED`
 - Evidence: `NOT ESTABLISHED`
 - Verification: `PENDING REVIEW`
+
+## Implementation Alignment
+
+The current code implements `ExecutionInterface` and `AdapterExecutionInterface` in `a_framework/execution.py`, with `TestRunner` in `a_framework/runner.py` and the abstract adapter contract in `a_framework/domain_adapter.py`. The runner delegates one selected adapter operation and returns `ExecutionOutcome`, which contains execution status and observations before evaluation. It is not a `TestResult` and does not itself assign PASS/FAIL or create evidence. The detailed source mapping is maintained in [`system_implementation_reference.md`](system_implementation_reference.md).

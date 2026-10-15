@@ -1712,28 +1712,158 @@ domain integration, and architectural boundaries have been documented.
 
 ---
 
+## 20.3 Phase 3 - Security Test Architecture
+
+### Objective
+
+Establish the technical architecture for structured security testing across the supported security domains.
+
+### Expected Phase Result
+
+A consistent Security Test Architecture defines test organization, domain separation, reusable test structures, execution interfaces, and the relationship between tests and assessment objectives.
+
+### Repository Architecture Mapping
+
+The Phase-3 repository mapping establishes the relationship between the repository components and the defined Security Test Architecture. It distinguishes the common architecture, domain-specific implementations, and the interfaces between them.
+
+| Component                                                    | Role                          | Domain              | Status             | Scope / Limitation                                                                 | Relationship                                     |
+| ------------------------------------------------------------ | ----------------------------- | ------------------- | ------------------ | ---------------------------------------------------------------------------------- | ------------------------------------------------ |
+| `a_framework/base_test.py`                                   | Common Test Framework Support | Common              | IMPLEMENTED        | Provides the common test structure                                                 | Security Test Case → Test Runner                 |
+| `a_framework/logger.py`                                      | Logging Support               | Common              | IMPLEMENTED        | Provides the common logging boundary                                               | Test Execution → Logging                         |
+| `a_framework/config.py`                                      | Configuration Support         | Common              | IMPLEMENTED        | Configuration component available in the framework                                 | Test Runner → Configuration                      |
+| `a_framework/report_generator.py`                            | Reporting Component           | Common              | IMPLEMENTED        | Provides common reporting functionality                                            | Result → Reporting                               |
+| `b_security_tests/can_tests/`                                | Domain Module                 | CAN                 | IMPLEMENTED        | Integrated through the CAN domain adapter                                          | Test Runner → CAN Adapter → CAN Module           |
+| `b_security_tests/uds_tests/`                                | Domain Module                 | UDS                 | IMPLEMENTED        | Integrated through the UDS domain adapter                                          | Test Runner → UDS Adapter → UDS Module           |
+| `b_security_tests/firmware_tests/`                           | Domain Module                 | Firmware            | IMPLEMENTED        | Integrates firmware analysis through the firmware domain adapter                   | Test Runner → Firmware Adapter → Firmware Module |
+| `b_security_tests/ethernet_tests/`                           | Domain Module                 | Automotive Ethernet | IMPLEMENTED        | Integrates network scanning through the Ethernet domain adapter                    | Test Runner → Ethernet Adapter → Ethernet Module |
+| `b_security_tests/can_tests/test_can_sniffer.py`             | Domain Test Structure         | CAN                 | IMPLEMENTED        | Domain-specific test implementation                                                | Test Case → Test Runner → CAN Module             |
+| `b_security_tests/uds_tests/test_uds_security.py`            | Domain Test Structure         | UDS                 | IMPLEMENTED        | Domain-specific test implementation                                                | Test Case → Test Runner → UDS Module             |
+| `b_security_tests/firmware_tests/test_firmware_validator.py` | Domain Test Structure         | Firmware            | IMPLEMENTED        | Domain-specific test implementation                                                | Test Case → Test Runner → Firmware Module        |
+| `b_security_tests/ethernet_tests/test_ethernet_scan.py`      | Domain Test Structure         | Automotive Ethernet | IMPLEMENTED        | Domain-specific test implementation                                                | Test Case → Test Runner → Ethernet Module        |
+| `c_evidence/<domain>/`                                       | Evidence Artifact Structure   | Domain-specific     | EXISTING STRUCTURE | Existing domain evidence is handled separately from the Phase-4 Evidence Framework | Execution / Observation → Evidence               |
+| `e_security_reports/`                                        | Reporting Artifacts           | Common              | EXISTING STRUCTURE | Existing reports remain distinct from the common reporting implementation          | Result → Reporting                               |
+
+### Architecture Delta Implementation
+
+* Identified architecture deviations D1–D11.
+* Implemented the required architecture corrections.
+* Preserved the existing domain-specific functionality.
+* Established the common architecture boundaries.
+* Integrated the supported domain modules through their adapters.
+* Verified the architecture changes against the implementation scope.
+* Updated the architecture documentation and repository mapping.
+
+### Implemented Architecture
+
+The Phase-3 implementation establishes the following architecture boundaries:
+
+* Test Case
+* Test Runner
+* Domain Adapter
+* Execution Interface
+* Target / Model
+* Observation / Result
+* Oracle / Evaluation
+* Traceability
+* Logging
+* Reporting
+
+The supported domain architecture is integrated through adapters for CAN, UDS, Firmware, and Automotive Ethernet. Domain-specific security functionality remains within the respective domain modules.
+
+### Architecture References
+
+* `security_test_architecture_definition.md`
+* `architecture_decisions.md`
+* `current_state.md`
+* `domain_architecture_matrix.md`
+
+### Phase-3 Result
+
+The defined Security Test Architecture and its repository mapping are implemented. The common architecture boundaries and supported domain integrations are established and documented.
+
+The completion of this phase covers the defined architecture scope. It does not establish that every security test has been executed successfully, that security findings have been confirmed, or that regression, CI/CD, vehicle-level testing, or the Phase-4 Evidence Framework are complete.
+
+**Status: COMPLETED**
+
+```text
+Security Test Architecture
+        |
+        +-- Architecture Definition
+        |       → ESTABLISHED
+        |
+        +-- Common Test Architecture
+        |       → IMPLEMENTED
+        |
+        +-- Test Runner
+        |       → IMPLEMENTED
+        |
+        +-- Domain Adapters
+        |       → IMPLEMENTED
+        |
+        +-- Execution Interface
+        |       → IMPLEMENTED
+        |
+        +-- Target / Model Boundary
+        |       → IMPLEMENTED
+        |
+        +-- Observation / Result
+        |       → IMPLEMENTED
+        |
+        +-- Oracle / Evaluation
+        |       → IMPLEMENTED
+        |
+        +-- Traceability
+        |       → IMPLEMENTED
+        |
+        +-- Logging and Reporting
+        |       → IMPLEMENTED
+        |
+        +-- CAN / UDS / Firmware / Ethernet Integration
+        |       → IMPLEMENTED
+        |
+        +-- Security Test Execution
+        |       → HANDLED BY THE RELEVANT TESTING PHASES
+        |
+        +-- Evidence Framework
+        |       → PHASE 4
+        |
+        +-- Core Security Test Cases
+        |       → PHASE 5
+        |
+        +-- Regression
+        |       → PHASE 9
+        |
+        +-- CI/CD
+                → PHASE 10
+```
+
+The Phase-3 Completion Gate is fulfilled for the defined Security Test Architecture scope. Architecture implementation, domain integration, repository mapping, and documentation are recorded as completed.
+
+---
+
 ## 20.4 Phase 4 - Evidence Framework
 
-**Objective**
+### Objective
 
-Phase 4 establishes the technical architecture and operational model for structured evidence creation, validation, provenance management, association, storage, integrity protection, and lifecycle management across all security-assessment domains.
+Establish the technical architecture and operational model for structured evidence creation, validation, provenance management, association, storage, integrity protection, and lifecycle management across the supported security-assessment domains.
 
-**Expected Phase Result**
+### Expected Phase Result
 
-The Evidence Framework provides a consistent and controlled foundation for evidence management. It defines:
+The Evidence Framework provides a common structure for evidence records and defines:
 
-* canonical evidence records and stable identifiers
-* provenance and evidence-origin boundaries
-* formal context classification
-* validation and integrity rules
-* evidence association and traceability
-* lifecycle states and transitions
-* repository storage structures
-* documentation and traceability synchronization
+* Canonical evidence records and stable identifiers
+* Provenance and evidence-origin boundaries
+* Context classification
+* Validation and integrity rules
+* Evidence association and traceability
+* Lifecycle states and transitions
+* Repository storage structures
+* Verification artifacts and execution metadata
+* Documentation and traceability synchronization
 
-The framework provides the technical basis for execution-linked evidence in subsequent phases.
+The framework provides the technical basis for evidence management in subsequent testing and assessment phases.
 
-Evidence Framework Architecture
+### Evidence Framework Architecture
 
 ```text
 +--------------------------------+
@@ -1742,74 +1872,74 @@ Evidence Framework Architecture
 +--------------------------------+
                 |
     -----------------------------------------
-    |          |          |        |         |
-    v          v          v        v         v
+    |          |          |        |        |
+    v          v          v        v        v
 +---------+ +---------+ +--------+ +-------+ +------------+
-|Evidence | |Provenance| |Context | |Valid. | |Association |
-|Definition| | Model   | |Class.  | | Model | |   Model    |
+| Evidence| |Provenance| | Context| |Validation|Association|
+|Definition| | Model  | | Model  | | Model | |   Model    |
 +---------+ +---------+ +--------+ +-------+ +------------+
-    |          |          |        |         |
+    |          |          |        |        |
     -----------------------------------------
                 |
                 v
 +--------------------------------+
 |       Evidence Lifecycle       |
-|    Created → Active → Archived |
+|     Created → Active → Archived|
 +--------------------------------+
                 |
                 v
 +--------------------------------+
-|        Evidence Storage        |
-|          c_evidence/*          |
+|       Evidence Storage         |
+|          c_evidence/           |
 +--------------------------------+
                 |
                 v
 +--------------------------------+
 |      Evidence Record (JSON)    |
-|      EV-P4-VER-001 … 004       |
+|       EV-P4-VER-001 … 004      |
 +--------------------------------+
                 |
                 v
 +--------------------------------+
 |       Execution Evidence       |
-|     pytest_evidence_framework   |
+|       Framework Verification   |
 +--------------------------------+
                 |
                 v
 +--------------------------------+
 |       Documentation Sync       |
-| framework | inventory | gaps   |
-| traceability | current state   |
+| Framework | Inventory | Gaps   |
+| Traceability | Current State   |
 +--------------------------------+
 ```
 
-The architecture separates evidence definition, provenance, context, validation, and association from subsequent lifecycle, persistence, verification, and documentation processes.
+The architecture separates evidence definition, provenance, context, validation, and association from lifecycle management, persistence, verification, and documentation.
 
-**Evidence Framework Repository Mapping**
+### Evidence Framework Repository Mapping
 
-The Phase-4 repository mapping establishes the relationship between the implemented Evidence Framework and the existing repository structures. It distinguishes newly implemented framework components from pre-existing legacy evidence structures.
+The Phase-4 repository mapping records the framework components and the existing evidence structures.
 
-| Component                           | Role                          | Domain          | Status                 | Scope / Limitation                                                             | Relationship                                   |
-| ----------------------------------- | ----------------------------- | --------------- | ---------------------- | ------------------------------------------------------------------------------ | ---------------------------------------------- |
-| `a_framework/evidence.py`           | Evidence Framework Core       | Common          | **IMPLEMENTED**        | Defines canonical records, lifecycle, provenance, validation, and association  | Test Execution → Evidence Record               |
-| `tests/test_evidence.py`            | Framework Verification        | Common          | **IMPLEMENTED**        | Verifies identity, structure, provenance, lifecycle, and association behavior  | Evidence Framework → Verification              |
-| `c_evidence/records/`               | Evidence Record Storage       | Common          | **IMPLEMENTED**        | Stores validated records and preserves historical records                      | Evidence Record → Storage                      |
-| `c_evidence/verification/`          | Execution Evidence            | Common          | **IMPLEMENTED**        | Stores pytest execution artifacts generated during framework verification      | Execution → Observation → Evidence             |
-| `docs/evidence.md`                  | Evidence Framework Definition | Common          | **UPDATED**            | Documents architecture, models, lifecycle, and validation rules                | Architecture → Documentation                   |
-| `docs/evidence.md`                  | Existing Evidence Inventory   | Common          | **UPDATED**            | Records legacy artifacts and identified provenance limitations                 | Legacy Artifact → Inventory                    |
-| `docs/ecu_security_domain_model.md` | Evidence Gap Record           | Common          | **UPDATED**            | Documents missing provenance and evidence associations                         | Inventory → Gap Analysis                       |
-| `docs/evidence.md`                  | Traceability Matrix           | Common          | **UPDATED**            | Maps requirements to implementation, tests, evidence, and documentation        | Requirement → Implementation → Test → Evidence |
-| `docs/current_state.md.md`          | Phase-4 Review Record         | Common          | **IMPLEMENTED**        | Records Phase-4 verification and completion status                             | Review → Completion Gate                       |
-| `c_evidence/<domain>/`              | Legacy Evidence Structure     | Domain-specific | **EXISTING STRUCTURE** | Existing structure does not satisfy the complete Phase-4 evidence requirements | Legacy Artifact → Evidence Boundary            |
+| Component                           | Role                                        | Domain          | Status             | Scope / Limitation                                                           | Relationship                        |
+| ----------------------------------- | ------------------------------------------- | --------------- | ------------------ | ---------------------------------------------------------------------------- | ----------------------------------- |
+| `a_framework/evidence.py`           | Evidence Framework Core                     | Common          | IMPLEMENTED        | Defines evidence records, provenance, validation, lifecycle, and association | Test Execution → Evidence Record    |
+| `a_framework/test_evidence.py`      | Framework Verification                      | Common          | IMPLEMENTED        | Verifies the implemented Evidence Framework behavior                         | Evidence Framework → Verification   |
+| `c_evidence/records/`               | Evidence Record Storage                     | Common          | IMPLEMENTED        | Stores evidence records                                                      | Evidence Record → Storage           |
+| `c_evidence/verification/`          | Execution Evidence                          | Common          | IMPLEMENTED        | Stores verification artifacts                                                | Execution → Observation → Evidence  |
+| `c_evidence/reports/`               | Evidence Records                            | Common          | IMPLEMENTED        | Contains the corresponding JSON evidence records                             | Verification → Evidence Record      |
+| `docs/evidence.md`                  | Evidence Framework Definition and Inventory | Common          | UPDATED            | Documents the framework and existing evidence structures                     | Framework → Documentation           |
+| `docs/ecu_security_domain_model.md` | Evidence Gap Record                         | Common          | UPDATED            | Documents evidence gaps and provenance limitations                           | Inventory → Gap Analysis            |
+| `docs/current_state.md`             | Current State and Review Record             | Common          | UPDATED            | Records the documented implementation and phase status                       | Review → Current State              |
+| `c_evidence/<domain>/`              | Legacy Evidence Structure                   | Domain-specific | EXISTING STRUCTURE | Existing domain artifacts remain distinct from the common Evidence Framework | Legacy Artifact → Evidence Boundary |
 
-**Architecture Delta**
+### Architecture Delta
 
-Phase 4 introduces the following Evidence Framework capabilities:
+Phase 4 establishes the following Evidence Framework capabilities:
 
 * Canonical `EvidenceRecord` model
 * Stable Evidence Identifier
 * Structured Provenance Model
-* Formal Context Classification
+* Formal Context Classification:
+
   * `REAL`
   * `VIRTUAL`
   * `SIMULATED`
@@ -1821,33 +1951,34 @@ Phase 4 introduces the following Evidence Framework capabilities:
 * Evidence Lifecycle Management
 * Structured Evidence Storage under `c_evidence/`
 * Evidence Integrity and overwrite protection
-* Synchronized documentation covering framework, inventory, gaps, traceability, and current state
-* Automated verification through pytest
+* Validation of evidence records and referenced artifacts
+* Verification through pytest
+* Documentation covering framework definition, inventory, gaps, traceability, and current state
 
-These capabilities establish the formal boundary between evidence generation, validation, persistence, and later execution-linked assessment activities.
+These capabilities establish the boundary between evidence creation, validation, persistence, and subsequent execution-linked assessment activities.
 
-**Targeted Phase-4 Verification**
+### Targeted Phase-4 Verification
 
-The Phase-4 Evidence Framework was verified locally using:
+The recorded targeted verification command is:
 
 ```bash
 python -m pytest -q a_framework/test_evidence.py
 ```
 
-Observed result:
+Recorded result:
 
 ```text
 ..........                         [100%]
 10 passed in 0.30s
 ```
 
-The execution artifact is persisted at:
+The recorded execution artifact is:
 
 ```text
 c_evidence/verification/EV-P4-VER-001_test_execution.txt
 ```
 
-SHA-256:
+Recorded SHA-256:
 
 ```text
 be5c7c2a77651d7dbb2df36d92841b653019bc5a0572bffa08bd3c43016c9b08
@@ -1867,30 +1998,30 @@ result: PASS
 evidence_status: VERIFIED
 ```
 
-**Verification Scope and Limitations**
+### Verification Scope and Limitations
 
-The verification covers the implemented Evidence Framework behavior, including:
+The documented verification covers the implemented Evidence Framework behavior, including:
 
-* acceptance and validation of well-formed evidence records
-* stable identity and provenance requirements
-* evidence association validation
-* lifecycle transition controls
-* repository persistence and overwrite protection
-* execution metadata requirements for `PASS` records
-* artifact integrity and tamper detection
-* missing-artifact and hash validation
-* rejection of invalid records before persistence
+* Acceptance and validation of well-formed evidence records
+* Stable identity and provenance requirements
+* Evidence association validation
+* Lifecycle transition controls
+* Repository persistence and overwrite protection
+* Execution metadata requirements for `PASS` records
+* Artifact integrity and tamper detection
+* Missing-artifact and hash validation
+* Rejection of invalid records before persistence
 
-The verification context is classified as:
+The recorded verification context is:
 
 ```text
 LOCAL
 SYNTHETIC
 ```
 
-The verification does not establish ECU or vehicle execution, production or OEM validation, or real-world vehicle security validation.
+The verification establishes local framework behavior. It does not establish ECU or vehicle execution, production or OEM validation, or real-world vehicle security validation.
 
-**Phase-4 Evidence Artifacts**
+### Phase-4 Evidence Artifacts
 
 Verification artifacts are stored under:
 
@@ -1904,7 +2035,7 @@ Evidence records are stored under:
 c_evidence/reports/
 ```
 
-Current Phase-4 verification artifacts:
+The documented Phase-4 verification artifacts are:
 
 ```text
 EV-P4-VER-001_test_execution.txt
@@ -1922,9 +2053,9 @@ EV-P4-VER-003.json
 EV-P4-VER-004.json
 ```
 
-Historical execution artifacts remain identifiable where applicable and do not supersede the current targeted verification record.
+Historical execution artifacts remain identifiable where applicable. They do not replace the designated verification record for the targeted Phase-4 verification.
 
- **Completion Gate**
+### Completion Gate
 
 ```text
 Evidence Framework Established              PASS
@@ -1937,20 +2068,23 @@ Evidence Association Defined                PASS
 Evidence Storage Defined                    PASS
 Evidence Lifecycle Established              PASS
 Evidence Integrity Handling Defined         PASS
-Existing Evidence Inventory Completed       PASS
+Existing Evidence Inventory Documented      PASS
 Evidence Gaps Documented                    PASS
-Evidence Traceability Established           PASS
-Documentation Synchronized                  PASS
-Phase-4 Review Completed                    PASS
+Evidence Traceability Documented            PASS
+Documentation Updated                       PASS
+Phase-4 Review Recorded                     PASS
+Targeted Local Verification Recorded        PASS
 ```
 
-Result:
-The Phase-4 Evidence Framework is implemented and verified through the targeted local test execution.
+### Phase-4 Result
+
+The Evidence Framework implementation, its documented data model, evidence storage structure, validation behavior, lifecycle handling, and targeted local verification are recorded as completed.
+
+The framework provides the evidence-management foundation for the subsequent security testing and assessment phases. ECU-level execution and vehicle validation remain outside the scope of this phase.
 
 **Phase 4 Status: COMPLETED**
 
 ---
-
 
 ## 20.5 Phase 5 - Core Security Test Cases
 

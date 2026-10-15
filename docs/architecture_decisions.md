@@ -1227,3 +1227,7 @@ The architecture is based on the following decisions:
 ```
 
 The decisions above define the architectural basis of ECU-Cyber-Integrity-Lab. They do not by themselves establish the implementation, execution or verification status of the corresponding technical capabilities.
+
+## Implementation Reference Boundary
+
+Architecture decisions explain why the architecture is shaped as it is; they should not be used as the implementation inventory. The current code-to-architecture mapping, concrete execution path, and snapshot-based implementation limits are maintained in [`system_implementation_reference.md`](system_implementation_reference.md). Where this document records a planned or architectural component, implementation status must be checked against that reference and current source/test evidence.

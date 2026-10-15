@@ -1387,3 +1387,8 @@ docs/testing.md
 ```
 
 The separation prevents historical phase information from being interpreted as current implementation or execution status.
+
+
+## Implementation Reference
+
+This document defines the common architecture and its boundaries; it is not a complete inventory of the code. For the concrete component-to-file mapping and the implemented execution path, see [`system_implementation_reference.md`](system_implementation_reference.md). In the current repository snapshot, `TestRunner` coordinates one already-selected adapter operation and returns `ExecutionOutcome`; evaluation and Phase-4 evidence handling remain outside the runner. Architectural boundaries for evaluation, reporting, and end-to-end traceability must not be interpreted as proof that those flows are fully integrated.

@@ -643,3 +643,7 @@ The central principle is:
 A security test is only as strong as the traceable connection between
 its objective, execution, observation, evidence, and result.
 ```
+
+## Verification Scope Note
+
+The existence of a test file or cached pytest node is not itself evidence that tests passed in the current run. In the repository snapshot, the UDS, Ethernet, and Firmware pytest files contain placeholder tests, while the CAN test file includes a save-message test. Evidence-framework tests cover selected framework behaviors and do not establish real-ECU/vehicle security validation or end-to-end domain evidence generation. For the code-to-test mapping and limits, see [`system_implementation_reference.md`](system_implementation_reference.md).

@@ -1294,3 +1294,7 @@ DOMAIN VERIFICATION
 The resulting architecture provides a common execution and integration structure for the concrete CAN, UDS, Firmware and Ethernet domains while preserving their domain-specific technical responsibilities.
 
 The implementation status of the architecture is distinct from execution, observation and verification status. The domain architecture therefore establishes the technical integration structure without representing unverified domain execution as completed verification.
+
+## Implementation Reference
+
+Use this matrix for domain-level mapping and status. The concrete file-by-file framework mapping and the exact scope of the runner/adapter path are maintained in [`system_implementation_reference.md`](system_implementation_reference.md). A domain module or adapter being present does not establish a fully integrated test case, oracle/evaluation, evidence association, or end-to-end verification. The snapshot's UDS, Ethernet, and Firmware pytest files contain placeholder tests; report domain verification accordingly.

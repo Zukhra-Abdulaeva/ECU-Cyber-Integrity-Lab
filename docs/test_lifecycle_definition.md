@@ -321,3 +321,7 @@ Current status:
 * Lifecycle Observation: `NOT ESTABLISHED`
 * Lifecycle Evidence: `NOT ESTABLISHED`
 * Lifecycle Verification: `ARCHITECTURE REVIEW`
+
+## Implementation Alignment
+
+Keep the lifecycle concepts distinct in implementation descriptions: `ExecutionStatus` represents execution progress; `ResultStatus` represents evaluated test outcome; `Observation` represents execution-derived output; and `EvidenceLifecycle` represents evidence-record lifecycle. The implemented runner returns `ExecutionOutcome` before test evaluation. Do not infer that the complete conceptual lifecycle is end-to-end integrated for every domain. See [`system_implementation_reference.md`](system_implementation_reference.md) for the code-level flow and limits.

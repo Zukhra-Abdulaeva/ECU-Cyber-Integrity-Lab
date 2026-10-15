@@ -1086,3 +1086,7 @@ Evidence
 Phase-3 Completion
     COMPLETED
 ```
+
+## Implementation Alignment
+
+The shared framework currently includes `TestRunner`, `DomainAdapter`, `ExecutionInterface`/`AdapterExecutionInterface`, shared data models, the Evidence Framework, an in-memory traceability registry, and a logging boundary. The runner executes one already-selected adapter operation and returns `ExecutionOutcome`; evaluation and evidence creation are not performed by that runner. `a_framework/config.py` and `a_framework/logger.py` are structural placeholders in the repository snapshot, while `a_framework/logging_boundary.py` provides the common logging functions. For file-level detail and verification boundaries, see [`system_implementation_reference.md`](system_implementation_reference.md).

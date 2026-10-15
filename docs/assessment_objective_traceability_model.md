@@ -476,3 +476,7 @@ Finding
 No additional Security Test Architecture component, execution mechanism, lifecycle state, Evidence Framework function, or Finding lifecycle function is introduced by this artifact.
 
 The traceability model is therefore limited to consolidation and semantic clarification of the relationships already established by the existing Security Test Architecture.
+
+## Implementation Alignment
+
+The implemented `a_framework/traceability.py` defines `TraceabilityRecord` and an in-memory `TraceabilityRegistry` linking objective, test-case, optional execution, optional result, and evidence identifiers. The registry is not persistent storage and does not execute tests, evaluate results, or manage evidence lifecycle transitions. The full conceptual traceability chain remains an architectural model unless each link is established by concrete integration and verification. See [`system_implementation_reference.md`](system_implementation_reference.md).

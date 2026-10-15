@@ -482,3 +482,8 @@ Execution → Observation
 Observation → Evidence
 Evidence → Result
 ```
+
+
+## Implementation Alignment
+
+The current repository contains the Evidence Framework implementation and tests for selected record-validation, lifecycle, repository, and artifact-integrity behaviors. This does not mean every domain execution automatically creates and persists evidence. `TestRunner` returns an `ExecutionOutcome`; evidence handling remains outside that runner. `TraceabilityRegistry` is an in-memory relationship index and does not own evidence lifecycle or persistence. Treat existing files under `c_evidence/` as artifacts whose provenance and status must be assessed individually, not as automatic proof of a complete end-to-end pipeline. The code-level mapping is in [`system_implementation_reference.md`](system_implementation_reference.md).
