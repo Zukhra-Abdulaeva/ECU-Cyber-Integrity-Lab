@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0",
+  "execution_id": "EXEC-CAN-20261018T041722-4100ea9f",
+  "test_case_id": "CAN-SNIFFER-001",
+  "test_name": "CAN Traffic Capture",
+  "domain": "CAN",
+  "execution_context": {
+    "channel": "vcan0",
+    "interface": "virtual",
+    "mode": "VIRTUAL"
+  },
+  "started_at": "2026-10-18T04:17:22.300277+00:00",
+  "completed_at": "2026-10-18T04:17:32.304768+00:00",
+  "configured_duration_seconds": 10.0,
+  "actual_duration_seconds": 10.000275,
+  "filter_ids": null,
+  "execution_status": "COMPLETED",
+  "observations": [],
+  "statistics": {
+    "message_count": 0,
+    "unique_ids": 0,
+    "messages_per_id": {}
+  },
+  "errors": [],
+  "evidence_files": {
+    "csv": "ECU-Cyber-Integrity-Lab/c_evidence/can/EXEC-CAN-20261018T041722-4100ea9f/can_capture.csv",
+    "json": "ECU-Cyber-Integrity-Lab/c_evidence/can/EXEC-CAN-20261018T041722-4100ea9f/can_report.json"
+  },
+  "evaluation": {
+    "status": "NOT_EVALUATED",
+    "rationale": "Raw CAN observations only; security criteria have not been evaluated."
+  }
+}

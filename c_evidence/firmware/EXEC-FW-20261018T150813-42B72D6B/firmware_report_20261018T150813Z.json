@@ -1,0 +1,32 @@
+{
+    "schema_version": "1.0",
+    "execution_id": "EXEC-FW-20261018T150813-42B72D6B",
+    "test_case_id": "FIRMWARE-VALIDATOR-001",
+    "started_at": "2026-10-18T15:08:13.134987+00:00",
+    "generated": "2026-10-18T15:08:13.143922+00:00",
+    "execution_status": "COMPLETED",
+    "assessment": "Firmware Integrity Validation",
+    "scope": "STATIC_ARTIFACT_ANALYSIS",
+    "evaluation_status": "NOT_EVALUATED",
+    "results": [
+        {
+            "timestamp": "2026-10-18T15:08:13.135792+00:00",
+            "test": "Firmware Comparison",
+            "firmware_a": "ECU-Cyber-Integrity-Lab/c_evidence/firmware/gateway_ecu.bin",
+            "firmware_b": "ECU-Cyber-Integrity-Lab/c_evidence/firmware/gateway_ecu_v2.bin",
+            "identical": false,
+            "hash_a": "90baf0886afbef4419916675504955dca5b3bc2993a1eec60557c1ee41570d1e",
+            "hash_b": "385bd3808e88449d3380af132726145eb1a66bd8b6420b42c0740c7b7e5dc59f",
+            "comparison": "DIFFERENT"
+        }
+    ],
+    "errors": [],
+    "evidence_files": {
+        "json": "ECU-Cyber-Integrity-Lab/c_evidence/firmware/EXEC-FW-20261018T150813-42B72D6B/firmware_report_20261018T150813Z.json"
+    },
+    "limitations": [
+        "SHA-256 equality alone does not establish authenticity.",
+        "Analysis is limited to the local artifacts and recorded checks.",
+        "Firmware comparison reports equality or difference; it does not independently determine firmware security."
+    ]
+}

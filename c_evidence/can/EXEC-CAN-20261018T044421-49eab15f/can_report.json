@@ -1,0 +1,198 @@
+{
+  "schema_version": "1.0",
+  "execution_id": "EXEC-CAN-20261018T044421-49eab15f",
+  "test_case_id": "CAN-SNIFFER-001",
+  "test_name": "CAN Traffic Capture",
+  "domain": "CAN",
+  "execution_context": {
+    "channel": "vcan0",
+    "interface": "socketcan",
+    "mode": "SOCKETCAN"
+  },
+  "started_at": "2026-10-18T04:44:21.459968+00:00",
+  "completed_at": "2026-10-18T04:44:31.472361+00:00",
+  "configured_duration_seconds": 10.0,
+  "actual_duration_seconds": 10.000538,
+  "filter_ids": null,
+  "execution_status": "COMPLETED",
+  "observations": [
+    {
+      "timestamp": "2026-10-18T04:44:21.682757+00:00",
+      "id": "0x200",
+      "arbitration_id": 512,
+      "is_extended_id": false,
+      "dlc": 8,
+      "data": "ff ff ff ff ff ff ff ff"
+    },
+    {
+      "timestamp": "2026-10-18T04:44:22.182563+00:00",
+      "id": "0x100",
+      "arbitration_id": 256,
+      "is_extended_id": false,
+      "dlc": 8,
+      "data": "01 00 ff a2 12 44 55 66"
+    },
+    {
+      "timestamp": "2026-10-18T04:44:22.682760+00:00",
+      "id": "0x321",
+      "arbitration_id": 801,
+      "is_extended_id": false,
+      "dlc": 8,
+      "data": "11 22 33 44 55 66 77 88"
+    },
+    {
+      "timestamp": "2026-10-18T04:44:23.183005+00:00",
+      "id": "0x200",
+      "arbitration_id": 512,
+      "is_extended_id": false,
+      "dlc": 8,
+      "data": "ff ff ff ff ff ff ff ff"
+    },
+    {
+      "timestamp": "2026-10-18T04:44:23.683382+00:00",
+      "id": "0x100",
+      "arbitration_id": 256,
+      "is_extended_id": false,
+      "dlc": 8,
+      "data": "01 00 ff a2 12 44 55 66"
+    },
+    {
+      "timestamp": "2026-10-18T04:44:24.183785+00:00",
+      "id": "0x321",
+      "arbitration_id": 801,
+      "is_extended_id": false,
+      "dlc": 8,
+      "data": "11 22 33 44 55 66 77 88"
+    },
+    {
+      "timestamp": "2026-10-18T04:44:24.684142+00:00",
+      "id": "0x200",
+      "arbitration_id": 512,
+      "is_extended_id": false,
+      "dlc": 8,
+      "data": "ff ff ff ff ff ff ff ff"
+    },
+    {
+      "timestamp": "2026-10-18T04:44:25.184437+00:00",
+      "id": "0x100",
+      "arbitration_id": 256,
+      "is_extended_id": false,
+      "dlc": 8,
+      "data": "01 00 ff a2 12 44 55 66"
+    },
+    {
+      "timestamp": "2026-10-18T04:44:25.684717+00:00",
+      "id": "0x321",
+      "arbitration_id": 801,
+      "is_extended_id": false,
+      "dlc": 8,
+      "data": "11 22 33 44 55 66 77 88"
+    },
+    {
+      "timestamp": "2026-10-18T04:44:26.185147+00:00",
+      "id": "0x200",
+      "arbitration_id": 512,
+      "is_extended_id": false,
+      "dlc": 8,
+      "data": "ff ff ff ff ff ff ff ff"
+    },
+    {
+      "timestamp": "2026-10-18T04:44:26.685901+00:00",
+      "id": "0x100",
+      "arbitration_id": 256,
+      "is_extended_id": false,
+      "dlc": 8,
+      "data": "01 00 ff a2 12 44 55 66"
+    },
+    {
+      "timestamp": "2026-10-18T04:44:27.186092+00:00",
+      "id": "0x321",
+      "arbitration_id": 801,
+      "is_extended_id": false,
+      "dlc": 8,
+      "data": "11 22 33 44 55 66 77 88"
+    },
+    {
+      "timestamp": "2026-10-18T04:44:27.686555+00:00",
+      "id": "0x200",
+      "arbitration_id": 512,
+      "is_extended_id": false,
+      "dlc": 8,
+      "data": "ff ff ff ff ff ff ff ff"
+    },
+    {
+      "timestamp": "2026-10-18T04:44:28.186907+00:00",
+      "id": "0x100",
+      "arbitration_id": 256,
+      "is_extended_id": false,
+      "dlc": 8,
+      "data": "01 00 ff a2 12 44 55 66"
+    },
+    {
+      "timestamp": "2026-10-18T04:44:28.687037+00:00",
+      "id": "0x321",
+      "arbitration_id": 801,
+      "is_extended_id": false,
+      "dlc": 8,
+      "data": "11 22 33 44 55 66 77 88"
+    },
+    {
+      "timestamp": "2026-10-18T04:44:29.187612+00:00",
+      "id": "0x200",
+      "arbitration_id": 512,
+      "is_extended_id": false,
+      "dlc": 8,
+      "data": "ff ff ff ff ff ff ff ff"
+    },
+    {
+      "timestamp": "2026-10-18T04:44:29.688036+00:00",
+      "id": "0x100",
+      "arbitration_id": 256,
+      "is_extended_id": false,
+      "dlc": 8,
+      "data": "01 00 ff a2 12 44 55 66"
+    },
+    {
+      "timestamp": "2026-10-18T04:44:30.188401+00:00",
+      "id": "0x321",
+      "arbitration_id": 801,
+      "is_extended_id": false,
+      "dlc": 8,
+      "data": "11 22 33 44 55 66 77 88"
+    },
+    {
+      "timestamp": "2026-10-18T04:44:30.688615+00:00",
+      "id": "0x200",
+      "arbitration_id": 512,
+      "is_extended_id": false,
+      "dlc": 8,
+      "data": "ff ff ff ff ff ff ff ff"
+    },
+    {
+      "timestamp": "2026-10-18T04:44:31.189089+00:00",
+      "id": "0x100",
+      "arbitration_id": 256,
+      "is_extended_id": false,
+      "dlc": 8,
+      "data": "01 00 ff a2 12 44 55 66"
+    }
+  ],
+  "statistics": {
+    "message_count": 20,
+    "unique_ids": 3,
+    "messages_per_id": {
+      "0x100": 7,
+      "0x200": 7,
+      "0x321": 6
+    }
+  },
+  "errors": [],
+  "evidence_files": {
+    "csv": "/ECU-Cyber-Integrity-Lab/c_evidence/can/EXEC-CAN-20261018T044421-49eab15f/can_capture.csv",
+    "json": "/ECU-Cyber-Integrity-Lab/c_evidence/can/EXEC-CAN-20261018T044421-49eab15f/can_report.json"
+  },
+  "evaluation": {
+    "status": "NOT_EVALUATED",
+    "rationale": "Raw CAN observations only; security criteria have not been evaluated."
+  }
+}

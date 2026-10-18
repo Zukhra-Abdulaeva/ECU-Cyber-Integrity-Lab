@@ -2088,15 +2088,139 @@ The framework provides the evidence-management foundation for the subsequent sec
 
 ## 20.5 Phase 5 - Core Security Test Cases
 
-Objective
+### Objective
 
 Implement and validate the core security test cases for the defined security domains.
 
-Expected Phase Result
+### Expected Phase Result
 
 The defined core test cases are implemented, executable within their supported environments, associated with evidence, and evaluated according to the applicable test result criteria.
 
-Status: NOT STARTED
+### Security Test Architecture
+
++--------------------------------+
+|      Core Security Tests       |
+|            Phase 5             |
++--------------------------------+
+                |
+    -----------------------------------------
+    |          |          |         |
+    v          v          v         v
++---------+ +---------+ +---------+ +----------+
+|   CAN   | |   UDS   | |Ethernet | | Firmware |
++---------+ +---------+ +---------+ +----------+
+    |          |          |         |
+    ---------------------------------
+                |
+                v
++--------------------------------+
+|     Evidence Generation        |
+|     JSON / CSV / Reports       |
++--------------------------------+
+                |
+                v
++--------------------------------+
+|     Evidence Framework         |
+|          Phase 4              |
++--------------------------------+
+                |
+                v
++--------------------------------+
+|      Traceability Layer        |
++--------------------------------+
+
+### Assessment Capabilities
+
+- CAN traffic observation, capture, filtering, and evidence generation.
+- UDS diagnostic security request/response validation with structured reporting.
+- Automotive Ethernet host and service inventory for authorized laboratory networks.
+- Firmware integrity verification and firmware-comparison workflows based on SHA-256.
+- Evidence collection, execution traceability, and JSON-based assessment reporting.
+
+### Traceability and Evidence
+
+Each supported assessment domain generates execution-specific evidence artifacts. Evidence records include execution identifiers, timestamps, assessment metadata, observed results, generated reports, and error information where applicable. This supports assessment repeatability, review, and documentation activities.
+
+### Completed work
+
+- Core security-test implementations for CAN, UDS, Ethernet, and firmware are present in the repository.
+- The corresponding domain-specific pytest test files are present.
+- Phase-5 test execution was reported as successful.
+- Evidence artifacts were created for the supported core security-test domains.
+- The Phase-5 status was synchronized with the current project-state documentation.
+
+Phase 5 establishes:
+
+* CAN traffic observation and reporting
+* UDS security validation workflows
+* Automotive Ethernet inventory workflows
+* Firmware integrity and comparison workflows
+* Domain-specific evidence generation
+* Execution identifiers
+* Timestamped execution reports
+* Structured JSON reporting
+* Automated pytest validation
+* Cross-domain assessment traceability
+
+### Result and boundary
+
+Phase 5 establishes a repeatable assessment workflow for the supported security domains. The implemented test modules provide structured evidence generation, traceability, and technical observations for CAN, UDS, Ethernet, and firmware-related security activities.
+
+The generated evidence supports attack-surface analysis, diagnostic-security review, firmware-integrity review, and communication-observation activities within authorized laboratory environments.
+
+Targeted verification commands:
+```text
+python -m pytest -q b_security_tests/can_tests
+python -m pytest -q b_security_tests/uds_tests
+python -m pytest -q b_security_tests/ethernet_tests
+python -m pytest -q b_security_tests/firmware_tests
+```
+
+The recorded verification covers:
+
+* CAN message capture and filtering
+* UDS request/response handling
+* Automotive Ethernet inventory behaviour
+* Firmware integrity verification
+* Evidence generation workflows
+* Error handling paths
+* JSON reporting and traceability
+
+It does not test:
+
+* Production ECU validation
+* Production vehicle validation
+* Real vehicle communication
+* OEM-specific implementations
+* Penetration testing against operational systems
+* Protocol conformance certification
+
+### Repository Mapping
+
+The repository mapping establishes the relationship between domain-specific assessment components, automated verification, and execution-generated evidence. Each implemented security-assessment domain produces execution-specific evidence artifacts that support traceability, repeatability, and assessment documentation. Domain evidence represents recorded observations and assessment results within the supported laboratory scope and does not by itself establish production ECU, vehicle, OEM, or regulatory security validation.
+
+| Component                           | Role                                                | Domain     | Status       | Scope / Limitation                                                                                        |Relationship          |
+| ----------------------------------- | --------------------------------------------------- | ---------- | ------------ | --------------------------------------------------------------------------------------------------------- | -------------------- |
+| `can_sniffer.py`                    | CAN Traffic Observation and Evidence Collection     | CAN        | IMPLEMENTED  | Captures and reports observed CAN messages                                                                | CAN → Evidence       |
+| `uds_security.py`                   | UDS Diagnostic Security Validation                  | UDS        | IMPLEMENTED  | Performs bounded UDS request/response checks                                                              | UDS → Evidence       |
+| `ethernet_scan.py`                  | Automotive Ethernet Host and Service Inventory      | Ethernet   | IMPLEMENTED  | Inventories reachable hosts and services on authorized networks                                           | Ethernet → Evidence  |
+| `firmware_validator.py`             | Firmware Integrity and Comparison Validation        | Firmware   | IMPLEMENTED  | Validates local firmware artifacts using SHA-256 and comparison workflows                                 | Firmware → Evidence  |
+| `Domain pytest files`               | Automated Verification and Regression Validation    | Common     | IMPLEMENTED  | Validates implemented behavior, error handling, and reporting workflows                                   | Test → Verification  |
+| `c_evidence/can/`                   | CAN Assessment Evidence Storage                     | CAN        | ACTIVE       | SStores execution-specific CAN reports and captured observations generated during supported assessments   | Execution → Evidence |
+| `c_evidence/uds/`                   | UDS Assessment Evidence Storage                     | UDS        | ACTIVE       | Stores execution-specific UDS diagnostic security assessment reports and related artifacts                | Execution → Evidence |
+| `c_evidence/ethernet/`              | Ethernet Assessment Evidence Storage                | Ethernet   | ACTIVE       | Stores execution-specific Ethernet inventory reports and service-analysis artifacts                       | Execution → Evidence |
+| `c_evidence/firmware/`              | Firmware Assessment Evidence Storage                | Firmware   | ACTIVE       | Stores firmware-integrity reports, firmware-comparison results, and related assessment evidence           | Execution → Evidence |
+
+
+### Phase-5 Result
+
+Phase 5 establishes the repository's initial cross-domain security-testing baseline.
+
+Executable assessment workflows are available for CAN, UDS, Automotive Ethernet, and Firmware Integrity domains. Domain-specific evidence generation, execution traceability, and automated validation are implemented and documented.
+
+The resulting capability supports laboratory-based security assessment activities and provides the operational foundation for subsequent assessment and analysis phases.
+
+**Status: COMPLETED**
 
 ## 20.6 Phase 6 - Extended Security Test Cases
 

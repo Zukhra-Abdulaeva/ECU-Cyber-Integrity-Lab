@@ -8,7 +8,8 @@
             "file": "gateway_ecu.bin",
             "status": "FAIL",
             "expected_hash": "0123456789abcdef",
-            "calculated_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            "calculated_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855" (SHA-256 hash of an empty file)
+
         },
         {
             "timestamp": "2026-08-22T21:41:38.897407",
@@ -16,8 +17,8 @@
             "firmware_a": "gateway_ecu.bin",
             "firmware_b": "gateway_ecu_v2.bin",
             "identical": true,
-            "hash_a": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-            "hash_b": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            "hash_a": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", (SHA-256 hash of an empty file)
+            "hash_b": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855" (SHA-256 hash of an empty file)
         }
     ]
 }

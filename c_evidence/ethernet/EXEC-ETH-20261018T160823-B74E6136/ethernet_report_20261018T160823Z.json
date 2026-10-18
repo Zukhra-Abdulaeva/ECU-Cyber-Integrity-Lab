@@ -1,0 +1,311 @@
+{
+  "schema_version": "1.0",
+  "execution_id": "EXEC-ETH-20261018T160823-B74E6136",
+  "test_case_id": "ETHERNET-SCANNER-001",
+  "started_at": "2026-10-18T16:08:23.598661+00:00",
+  "completed_at": "2026-10-18T16:08:23.679926+00:00",
+  "generated_utc": "2026-10-18T16:08:23.679926+00:00",
+  "execution_status": "COMPLETED",
+  "assessment": "Automotive Ethernet Inventory Scan",
+  "scope": "AUTHORIZED_NETWORK_SCAN",
+  "scan": {
+    "target": "127.0.0.1",
+    "ports": "22,80,443,13400,30490-30509",
+    "scan_type": "TCP_CONNECT",
+    "generated_utc": "2026-10-18T16:08:23.666137+00:00",
+    "host_count": 1,
+    "service_count": 24
+  },
+  "summary": {
+    "hosts_discovered": 1,
+    "services_detected": 24
+  },
+  "recommendations": [
+    {
+      "host": "127.0.0.1",
+      "port": "22",
+      "recommendation": "Review SSH exposure, authentication policy, and unused accounts."
+    },
+    {
+      "host": "127.0.0.1",
+      "port": "80",
+      "recommendation": "Determine whether clear-text HTTP is required; review HTTPS/TLS alternatives."
+    },
+    {
+      "host": "127.0.0.1",
+      "port": "443",
+      "recommendation": "Review TLS versions, cipher policy, and certificate validation."
+    },
+    {
+      "host": "127.0.0.1",
+      "port": "13400",
+      "recommendation": "Diagnostic over IP detected. Review diagnostic access control and authentication mechanisms."
+    },
+    {
+      "host": "127.0.0.1",
+      "port": "30490",
+      "recommendation": "Potential SOME/IP-related port; verify service identity and configuration."
+    },
+    {
+      "host": "127.0.0.1",
+      "port": "30491",
+      "recommendation": "Potential SOME/IP-related port; verify service identity and configuration."
+    },
+    {
+      "host": "127.0.0.1",
+      "port": "30492",
+      "recommendation": "Potential SOME/IP-related port; verify service identity and configuration."
+    },
+    {
+      "host": "127.0.0.1",
+      "port": "30493",
+      "recommendation": "Potential SOME/IP-related port; verify service identity and configuration."
+    },
+    {
+      "host": "127.0.0.1",
+      "port": "30494",
+      "recommendation": "Potential SOME/IP-related port; verify service identity and configuration."
+    },
+    {
+      "host": "127.0.0.1",
+      "port": "30495",
+      "recommendation": "Potential SOME/IP-related port; verify service identity and configuration."
+    },
+    {
+      "host": "127.0.0.1",
+      "port": "30496",
+      "recommendation": "Potential SOME/IP-related port; verify service identity and configuration."
+    },
+    {
+      "host": "127.0.0.1",
+      "port": "30497",
+      "recommendation": "Potential SOME/IP-related port; verify service identity and configuration."
+    },
+    {
+      "host": "127.0.0.1",
+      "port": "30498",
+      "recommendation": "Potential SOME/IP-related port; verify service identity and configuration."
+    },
+    {
+      "host": "127.0.0.1",
+      "port": "30499",
+      "recommendation": "Potential SOME/IP-related port; verify service identity and configuration."
+    },
+    {
+      "host": "127.0.0.1",
+      "port": "30500",
+      "recommendation": "Potential SOME/IP-related port; verify service identity and configuration."
+    },
+    {
+      "host": "127.0.0.1",
+      "port": "30501",
+      "recommendation": "Potential SOME/IP-related port; verify service identity and configuration."
+    },
+    {
+      "host": "127.0.0.1",
+      "port": "30502",
+      "recommendation": "Potential SOME/IP-related port; verify service identity and configuration."
+    },
+    {
+      "host": "127.0.0.1",
+      "port": "30503",
+      "recommendation": "Potential SOME/IP-related port; verify service identity and configuration."
+    },
+    {
+      "host": "127.0.0.1",
+      "port": "30504",
+      "recommendation": "Potential SOME/IP-related port; verify service identity and configuration."
+    },
+    {
+      "host": "127.0.0.1",
+      "port": "30505",
+      "recommendation": "Potential SOME/IP-related port; verify service identity and configuration."
+    },
+    {
+      "host": "127.0.0.1",
+      "port": "30506",
+      "recommendation": "Potential SOME/IP-related port; verify service identity and configuration."
+    },
+    {
+      "host": "127.0.0.1",
+      "port": "30507",
+      "recommendation": "Potential SOME/IP-related port; verify service identity and configuration."
+    },
+    {
+      "host": "127.0.0.1",
+      "port": "30508",
+      "recommendation": "Potential SOME/IP-related port; verify service identity and configuration."
+    },
+    {
+      "host": "127.0.0.1",
+      "port": "30509",
+      "recommendation": "Potential SOME/IP-related port; verify service identity and configuration."
+    }
+  ],
+  "results": [
+    {
+      "host": "127.0.0.1",
+      "state": "up",
+      "services": [
+        {
+          "port": 22,
+          "protocol": "tcp",
+          "state": "closed",
+          "service": "ssh"
+        },
+        {
+          "port": 80,
+          "protocol": "tcp",
+          "state": "closed",
+          "service": "http"
+        },
+        {
+          "port": 443,
+          "protocol": "tcp",
+          "state": "closed",
+          "service": "https"
+        },
+        {
+          "port": 13400,
+          "protocol": "tcp",
+          "state": "closed",
+          "service": "doip-data"
+        },
+        {
+          "port": 30490,
+          "protocol": "tcp",
+          "state": "closed",
+          "service": ""
+        },
+        {
+          "port": 30491,
+          "protocol": "tcp",
+          "state": "closed",
+          "service": ""
+        },
+        {
+          "port": 30492,
+          "protocol": "tcp",
+          "state": "closed",
+          "service": ""
+        },
+        {
+          "port": 30493,
+          "protocol": "tcp",
+          "state": "closed",
+          "service": ""
+        },
+        {
+          "port": 30494,
+          "protocol": "tcp",
+          "state": "closed",
+          "service": ""
+        },
+        {
+          "port": 30495,
+          "protocol": "tcp",
+          "state": "closed",
+          "service": ""
+        },
+        {
+          "port": 30496,
+          "protocol": "tcp",
+          "state": "closed",
+          "service": ""
+        },
+        {
+          "port": 30497,
+          "protocol": "tcp",
+          "state": "closed",
+          "service": ""
+        },
+        {
+          "port": 30498,
+          "protocol": "tcp",
+          "state": "closed",
+          "service": ""
+        },
+        {
+          "port": 30499,
+          "protocol": "tcp",
+          "state": "closed",
+          "service": ""
+        },
+        {
+          "port": 30500,
+          "protocol": "tcp",
+          "state": "closed",
+          "service": ""
+        },
+        {
+          "port": 30501,
+          "protocol": "tcp",
+          "state": "closed",
+          "service": ""
+        },
+        {
+          "port": 30502,
+          "protocol": "tcp",
+          "state": "closed",
+          "service": ""
+        },
+        {
+          "port": 30503,
+          "protocol": "tcp",
+          "state": "closed",
+          "service": ""
+        },
+        {
+          "port": 30504,
+          "protocol": "tcp",
+          "state": "closed",
+          "service": ""
+        },
+        {
+          "port": 30505,
+          "protocol": "tcp",
+          "state": "closed",
+          "service": ""
+        },
+        {
+          "port": 30506,
+          "protocol": "tcp",
+          "state": "closed",
+          "service": ""
+        },
+        {
+          "port": 30507,
+          "protocol": "tcp",
+          "state": "closed",
+          "service": ""
+        },
+        {
+          "port": 30508,
+          "protocol": "tcp",
+          "state": "closed",
+          "service": ""
+        },
+        {
+          "port": 30509,
+          "protocol": "tcp",
+          "state": "closed",
+          "service": ""
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "evidence_files": {
+    "json": "ECU-Cyber-Integrity-Lab/c_evidence/ethernet/EXEC-ETH-20261018T160823-B74E6136/ethernet_report_20261018T160823Z.json"
+  },
+  "evaluation": {
+    "status": "NOT_EVALUATED",
+    "rationale": "Network inventory identifies observable hosts and services. Security criteria have not been independently validated."
+  },
+  "limitations": [
+    "Host and port discovery does not prove ECU security.",
+    "Open services do not by themselves imply vulnerabilities.",
+    "Protocol correctness of DoIP, SOME/IP and other Automotive Ethernet services is not verified.",
+    "Results support attack-surface analysis and asset inventory only."
+  ]
+}

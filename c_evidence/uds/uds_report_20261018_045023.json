@@ -1,0 +1,32 @@
+[
+    {
+        "timestamp": "2026-10-18T04:50:19.156234+02:00",
+        "test_case_id": "UDS-SESSION-001",
+        "test": "Diagnostic Session",
+        "request_id": 2016,
+        "response_id": null,
+        "request": "10 03",
+        "response": null,
+        "status": "No Response"
+    },
+    {
+        "timestamp": "2026-10-18T04:50:21.161808+02:00",
+        "test_case_id": "UDS-SECACCESS-001",
+        "test": "Security Access Seed Request",
+        "request_id": 2016,
+        "response_id": null,
+        "request": "27 01",
+        "response": null,
+        "status": "No Response"
+    },
+    {
+        "timestamp": "2026-10-18T04:50:23.165429+02:00",
+        "test_case_id": "UDS-RDID-001",
+        "test": "Read VIN",
+        "request_id": 2016,
+        "response_id": null,
+        "request": "22 F1 90",
+        "response": null,
+        "status": "No Response"
+    }
+]

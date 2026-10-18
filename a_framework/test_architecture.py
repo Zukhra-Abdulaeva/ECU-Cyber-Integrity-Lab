@@ -59,13 +59,86 @@ class TestCase:
     tags: tuple[str, ...] = ()
     metadata: Mapping[str, Any] = field(default_factory=dict)
 
+    # Explicit test-definition fields. Defaults preserve compatibility
+    # with existing callers while definition_issues() identifies incomplete cases.
+    assessment_objective: str = ""
+    security_objective: str = ""
+    target_model: str = ""
+    attack_surface: str = ""
+    attack_hypothesis: str = ""
+    test_steps: tuple[str, ...] = ()
+    expected_behaviour: str = ""
+    evaluation_criteria: tuple[str, ...] = ()
+    security_oracle: str = ""
+
     def __post_init__(self) -> None:
         for field_name in ("test_case_id", "name", "domain", "objective"):
             object.__setattr__(self, field_name, _non_empty(getattr(self, field_name), field_name))
-        object.__setattr__(self, "preconditions", tuple(self.preconditions))
-        object.__setattr__(self, "tags", tuple(self.tags))
+
+        for field_name in (
+            "assessment_objective",
+            "security_objective",
+            "target_model",
+            "attack_surface",
+            "attack_hypothesis",
+            "expected_behaviour",
+            "security_oracle",
+        ):
+            value = getattr(self, field_name)
+            if value is not None and not isinstance(value, str):
+                raise TypeError(f"{field_name} must be a string")
+            object.__setattr__(self, field_name, value.strip() if value else "")
+
+        object.__setattr__(self, "preconditions", self._normalize_text_items(self.preconditions, "preconditions"))
+        object.__setattr__(self, "tags", self._normalize_text_items(self.tags, "tags"))
+        object.__setattr__(self, "test_steps", self._normalize_text_items(self.test_steps, "test_steps"))
+        object.__setattr__(
+            self,
+            "evaluation_criteria",
+            self._normalize_text_items(self.evaluation_criteria, "evaluation_criteria"),
+        )
+        if not isinstance(self.inputs, Mapping):
+            raise TypeError("inputs must be a mapping")
+        if not isinstance(self.metadata, Mapping):
+            raise TypeError("metadata must be a mapping")
         object.__setattr__(self, "inputs", dict(self.inputs))
         object.__setattr__(self, "metadata", dict(self.metadata))
+
+    @staticmethod
+    def _normalize_text_items(values: Any, field_name: str) -> tuple[str, ...]:
+        if isinstance(values, (str, bytes)):
+            raise TypeError(f"{field_name} must be an iterable of non-empty strings, not a string")
+        try:
+            normalized = tuple(values)
+        except TypeError as exc:
+            raise TypeError(f"{field_name} must be iterable") from exc
+        for index, value in enumerate(normalized):
+            if not isinstance(value, str) or not value.strip():
+                raise ValueError(f"{field_name}[{index}] must be a non-empty string")
+        return tuple(value.strip() for value in normalized)
+
+    def definition_issues(self) -> tuple[str, ...]:
+        """Return missing A1 definition elements without implying execution.
+
+        A legacy TestCase may still be instantiated; callers can use this method
+        to check whether it is complete enough for Phase-5 execution planning.
+        """
+        required = {
+            "assessment_objective": self.assessment_objective,
+            "security_objective": self.security_objective,
+            "target_model": self.target_model,
+            "test_steps": self.test_steps,
+            "expected_behaviour": self.expected_behaviour,
+            "evaluation_criteria": self.evaluation_criteria,
+            "security_oracle": self.security_oracle,
+        }
+        return tuple(name for name, value in required.items() if not value)
+
+    def assert_definition_complete(self) -> None:
+        """Raise ValueError when required A1 design-time fields are missing."""
+        issues = self.definition_issues()
+        if issues:
+            raise ValueError("Incomplete test-case definition; missing: " + ", ".join(issues))
 
 
 @dataclass(frozen=True, slots=True)
