@@ -27,7 +27,7 @@ NOT IMPLEMENTED
 UNVERIFIED
 ```
 
-`IMPLEMENTED` does not imply execution or verification.
+`IMPLEMENTED` does not imply execution or verification. Status labels describe the specific component and scope in the current repository snapshot; they must not be interpreted as claims of complete end-to-end integration or real ECU / vehicle validation.
 
 ---
 
@@ -36,14 +36,14 @@ UNVERIFIED
 | Component             | Primary Responsibility                                                                                                                  | Inputs                                                                                                                                                                              | Outputs                                                                | Dependencies                                                                        | Boundary                                                                       | Implementation Status     |
 | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ | ------------------------- |
 | **Test Case**         | Defines what is tested and establishes the test-specific objectives, preconditions, inputs, expected behaviour and evaluation criteria. | Test ID, name, security domain, assessment objective, security objective/property, test objective, preconditions, inputs, actions, expected behaviour, oracle, target/model context | Defined test specification and executable test intent                  | Assessment Objective, Security Objective / Property, Test Objective, Target / Model | Separates test definition from execution and observation                       | **PARTIALLY IMPLEMENTED** |
-| **Test Runner**       | Controls test selection, initialization, preconditions, execution lifecycle, status handling, result collection and completion.         | Test Case, execution context, preconditions, execution request                                                                                                                      | Execution state, observations/result handoff, execution status, errors | Test Case, Domain Adapter, execution environment                                    | Separates execution orchestration from domain-specific interaction             | **NOT IMPLEMENTED**       |
-| **Domain Adapter**    | Provides the stable interface between common test semantics and domain-specific execution.                                              | Common test execution request, target/model context, domain-specific parameters                                                                                                     | Domain execution request, normalized interaction/observation handoff   | Test Runner, Domain Module, Target / Model                                          | Boundary between common architecture and domain-specific technical interaction | **NOT IMPLEMENTED**       |
+| **Test Runner**       | Coordinates one already-selected adapter operation and returns a common execution outcome. Full test selection and end-to-end lifecycle orchestration are not established. | Selected adapter operation, execution inputs, context | ExecutionOutcome, execution status, observations, errors | Execution Interface, Domain Adapter | Separates single-operation coordination from domain-specific interaction and later evaluation | **PARTIALLY IMPLEMENTED** |
+| **Domain Adapter**    | Defines a common adapter contract and connects a selected operation to domain-specific execution. | Execution inputs, target/model context, domain parameters | Domain output and normalized observations | Execution Interface, Domain Module | Boundary between common architecture and domain-specific technical interaction | **IMPLEMENTED**           |
 | **Domain Module**     | Performs domain-specific technical interaction or processing.                                                                           | Domain-specific inputs, target/model, protocol or analysis parameters                                                                                                               | Domain-specific execution output and observations                      | Domain technology, target/model, domain-specific libraries/interfaces               | Keeps CAN, UDS, Firmware and Ethernet interaction within their domains         | **IMPLEMENTED**           |
-| **Target / Model**    | Represents the technical object, environment or artifact against which a test operates.                                                 | Target configuration, model data, local artifacts, virtual/simulated interfaces where applicable                                                                                    | Target/model access and technical interaction context                  | Execution environment, domain module                                                | Separates the test architecture from the technical target/model                | **PARTIALLY IMPLEMENTED** |
-| **Observation**       | Represents actual behaviour or output obtained from execution.                                                                          | Execution output, target response, measured or returned technical data                                                                                                              | Actual observation                                                     | Execution, Target / Model, Domain Module                                            | Separates actual execution-derived behaviour from expected behaviour           | **PARTIALLY IMPLEMENTED** |
-| **Evidence Boundary** | Defines the architectural boundary through which execution/observation information can become assessment evidence.                      | Observation, execution metadata, relevant technical artifacts                                                                                                                       | Evidence input/boundary for later evidence processing                  | Observation, Execution, later Evidence Framework                                    | Separates Phase-3 test architecture from Phase-4 Evidence Framework            | **DESIGNED**              |
-| **Result**            | Represents the evaluated outcome of a test based on execution, observation and defined evaluation criteria.                             | Execution state, observation, oracle/evaluation criteria                                                                                                                            | PASS, FAIL, NOT_RUN, INCONCLUSIVE or BLOCKED                           | Execution, Observation, Oracle                                                      | Separates evaluation outcome from test definition and raw observation          | **PARTIALLY IMPLEMENTED** |
-| **Logging**           | Records execution-related information, diagnostics, warnings, errors and lifecycle information without replacing test semantics.        | Execution events, diagnostic information, warnings, errors                                                                                                                          | Log records                                                            | Test execution and logging infrastructure                                           | Separates execution logging from observation, evidence and result semantics    | **PARTIALLY IMPLEMENTED** |
+| **Target / Model**    | Represents the technical object, environment or artifact against which a test operates. | Target configuration, model data, local artifacts, virtual/simulated interfaces | Target/model access and technical interaction context | Execution environment, domain module | Separates the test architecture from the technical target/model | **PARTIALLY IMPLEMENTED** |
+| **Observation**       | Represents raw or normalized output obtained from an execution operation. | Execution output, target response, measured or returned technical data | Common Observation objects and domain outputs | Execution Interface, Domain Adapter, Domain Module | Separates actual execution-derived behaviour from expected behaviour | **IMPLEMENTED** for the common model; domain-wide integration remains partial |
+| **Evidence Boundary** | Defines how execution/observation information can be represented and validated as evidence. | Observation, execution metadata, relevant technical artifacts | Evidence records, artifact references, validation and repository operations | Execution/observation data, Evidence Framework | Separates evidence lifecycle management from execution; automatic creation for every domain run is not established | **IMPLEMENTED** in the Phase-4 framework; automatic domain integration remains partial |
+| **Result**            | Represents the evaluated outcome of a test based on execution, observation and defined evaluation criteria. | Execution state, observation, oracle/evaluation criteria | Common TestResult model and result states | Execution, Observation, Oracle | Separates evaluation outcome from test definition and raw observation; runner does not assign PASS/FAIL automatically | **PARTIALLY IMPLEMENTED** |
+| **Logging**           | Records execution-related information, diagnostics, warnings, errors and lifecycle information without replacing test semantics. | Execution events, diagnostics, warnings, errors | Log records | Common logging boundary and Python logging | Separates execution logging from observation, evidence and result semantics | **PARTIALLY IMPLEMENTED** |
 | **Reporting**         | Presents technical test information and results without creating unsupported execution or assessment claims.                            | Test results, execution information, report data                                                                                                                                    | Reports and report artifacts                                           | Result, existing reporting components, available test data                          | Downstream from technical test execution and result generation                 | **PARTIALLY IMPLEMENTED** |
 
 ---
@@ -211,10 +211,10 @@ Those responsibilities remain domain-specific.
 ### Implementation Status
 
 ```text
-NOT IMPLEMENTED
+PARTIALLY IMPLEMENTED
 ```
 
-The current repository contains a common base-test structure but no complete common Test Runner corresponding to the Phase-3 responsibility model.
+`a_framework/runner.py` implements `TestRunner` coordination for one already-selected adapter operation through the common execution interface. It returns an `ExecutionOutcome`; it does not implement complete test selection/scheduling, automatic oracle evaluation, final PASS/FAIL assignment, or automatic evidence creation. Therefore the single-operation runner is implemented, while the full responsibility described above is only partially implemented.
 
 ---
 
@@ -271,10 +271,10 @@ The adapter must not redefine common test semantics.
 ### Implementation Status
 
 ```text
-NOT IMPLEMENTED
+IMPLEMENTED
 ```
 
-The repository contains domain modules but does not establish the common Phase-3 Domain Adapter boundary as an implemented reusable interface.
+The repository contains the common abstract contract in `a_framework/domain_adapter.py` and domain-specific adapters under `b_security_tests/*/adapter.py`. This establishes the adapter boundary. It does not by itself prove that every domain operation is orchestrated through one complete end-to-end runner path.
 
 ---
 
@@ -347,7 +347,7 @@ Finding lifecycle
 IMPLEMENTED
 ```
 
-The repository contains domain-specific implementation for CAN, UDS, Firmware and Ethernet. The existence of these modules does not establish their integration into the complete common Phase-3 architecture.
+The repository contains domain-specific implementation for CAN, UDS, Firmware and Automotive Ethernet. Local tests cover CAN, UDS and Firmware behavior using controlled inputs/test doubles. The Ethernet scanner implementation exists, but the snapshot's `b_security_tests/ethernet_tests/test_ethernet_scan.py` contains no `test_*` functions. Domain implementation and local tests do not establish real ECU / vehicle validation or complete end-to-end integration.
 
 ---
 
@@ -423,7 +423,7 @@ REAL-WORLD VALIDATION
 PARTIALLY IMPLEMENTED
 ```
 
-The repository contains virtual/local/simulated target contexts and domain-specific target interaction, but no unified Phase-3 Target / Model interface is established.
+The shared architecture defines `ExecutionContext`, and domain code can operate on local artifacts, virtual interfaces, or synthetic/test-double inputs. A general target/model abstraction for real ECU and vehicle execution is not established. Context must be described according to the actual evidence available.
 
 ---
 
@@ -485,7 +485,7 @@ Actual Observation
 PARTIALLY IMPLEMENTED
 ```
 
-The domain-specific implementations produce result/output structures and execution-derived information, but the common Phase-3 Observation abstraction is not implemented as a unified architecture component.
+The shared `Observation` model and `ExecutionOutcome` are implemented, and the execution interface returns normalized observations for a selected adapter operation. Integration across all domain paths and automatic downstream evaluation remain partial. Synthetic/test-double observations must not be described as real-target observations.
 
 ---
 
@@ -538,10 +538,10 @@ Evidence lifecycle
 ### Implementation Status
 
 ```text
-DESIGNED
+IMPLEMENTED WITH INTEGRATION LIMITS
 ```
 
-The Phase-3 architecture defines the boundary. The complete Evidence Framework is explicitly outside Phase 3.
+The Phase-4 Evidence Framework is implemented in `a_framework/evidence.py`, with validation, artifact integrity checks, lifecycle handling, and JSON-backed repository operations. Evidence framework tests exist in `a_framework/test_evidence.py`. This does not mean every domain execution automatically creates and associates an evidence record; that integration is not established as a universal path.
 
 ---
 
@@ -618,7 +618,7 @@ Result
 PARTIALLY IMPLEMENTED
 ```
 
-The repository contains result/status structures inside existing domain implementations and the common base test, but the project-wide Phase-3 Result semantics are not implemented as a unified common result model.
+The repository contains common result/status data models in `a_framework/test_architecture.py`, including `TestResult` and result states. However, `TestRunner` returns `ExecutionOutcome` and does not itself apply the oracle or assign a final PASS/FAIL result. The common result model exists; automatic project-wide evaluation orchestration remains partial.
 
 ---
 
@@ -683,7 +683,7 @@ A log record does not automatically constitute evidence.
 PARTIALLY IMPLEMENTED
 ```
 
-The common `BaseSecurityTest` configures and uses Python logging, while `a_framework/logger.py` is documented as a structural placeholder. The current repository therefore contains logging functionality but not a complete common Phase-3 logging architecture.
+`a_framework/logging_boundary.py` provides the common logging functions, and domain/base-test code also uses Python logging. `a_framework/logger.py` remains a structural placeholder. The logging boundary is implemented, but a complete centrally configured logging architecture is not established.
 
 ---
 
@@ -738,7 +738,7 @@ Unsupported Finding
 PARTIALLY IMPLEMENTED
 ```
 
-The repository contains `report_generator.py` and report-generation functionality in domain-specific components. The complete common reporting boundary defined by Phase 3 is not established as a unified architecture.
+The repository contains `a_framework/report_generator.py` and domain-specific export functions. The report generator consolidates existing JSON inputs, but end-to-end integration from `ExecutionOutcome` through evaluation, evidence, and final reporting is not established. Existing report-generation code does not prove that all report artifacts are current or generated by a verified integrated run.
 
 ---
 
@@ -867,69 +867,72 @@ These boundaries establish the responsibility model without requiring every boun
 
 ## 15. Implementation Status Summary
 
-| Component         | Status                |
-| ----------------- | ----------------------|
-| Test Case         | **IMPLEMENTED**       |
-| Test Runner       | **IMPLEMENTED**       |
-| Domain Adapter    | **IMPLEMENTED**       |
-| Domain Module     | **IMPLEMENTED**       |
-| Target / Model    | **IMPLEMENTED**       |
-| Observation       | **IMPLEMENTED**       |
-| Evidence Boundary | **IMPLEMENTED**       |
-| Result            | **IMPLEMENTED**       |
-| Logging           | **IMPLEMENTED**       |
-| Reporting         | **IMPLEMENTED**       |
+| Component | Current status | Scope / limitation |
+| --- | --- | --- |
+| Test Case | **PARTIALLY IMPLEMENTED** | Common and domain-specific test structures exist; a complete unified test-case catalog/model is not established. |
+| Test Runner | **PARTIALLY IMPLEMENTED** | Coordinates one selected adapter operation; no full scheduling or automatic evaluation. |
+| Domain Adapter | **IMPLEMENTED** | Common contract and domain adapter implementations exist; end-to-end routing is not universal. |
+| Domain Module | **IMPLEMENTED** | CAN, UDS, Firmware and Ethernet functionality exists within documented domain-specific limits. |
+| Target / Model | **PARTIALLY IMPLEMENTED** | Local, static, virtual and synthetic contexts exist; real ECU/vehicle target integration is not established. |
+| Observation | **IMPLEMENTED** | Common observation model and execution outcome exist; downstream evaluation integration is partial. |
+| Evidence Boundary / Framework | **IMPLEMENTED WITH INTEGRATION LIMITS** | Evidence record validation and repository exist; automatic record creation for every domain execution is not established. |
+| Result | **PARTIALLY IMPLEMENTED** | Common result data model exists; runner does not automatically assign final PASS/FAIL. |
+| Logging | **PARTIALLY IMPLEMENTED** | Common logging boundary exists; `a_framework/logger.py` remains a placeholder. |
+| Reporting | **PARTIALLY IMPLEMENTED** | Report generation code exists; complete execution-to-report integration is not established. |
 
 ```text
-EXECUTED
-OBSERVED
-VERIFIED
+LOCAL TEST EXECUTION
+REPORTED SUCCESSFUL FOR PHASE 5
+
+REAL ECU / VEHICLE VALIDATION
+NOT ESTABLISHED
+
+UNIVERSAL END-TO-END INTEGRATION
+NOT ESTABLISHED
 ```
 
 ---
 
 ## 16. Responsibility Model and Current Repository
 
-The current repository provides domain-specific technical components and a basic common test base.
-
-The documented architecture therefore currently has the following relationship:
+The current repository contains shared framework components alongside domain-specific technical components. The architecture is implemented in part, but the full path is not automatically orchestrated end to end.
 
 ```text
-COMMON ARCHITECTURE
+Common Test / Execution Models
         |
-        +-- Base Test Structure
+        +-- TestRunner
+        |      -> coordinates one selected adapter operation
         |
-        +-- Logging / Reporting Support
+        +-- ExecutionInterface / AdapterExecutionInterface
+        |      -> returns ExecutionOutcome and observations
+        |
+        +-- DomainAdapter contract
+        |
+        +-- Evidence Framework
+        |      -> validates and stores explicitly created records
+        |
+        +-- In-memory Traceability Registry
+        |
+        +-- Common Logging Boundary
         |
         v
-DOMAIN-SPECIFIC IMPLEMENTATION
-        |
+Domain-Specific Implementation
         +-- CAN
         +-- UDS
         +-- Firmware
-        +-- Ethernet
+        +-- Automotive Ethernet
 ```
 
-The following common architectural elements remain unimplemented:
+Current boundaries and limitations:
 
-```text
-Common Test Runner
-Common Domain Adapter
-Unified Execution Interface
-```
-
-The following elements remain only partially represented:
-
-```text
-Common Test Case Model
-Target / Model Boundary
-Observation Boundary
-Common Result Model
-Common Logging Boundary
-Common Reporting Boundary
-```
-
-The Evidence Boundary is architecturally defined but intentionally remains outside the Phase-3 implementation scope.
+- The common `TestRunner`, execution interface, and adapter contract exist.
+- The runner handles a selected operation; it does not provide a full test scheduler or automatic PASS/FAIL evaluation.
+- `ExecutionOutcome` is execution-level output, not a final `TestResult`.
+- The common Evidence Framework can validate and persist evidence records, but domain execution does not universally create them automatically.
+- Traceability is an in-memory relationship index, not a persistent project-wide traceability database.
+- `a_framework/config.py` and `a_framework/logger.py` remain structural placeholders.
+- The report generator exists, but end-to-end execution-to-result-to-evidence-to-report integration is not established.
+- Local tests and synthetic/test-double executions do not establish real ECU or vehicle validation.
 
 ---
 
@@ -1036,14 +1039,13 @@ DESIGNED
 
 ## 20. Scope Integrity
 
-It does not implement:
+Phase 5 covers the core security-test implementation and local test execution reported as successful. The following capabilities remain outside the established current implementation state or are not verified as complete:
 
 ```text
-Evidence Framework
-Core Security Test Cases
 Extended Security Test Cases
-Finding Lifecycle
-Root-Cause Analysis
+Finding Lifecycle and Root-Cause Analysis
+Integrated automatic evidence creation for every domain execution
+End-to-end result / evidence / reporting orchestration
 Regression Validation
 CI/CD Automation
 Professional Packaging
@@ -1052,7 +1054,7 @@ Real ECU Validation
 Vehicle Validation
 ```
 
-The Evidence Boundary is defined only as an architectural interface to the later evidence layer.
+The Evidence Framework itself is implemented; the limitation is its universal integration with every domain execution, not the absence of the framework. Phase-5 local test success must not be interpreted as a security finding, physical ECU validation, or completion of later phases.
 
 ---
 
@@ -1065,28 +1067,30 @@ Test Responsibility Matrix
 Responsibility Separation
     ESTABLISHED
 
-Domain Separation
-    ESTABLISHED
+Common Execution Interface / Adapter Contract
+    IMPLEMENTED
 
-Reusable Test Responsibilities
-    ESTABLISHED
+Single-Operation Test Runner
+    IMPLEMENTED
 
-Current Implementation Status
-    DOCUMENTED
+Phase-5 Local Test Execution
+    REPORTED SUCCESSFUL
 
-Implementation
-    MODIFIED
+Evidence Framework
+    IMPLEMENTED; DOMAIN-WIDE AUTOMATIC INTEGRATION NOT ESTABLISHED
 
-Execution
-    RUN PASS
+End-to-End Evaluation / Evidence / Reporting
+    NOT ESTABLISHED
 
-Evidence
-    ESTABLISHED
+Regression / CI/CD
+    NOT IMPLEMENTED AS COMPLETE PROJECT CAPABILITIES
 
-Phase-3 Completion
-    COMPLETED
+Real ECU / Vehicle Validation
+    NOT ESTABLISHED
 ```
+
+The Phase-5 execution status reflects the project status reported by the user. This document does not assert an aggregate test count or invent a run identifier. The detailed code-to-architecture mapping and snapshot-based verification limits are maintained in [`system_implementation_reference.md`](system_implementation_reference.md).
 
 ## Implementation Alignment
 
-The shared framework currently includes `TestRunner`, `DomainAdapter`, `ExecutionInterface`/`AdapterExecutionInterface`, shared data models, the Evidence Framework, an in-memory traceability registry, and a logging boundary. The runner executes one already-selected adapter operation and returns `ExecutionOutcome`; evaluation and evidence creation are not performed by that runner. `a_framework/config.py` and `a_framework/logger.py` are structural placeholders in the repository snapshot, while `a_framework/logging_boundary.py` provides the common logging functions. For file-level detail and verification boundaries, see [`system_implementation_reference.md`](system_implementation_reference.md).
+The shared framework currently includes `TestRunner`, `DomainAdapter`, `ExecutionInterface`/`AdapterExecutionInterface`, shared data models, the Evidence Framework, an in-memory traceability registry, and a logging boundary. The runner executes one already-selected adapter operation and returns `ExecutionOutcome`; final evaluation and automatic evidence creation are not performed by that runner. `a_framework/config.py` and `a_framework/logger.py` are structural placeholders in the repository snapshot, while `a_framework/logging_boundary.py` provides the common logging functions. For file-level detail and verification boundaries, see [`system_implementation_reference.md`](system_implementation_reference.md).

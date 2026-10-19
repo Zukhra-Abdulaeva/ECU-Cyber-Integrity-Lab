@@ -2212,6 +2212,180 @@ The repository mapping establishes the relationship between domain-specific asse
 | `c_evidence/firmware/`              | Firmware Assessment Evidence Storage                | Firmware   | ACTIVE       | Stores firmware-integrity reports, firmware-comparison results, and related assessment evidence           | Execution → Evidence |
 
 
+### Phase-5 Evidence Artifacts
+
+Phase 5 produces two related but distinct groups of project artifacts:
+
+1. Core test definition, inventory, domain implementation and
+   validation, and test execution records.
+2. Domain-specific evidence stored under c_evidence/.
+
+##### Core Test Case Definition
+
+Purpose:
+Define the core security test cases required for Phase 5.
+
+Content:
+- Test objectives and intended security checks.
+- Test scope and applicable domain.
+- Test inputs, execution conditions, and expected behavior.
+- Verification criteria and relevant limitations.
+- Identification of synthetic inputs or test doubles where applicable.
+
+Goal:
+Establish a clear and reviewable definition of what each core test is
+intended to examine and how its result should be evaluated.
+
+##### Core Test Case Inventory
+
+Purpose:
+Maintain a consolidated inventory of the Phase-5 core test cases.
+
+Content:
+- Test identifier and name.
+- Associated security domain.
+- Implementation state.
+- Execution state.
+- Evidence state.
+- Result and verification state.
+- Known blockers or limitations.
+
+Goal:
+Provide a consistent overview of the core tests and distinguish
+implementation, execution, evidence creation, and verification status.
+
+##### CAN Core Test Implementation / Validation
+
+Purpose:
+Document the CAN core test implementation and its applicable validation.
+
+Content:
+- CAN capture and analysis functionality.
+- Relevant test modules and test scenarios.
+- Input filtering, message processing, and applicable statistics.
+- Test execution results and exported CAN artifacts.
+- Relevant simulation and test-double boundaries.
+
+Goal:
+Make the CAN test implementation, its intended behavior, and the
+available validation results traceable.
+
+##### UDS Core Test Implementation / Validation
+
+Purpose:
+Document the UDS security-test implementation and its applicable validation.
+
+Content:
+- UDS security-test functionality and relevant diagnostic interactions.
+- Applicable request/response handling and classification.
+- Test scenarios, expected behavior, and validation results.
+- Relevant test doubles and simulated communication.
+- Available execution records and exported artifacts.
+
+Goal:
+Establish traceability between the UDS test implementation, its
+defined test behavior, and the available test results.
+
+##### Firmware Integrity Core Test Implementation / Validation
+
+Purpose:
+Document the firmware integrity validation implementation and its
+applicable validation.
+
+Content:
+- Firmware integrity and hash-comparison functionality.
+- Applicable firmware metadata checks.
+- Digest comparison and relevant negative test cases.
+- Handling of missing files and invalid inputs where tested.
+- Available test results and exported validation records.
+
+Goal:
+Make the implemented firmware integrity checks and their verified
+test behavior reviewable and traceable.
+
+##### Automotive Ethernet / IP Core Test Implementation / Validation
+
+Purpose:
+Document the automotive Ethernet/IP core test implementation and its
+applicable validation.
+
+Content:
+- Ethernet/IP scanning functionality.
+- Applicable scan parameters and service-discovery behavior.
+- Relevant test modules and validation scenarios.
+- Available scan outputs, reports, and execution results.
+- Implementation limitations and unverified behavior.
+
+Goal:
+Describe the Ethernet/IP test implementation and distinguish the
+functionality present in the repository from behavior demonstrated
+by actual test execution.
+
+##### Test Execution Records
+
+Purpose:
+Record the execution of Phase-5 core tests and the results actually
+observed during those executions.
+
+Content:
+- Test or execution identifier.
+- Executed command or documented execution procedure.
+- Relevant execution context.
+- Observed output and result.
+- Associated domain and test case.
+- References to available evidence artifacts.
+- Execution limitations and provenance where available.
+
+Goal:
+Provide a traceable record of what was executed, in which context,
+and what the recorded result demonstrates.
+
+Execution records must distinguish actual observations from expected
+results, assumptions and implementation status. A successful local
+or simulated test execution does not establish successful validation
+against a physical ECU or vehicle.
+
+#### Domain-Specific Evidence Directories
+
+The following directories organize domain-specific evidence generated
+or exported during Phase-5 activities.
+
+c_evidence/
+├── can/
+├── uds/
+├── ethernet/
+└── firmware/
+
+- c_evidence/can/
+  CAN capture outputs, applicable statistics, test results, and exported
+  CAN reports.
+
+- c_evidence/uds/
+  UDS security-test outputs, applicable request/response results, and
+  exported diagnostic test records.
+
+- c_evidence/ethernet/
+  Ethernet/IP scan outputs, discovered service information, and
+  exported scan reports.
+
+- c_evidence/firmware/
+  Firmware integrity results, applicable metadata, hash-comparison
+  outputs, and exported validation records.
+
+### Completion Gate
+
+CAN Security Tests Implemented                 PASS
+UDS Security Tests Implemented                 PASS
+Ethernet Security Tests Implemented            PASS
+Firmware Security Tests Implemented            PASS
+Evidence Generation Implemented                PASS
+Execution Traceability Implemented             PASS
+Timestamped Reports Implemented                PASS
+Domain Test Suites Implemented                 PASS
+Automated Verification Implemented             PASS
+Documentation Updated                          PASS
+Phase-5 Review Recorded                        PASS
+
 ### Phase-5 Result
 
 Phase 5 establishes the repository's initial cross-domain security-testing baseline.

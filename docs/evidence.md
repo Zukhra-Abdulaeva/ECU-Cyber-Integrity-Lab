@@ -4,6 +4,12 @@
 
 This document defines the Phase-4 Evidence Framework for creation, validation, association, provenance, storage, lifecycle management and controlled use of assessment evidence.
 
+## Current Project Status — Phase 5
+
+Phase 5 (domain-test implementation and local verification) is reported as completed: the project owner reports that the tests were run successfully and that evidence was created. This status describes the reported repository-level work; it does not establish real ECU/vehicle execution, OEM validation, or complete end-to-end automatic evidence generation. The available repository snapshot does not provide a single aggregate Phase-5 test count or a complete Phase-5 execution record, so neither is asserted here.
+
+Phase-5 domain test coverage is implemented for CAN, UDS and firmware validation. The Ethernet scanner implementation is present, but `b_security_tests/ethernet_tests/test_ethernet_scan.py` does not contain `test_*` test functions in the supplied snapshot; therefore, it is not represented as an independently verified Ethernet test suite.
+
 The framework separates evidence from test definitions, observations, results, findings and verification conclusions.
 
 ```text
@@ -347,6 +353,7 @@ Supported Assessment
 ## 1. Review Basis
 
 The inventory reflects the evidence artifacts present in the supplied repository snapshot under `c_evidence/`.
+It is a snapshot inventory of those artifact files, not a claim that every Phase-5 test execution is represented by a canonical `EvidenceRecord`. The inventory rows below retain their artifact-specific limitations; the Phase-5 test status is documented separately from this legacy artifact inventory.
 
 The artifact files were inspected for available content and metadata. The existence of an artifact is not treated as proof of execution or evidence validity.
 
@@ -461,20 +468,22 @@ Phase 4 establishes the evidence-side relationships without creating findings or
 | Evidence storage        | `a_framework/evidence.py::EvidenceRepository`           | `a_framework/test_evidence.py::test_repository_round_trip_and_no_overwrite`                     | `EXEC-P4-VER-001` | Evidence record persisted and reloaded successfully; repository refused overwrite of an existing record | `EV-P4-VER-001` | PASS   | `docs/evidence.md` |
 | PASS guard              | `a_framework/evidence.py::EvidenceValidator`            | `a_framework/test_evidence.py::test_pass_without_execution_metadata_is_rejected`                | `EXEC-P4-VER-001` | PASS record without required execution metadata was rejected                                            | `EV-P4-VER-001` | PASS   | `docs/evidence.md` |
 
-## 3. Existing Security-Test Evidence Traceability
+## 3. Security-Test Implementation and Evidence Traceability
 
-| Domain | Test / Artifact | Execution | Observation | Evidence | Result | Traceability State |
-| --- | --- | --- | --- | --- | --- | --- |
-| CAN | `b_security_tests/can_tests/test_can_sniffer.py` / `EV-CAN-001` | NOT ESTABLISHED | Artifact contains two timestamped CAN rows | `EV-CAN-001` | NOT ESTABLISHED | PARTIAL / UNVERIFIED |
-| UDS | `b_security_tests/uds_tests/test_uds_security.py` / `EV-UDS-001` | NOT RUN / test file is placeholder in supplied snapshot | Report contains No Response records | `EV-UDS-001` | NOT ESTABLISHED | PARTIAL / UNVERIFIED |
-| Firmware | `b_security_tests/firmware_tests/test_firmware_validator.py` / `EV-FW-001` | BLOCKED in supplied snapshot because test file is syntactically invalid placeholder | Report contains FAIL/identical values | `EV-FW-001` | NOT ESTABLISHED | UNVERIFIED |
-| Ethernet | `b_security_tests/ethernet_tests/test_ethernet_scan.py` / `EV-ETH-001` | BLOCKED / no executable test established | Example text contains scan output | `EV-ETH-001` | NOT ESTABLISHED | EXAMPLE / SAMPLE |
+The following table distinguishes implemented local test coverage from the older evidence artifacts inventoried above. The project owner reports a successful Phase-5 test run. Because the supplied snapshot does not contain a consolidated Phase-5 run record with exact aggregate counts, this table does not invent execution IDs, evidence IDs, or per-module result counts.
 
-The existing domain rows do not support confirmed security findings. Their evidence associations remain incomplete until execution provenance is established.
+| Domain | Implementation / test source | Coverage evidenced by source | Execution status | Evidence boundary |
+| --- | --- | --- | --- | --- |
+| CAN | `b_security_tests/can_tests/test_can_sniffer.py` | Input normalization, filtered and unfiltered capture using test doubles, disconnected-bus handling, negative duration, CSV export and statistics | Phase-5 test run reported successful by project owner; exact per-module run record not established in this snapshot | Test-double/local behavior; not proof of capture from a real vehicle network |
+| UDS | `b_security_tests/uds_tests/test_uds_security.py` | Request identifier, response matching, unrelated CAN-ID filtering, invalid payload/type handling, required bus, positive/negative/malformed response classification, JSON export traceability and bus closure | Phase-5 test run reported successful by project owner; exact per-module run record not established in this snapshot | Tests use `FakeBus`; not proof of real ECU SecurityAccess behavior |
+| Firmware | `b_security_tests/firmware_tests/test_firmware_validator.py` | SHA-256 calculation, binary input, metadata, matching/mismatching digest, invalid expected digest, firmware comparison, missing files, JSON export and evidence filename | Phase-5 test run reported successful by project owner; exact per-module run record not established in this snapshot | Local file/hash validation; not proof of firmware authenticity or ECU flash validation |
+| Ethernet | `b_security_tests/ethernet_tests/test_ethernet_scan.py` | Scanner implementation includes bounded target validation, port validation, TCP connection scanning, inventory/service hints, JSON export and CLI entry point | Scanner source is present; no `test_*` functions are present in this file in the supplied snapshot | Implementation presence alone is not test-suite verification or evidence of scanning a real automotive Ethernet target |
+
+The pre-existing `EV-CAN-001`, `EV-UDS-001`, `EV-FW-001` and `EV-ETH-001` rows in the inventory above describe individual older artifacts and retain their stated limitations. They must not be interpreted as evidence identifiers for the Phase-5 test run. The presence of tests and successful local test execution does not automatically associate every test result with a persisted canonical evidence record.
 
 ## 4. Missing Relationships
 
-The following relationships remain unestablished for the existing domain artifacts:
+For the older domain artifacts listed in the inventory, the following relationships remain unestablished unless their individual records provide them:
 
 ```text
 Test → Execution
@@ -486,4 +495,4 @@ Evidence → Result
 
 ## Implementation Alignment
 
-The current repository contains the Evidence Framework implementation and tests for selected record-validation, lifecycle, repository, and artifact-integrity behaviors. This does not mean every domain execution automatically creates and persists evidence. `TestRunner` returns an `ExecutionOutcome`; evidence handling remains outside that runner. `TraceabilityRegistry` is an in-memory relationship index and does not own evidence lifecycle or persistence. Treat existing files under `c_evidence/` as artifacts whose provenance and status must be assessed individually, not as automatic proof of a complete end-to-end pipeline. The code-level mapping is in [`system_implementation_reference.md`](system_implementation_reference.md).
+The current repository contains the Evidence Framework implementation and tests for selected record-validation, lifecycle, repository, and artifact-integrity behaviors, alongside Phase-5 domain test coverage for CAN, UDS and firmware validation. The project owner reports that the Phase-5 tests ran successfully and evidence was created; the supplied snapshot does not establish one aggregate Phase-5 execution record or exact aggregate test count. This does not mean every domain execution automatically creates and persists a canonical evidence record. `TestRunner` returns an `ExecutionOutcome`; evidence handling remains outside that runner. `TraceabilityRegistry` is an in-memory relationship index and does not own evidence lifecycle or persistence. Treat existing files under `c_evidence/` as artifacts whose provenance and status must be assessed individually, not as automatic proof of a complete end-to-end pipeline. The Ethernet scanner source is present, but the supplied `test_ethernet_scan.py` file has no `test_*` functions. The code-level mapping is in [`system_implementation_reference.md`](system_implementation_reference.md).

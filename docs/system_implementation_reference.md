@@ -2,9 +2,9 @@
 
 ## 1. Purpose and scope
 
-This document describes the implementation represented by the repository snapshot and maps concrete files to their technical responsibilities. It complements, rather than replaces, the architecture definition, execution-interface definition, lifecycle definition, evidence definition, traceability model, and responsibility matrices.
+This document maps the repository's concrete implementation files to their technical responsibilities and records the boundaries between implemented components and integrated workflows. It complements the architecture definition, execution-interface definition, lifecycle definition, evidence definition, traceability model, and responsibility matrices.
 
-The source of truth for implementation statements is the code and tests in the repository. Architecture documents describe intended structure; they are not evidence that a component executes successfully.
+Implementation statements are grounded in the code and test files in the supplied repository snapshot. Phase-5 core test execution was reported as successful, and domain evidence artifacts were reported as created. This status does not establish validation against a physical ECU, production vehicle, or production network. A component's presence, a successful software test, and end-to-end security validation remain distinct claims.
 
 ## 2. Status semantics
 
@@ -25,9 +25,9 @@ These states are not interchangeable. A test file containing only `assert True`,
 |---|---|---|
 | `a_framework/` | Shared framework models, execution, adapters, evidence, traceability, logging, and reporting | Contains both implemented components and explicit placeholders; see component map below. |
 | `b_security_tests/can_tests/` | CAN domain module, adapter, and domain tests | Concrete domain-specific structure exists; domain behavior and common-framework end-to-end coverage must be assessed separately. |
-| `b_security_tests/uds_tests/` | UDS domain module, adapter, and domain tests | Concrete module/adapter files exist; the listed pytest test is a placeholder. |
-| `b_security_tests/ethernet_tests/` | Ethernet domain module, adapter, and domain tests | Concrete module/adapter files exist; the listed pytest test is a placeholder. |
-| `b_security_tests/firmware_tests/` | Firmware domain module, adapter, and domain tests | Concrete module/adapter files exist; the listed pytest test is a placeholder. |
+| `b_security_tests/uds_tests/` | UDS domain module, adapter, and domain tests | Concrete UDS request handling and response-classification logic, adapter, and behavioral pytest tests are present. |
+| `b_security_tests/ethernet_tests/` | Ethernet scanning module and adapter | The scanning implementation is present in `test_ethernet_scan.py`; the supplied file does not contain pytest functions named `test_*`, so it must not be described as domain pytest coverage. |
+| `b_security_tests/firmware_tests/` | Firmware domain module, adapter, and domain tests | Concrete firmware hash, integrity-comparison, file-comparison and JSON-export logic, adapter, and behavioral pytest tests are present. |
 | `c_evidence/` | Domain artifacts and framework-verification records | Existing artifacts do not automatically prove common execution provenance or complete traceability. |
 | `d_examples/` | Example threat, firmware, risk, and UDS material | Examples, not by themselves verified assessment outcomes. |
 | `e_security_reports/` | Assessment/report artifacts | The snapshot identifies generated report artifacts as incomplete, placeholder, inconsistent, or not end-to-end verified. |
@@ -85,14 +85,16 @@ Contains tests for evidence-record validation, lifecycle transitions, artifact i
 
 ## 5. Domain implementation map
 
-| Domain | Main module | Adapter | Domain pytest file | Snapshot interpretation |
+| Domain | Main module | Adapter | Test / pytest file | Snapshot interpretation |
 |---|---|---|---|---|
-| CAN | `b_security_tests/can_tests/can_sniffer.py` | `b_security_tests/can_tests/adapter.py` | `b_security_tests/can_tests/test_can_sniffer.py` | Domain code and adapter exist; the test file contains at least a `test_save_message` test. This does not alone establish end-to-end common-framework verification. |
-| UDS | `b_security_tests/uds_tests/uds_security.py` | `b_security_tests/uds_tests/adapter.py` | `b_security_tests/uds_tests/test_uds_security.py` | The listed pytest test is `test_placeholder` with `assert True`; it is not evidence of UDS security validation. |
-| Ethernet | `b_security_tests/ethernet_tests/ethernet_scan.py` | `b_security_tests/ethernet_tests/adapter.py` | `b_security_tests/ethernet_tests/test_ethernet_scan.py` | The listed pytest test is a placeholder; it is not evidence of network-scan validation. |
-| Firmware | `b_security_tests/firmware_tests/firmware_validator.py` | `b_security_tests/firmware_tests/adapter.py` | `b_security_tests/firmware_tests/test_firmware_validator.py` | The listed pytest test is a placeholder; it is not evidence of firmware-validation coverage. |
+| CAN | `b_security_tests/can_tests/can_sniffer.py` | `b_security_tests/can_tests/adapter.py` | `b_security_tests/can_tests/test_can_sniffer.py` | Domain code and adapter exist. Pytest functions cover message normalization, filtered and unfiltered capture using test doubles, disconnected-bus and duration validation, CSV export, and statistics. These tests do not establish physical CAN validation or common-framework end-to-end verification. |
+| UDS | `b_security_tests/uds_tests/uds_security.py` | `b_security_tests/uds_tests/adapter.py` | `b_security_tests/uds_tests/test_uds_security.py` | The implementation and adapter are present. Tests cover request construction, response-ID filtering, invalid input, positive/negative/malformed response classification, JSON export, and bus shutdown using a fake bus. These are software-level tests, not validation against a real ECU. |
+| Ethernet | `b_security_tests/ethernet_tests/test_ethernet_scan.py` | `b_security_tests/ethernet_tests/adapter.py` | The supplied `test_ethernet_scan.py` contains the `AutomotiveEthernetScanner` implementation rather than pytest test functions. | Scanner code provides bounded target validation, port validation, TCP connect scanning, service inventory, cautious service review hints, summary and JSON export. The file naming does not establish that pytest coverage exists for this module. |
+| Firmware | `b_security_tests/firmware_tests/firmware_validator.py` | `b_security_tests/firmware_tests/adapter.py` | `b_security_tests/firmware_tests/test_firmware_validator.py` | The implementation and adapter are present. Tests cover SHA-256, file metadata, matching and mismatching digests, invalid expected hashes, firmware comparison, missing files, JSON export, and evidence-file naming. These tests validate static file operations, not Secure Boot or a physical ECU. |
 
-The adapter boundary provides a common interface, while protocol- or artifact-specific behavior remains in the domain module. The existence of an adapter file is not by itself proof that a full test case, oracle/evaluation, evidence association, and reporting flow is wired end-to-end.
+The adapter boundary provides a common interface, while protocol- or artifact-specific behavior remains in the domain module. The presence of an adapter file is not by itself proof that a complete test case, oracle/evaluation, evidence association, and reporting flow is wired end-to-end.
+
+Phase-5 core test execution was reported as successful by the project owner, with evidence artifacts created for the supported domains. This document does not assert a consolidated test count or claim that each domain has independently verified end-to-end integration. In particular, the current Ethernet source filename and contents should be reconciled with the intended pytest layout before claiming dedicated pytest coverage for the scanner.
 
 ## 6. Execution and result flow
 
@@ -128,24 +130,26 @@ Do not claim that every domain execution automatically produces persistent, vali
 
 ## 9. Verification scope represented by the snapshot
 
-The pytest cache lists framework evidence tests and domain tests. The listed UDS, Ethernet and Firmware tests are placeholders; the CAN test includes a save-message test. A pytest cache is not a substitute for a fresh test run or its output. This reference does not claim that tests were re-executed while preparing this document.
+The repository contains framework evidence tests and behavioral pytest tests for CAN, UDS, and firmware. The supplied Ethernet file `b_security_tests/ethernet_tests/test_ethernet_scan.py` contains scanner implementation code but no pytest test functions in the snapshot inspected for this document. Its filename alone is not evidence of pytest coverage.
 
-Evidence-framework tests can support claims about evidence model validation, lifecycle rules, repository behavior and artifact integrity to the extent covered by each test. They do not demonstrate real-ECU, vehicle, OEM, production, or full domain security validation.
+Phase-5 core test execution was reported as successful, and domain evidence artifacts were reported as created. The supplied snapshot does not provide a single authoritative consolidated transcript of the latest complete Phase-5 pytest invocation in this document, so no aggregate count is asserted here. Historical counts must remain tied to their original execution records.
+
+Evidence-framework tests support claims about the evidence-model validation, lifecycle rules, repository behavior, and artifact-integrity checks covered by those tests. CAN, UDS, and firmware tests use software-level conditions and test doubles where shown. They do not establish real-ECU, vehicle, OEM, production, or complete domain security validation. The Ethernet scanner's implementation supports bounded network-scan operations, but the current source snapshot does not establish dedicated pytest coverage for that scanner.
 
 ## 10. Implementation gaps and boundaries
 
-The snapshot supports the following conservative statements:
+The snapshot supports the following statements:
 
-1. `config.py` and `logger.py` are placeholders.
-2. The runner performs a single already-selected adapter operation, not full scheduling/orchestration.
+1. `a_framework/config.py` and `a_framework/logger.py` are structural placeholders; the common logging boundary is implemented in `a_framework/logging_boundary.py`.
+2. The runner performs one already-selected adapter operation, not full scheduling or multi-test orchestration.
 3. `ExecutionOutcome` is pre-evaluation and distinct from `TestResult`.
-4. Traceability is in-memory, not persistent.
-5. The presence of the Evidence Framework does not prove end-to-end evidence generation for all domain modules.
-6. UDS, Ethernet and Firmware pytest files shown in the snapshot are placeholders.
-7. Report artifacts and end-to-end report generation are identified as incomplete or not verified.
-8. Regression and CI/CD are described elsewhere in the snapshot as not established/not implemented.
+4. The traceability registry is in-memory, not persistent storage.
+5. The Evidence Framework implements evidence-record validation and repository-related behavior, but does not establish automatic evidence creation from every domain execution.
+6. Behavioral pytest tests are present for CAN, UDS and firmware. The supplied Ethernet scanner file contains implementation code, but dedicated pytest coverage for that scanner is not established by this snapshot.
+7. Report-generation code is present; complete end-to-end report generation is not established by the component mapping alone.
+8. Regression and CI/CD remain documented elsewhere as not implemented or not established.
 
-These are snapshot-based findings. A later code change or fresh verification run may change them; update the relevant documentation when that occurs.
+These statements describe the supplied repository snapshot together with the reported Phase-5 execution status. Any subsequent code change or fresh verification run may change them; update the relevant documentation when that occurs.
 
 ## 11. File-to-architecture mapping
 
@@ -172,4 +176,4 @@ These are snapshot-based findings. A later code change or fresh verification run
 
 This file is the central description of how the implementation components fit together. Detailed normative architecture remains in `security_test_architecture_definition.md`; the execution contract remains in `execution_interface_definition.md`; lifecycle semantics remain in `test_lifecycle_definition.md`; evidence behavior remains in `evidence.md`; traceability semantics remain in `assessment_objective_traceability_model.md`; domain mapping remains in `domain_architecture_matrix.md`; and test responsibilities remain in `test_responsibility_matrix.md`.
 
-`README.md` remains the project entry point and `current_state.md` remains the evolving status summary. Neither is replaced by this reference.
+`README.md` remains the project entry point and `current_state.md` remains the evolving status summary.

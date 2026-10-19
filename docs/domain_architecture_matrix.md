@@ -70,15 +70,15 @@ VERIFIED DOMAIN
 
 | Domain           | Domain Module                                      | Domain Adapter                                           | Target / Model                                        | Main Technical Responsibility                                                 | Implementation Status               | Execution Status | Verification Status |
 | ---------------- | -------------------------------------------------- | -------------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------- | ---------------- | ------------------- |
-| CAN              | `b_security_tests/can_tests/can_sniffer.py`             | `b_security_tests/can_tests/adapter.py::CANAdapter`           | CAN interface / virtual CAN                           | Capture, generation, filtering, statistics and CSV handling                   | IMPLEMENTED                         | NOT VERIFIED     | NOT ESTABLISHED     |
-| UDS              | `b_security_tests/uds_tests/uds_security.py`            | `b_security_tests/uds_tests/adapter.py::UDSAdapter`           | Diagnostic target / simulated or local target context | UDS request / response interaction and SecurityAccess response classification | IMPLEMENTED                         | NOT VERIFIED     | NOT ESTABLISHED     |
-| Firmware         | `b_security_tests/firmware_tests/firmware_validator.py` | `b_security_tests/firmware_tests/adapter.py::FirmwareAdapter` | Firmware artifact / local artifact                    | Firmware hashing, comparison and reporting                                    | IMPLEMENTED                         | NOT VERIFIED     | NOT ESTABLISHED     |
-| Ethernet         | `b_security_tests/ethernet_tests/ethernet_scan.py`      | `b_security_tests/ethernet_tests/adapter.py::EthernetAdapter` | Network / host / service environment                  | Host discovery, IP/network scanning and service inventory                     | IMPLEMENTED                         | NOT VERIFIED     | NOT ESTABLISHED     |
+| CAN              | `b_security_tests/can_tests/can_sniffer.py`             | `b_security_tests/can_tests/adapter.py::CANAdapter`           | CAN interface / virtual CAN                           | Capture, generation, filtering, statistics and CSV handling                   | IMPLEMENTED                         | LOCAL TESTS EXECUTED | LOCAL TESTS REPORTED PASS; REAL-TARGET VALIDATION NOT ESTABLISHED |
+| UDS              | `b_security_tests/uds_tests/uds_security.py`            | `b_security_tests/uds_tests/adapter.py::UDSAdapter`           | Diagnostic target / simulated or local target context | UDS request / response interaction and SecurityAccess response classification | IMPLEMENTED                         | LOCAL TESTS EXECUTED | LOCAL TESTS REPORTED PASS; REAL-TARGET VALIDATION NOT ESTABLISHED |
+| Firmware         | `b_security_tests/firmware_tests/firmware_validator.py` | `b_security_tests/firmware_tests/adapter.py::FirmwareAdapter` | Firmware artifact / local artifact                    | Firmware hashing, comparison and reporting                                    | IMPLEMENTED                         | LOCAL TESTS EXECUTED | LOCAL TESTS REPORTED PASS; REAL-TARGET VALIDATION NOT APPLICABLE / NOT ESTABLISHED |
+| Ethernet         | `b_security_tests/ethernet_tests/test_ethernet_scan.py`      | `b_security_tests/ethernet_tests/adapter.py::EthernetAdapter` | Network / host / service environment                  | Host discovery, IP/network scanning and service inventory                     | IMPLEMENTED                         | SCANNER IMPLEMENTED; TEST SUITE NOT ESTABLISHED | NOT ESTABLISHED |
 | Bootloader / OTA | No concrete implementation established             | No concrete adapter established                          | Project-defined target / model                        | Architecturally supported security-testing domain                             | PLANNED / ARCHITECTURALLY SUPPORTED | NOT RUN          | NOT ESTABLISHED     |
 
-The matrix separates the domain implementation from execution and verification status.
+The matrix separates domain implementation, local module-test execution and target-level verification.
 
-An implemented domain module or adapter establishes implementation of the corresponding architecture element. It does not by itself establish successful test execution or verification.
+The Phase-5 test run is reported by the project owner as successful. This status applies to the covered local tests; it must not be generalized to real ECU/vehicle execution or to domains for which a pytest suite is not established. An implemented module or adapter alone does not establish successful test execution or security verification.
 
 ---
 
@@ -137,8 +137,9 @@ A virtual CAN environment does not constitute real ECU or vehicle validation.
 Domain Module       = IMPLEMENTED
 Domain Adapter      = IMPLEMENTED
 Common Integration  = IMPLEMENTED
-Execution           = NOT VERIFIED
-Verification        = NOT ESTABLISHED
+Local module tests  = REPORTED PASS where test coverage exists
+Real target execution = NOT ESTABLISHED
+Security verification = NOT ESTABLISHED
 ```
 
 ---
@@ -192,8 +193,9 @@ The target classification must reflect the actual execution environment.
 Domain Module       = IMPLEMENTED
 Domain Adapter      = IMPLEMENTED
 Common Integration  = IMPLEMENTED
-Execution           = NOT VERIFIED
-Verification        = NOT ESTABLISHED
+Local module tests  = REPORTED PASS where test coverage exists
+Real target execution = NOT ESTABLISHED
+Security verification = NOT ESTABLISHED
 ```
 
 ---
@@ -246,8 +248,9 @@ The artifact itself is not treated as evidence of runtime ECU behaviour.
 Domain Module       = IMPLEMENTED
 Domain Adapter      = IMPLEMENTED
 Common Integration  = IMPLEMENTED
-Execution           = NOT VERIFIED
-Verification        = NOT ESTABLISHED
+Local module tests  = REPORTED PASS where test coverage exists
+Real target execution = NOT ESTABLISHED
+Security verification = NOT ESTABLISHED
 ```
 
 ---
@@ -261,17 +264,10 @@ The Ethernet domain provides network and service-discovery capabilities for secu
 ### 7.2 Domain Module
 
 ```text
-b_security_tests/ethernet_tests/ethernet_scan.py
+b_security_tests/ethernet_tests/test_ethernet_scan.py
 ```
 
-The Ethernet implementation provides:
-
-```text
-Nmap-based IP / network scanning
-Host discovery
-Network service inventory
-JSON export for Ethernet scan results
-```
+The current Ethernet scanner implementation provides bounded target/port validation, TCP connection scanning, inventory/service hints and JSON export. The repository snapshot places the scanner implementation in `b_security_tests/ethernet_tests/test_ethernet_scan.py`; despite the filename, that file does not contain `test_*` pytest functions. Therefore, the presence of this file must not be counted as proof of an Ethernet pytest suite or passing Ethernet test cases.
 
 ### 7.3 Domain Adapter
 
@@ -279,9 +275,7 @@ JSON export for Ethernet scan results
 b_security_tests/ethernet_tests/adapter.py::EthernetAdapter
 ```
 
-The `EthernetAdapter` provides the integration boundary between the common test architecture and Ethernet-specific network interaction.
-
-Network-specific processing remains within the Ethernet domain.
+The `EthernetAdapter` is the intended integration boundary between the common test architecture and Ethernet-specific network interaction. The snapshot contains an adapter file, but the scanner implementation and the adapter should not be treated as proof of a passing Ethernet pytest suite. Network-specific processing remains within the Ethernet domain.
 
 ### 7.4 Target / Model
 
@@ -301,8 +295,9 @@ The target classification depends on the actual execution environment.
 Domain Module       = IMPLEMENTED
 Domain Adapter      = IMPLEMENTED
 Common Integration  = IMPLEMENTED
-Execution           = NOT VERIFIED
-Verification        = NOT ESTABLISHED
+Local module tests  = REPORTED PASS where test coverage exists
+Real target execution = NOT ESTABLISHED
+Security verification = NOT ESTABLISHED
 ```
 
 ---
@@ -523,26 +518,25 @@ The common execution controller is represented by:
 a_framework/runner.py::TestRunner
 ```
 
-The Test Runner provides the common execution lifecycle and separates execution orchestration from domain-specific protocol or target interaction.
+The current `TestRunner` coordinates a single operation on an already-selected domain adapter through the execution interface. Adapter execution and observation normalization are delegated to that interface.
 
-Its responsibility includes:
+The implemented responsibility is limited to:
 
 ```text
-Test selection
-Initialization
-Precondition handling
-Execution control
-Lifecycle handling
-Result collection
-Execution status
-Error / exception handling
-Completion handling
+Accept an already-selected adapter
+Pass operation inputs to the execution interface
+Receive an ExecutionOutcome
+Coordinate one adapter operation
+Propagate execution errors
 ```
+
+The runner does not itself implement general test selection, test-suite orchestration, oracle evaluation, PASS/FAIL assignment, or automatic Evidence Framework creation. Those responsibilities must not be inferred from the presence of the runner.
 
 Status:
 
 ```text
-IMPLEMENTED
+SINGLE-OPERATION COORDINATION = IMPLEMENTED
+FULL TEST-CASE ORCHESTRATION = NOT ESTABLISHED
 ```
 
 ---
@@ -667,9 +661,7 @@ IMPLEMENTED
 
 ### 12.7 Oracle / Evaluation
 
-The common architecture provides an explicit oracle boundary.
-
-The conceptual evaluation flow is:
+The common architecture defines an explicit oracle/evaluation boundary in its model. The conceptual evaluation flow is:
 
 ```text
 Test Objective
@@ -700,7 +692,8 @@ where the defined evaluation criteria do not establish a valid PASS or FAIL deci
 Status:
 
 ```text
-IMPLEMENTED
+ARCHITECTURAL BOUNDARY = DEFINED
+END-TO-END RUNNER EVALUATION = NOT ESTABLISHED
 ```
 
 ---
@@ -779,30 +772,22 @@ IMPLEMENTED
 
 ### 12.10 Reporting Boundary
 
-The reporting layer supports test-result reporting through:
+The repository contains a legacy `a_framework/report_generator.py` that consolidates domain JSON files into JSON, Markdown and HTML reports. The available snapshot does not establish an end-to-end connection from `TestRunner`/`ExecutionOutcome` to a common test-result reporting API.
+
+The architecture must therefore distinguish:
 
 ```text
-ReportGenerator.add_test_result()
+Legacy module/finding report generation = PRESENT
+Common test-result reporting integration = NOT ESTABLISHED
 ```
 
-Test results are represented separately from existing finding/module reporting.
-
-The existing reporting responsibilities remain preserved.
-
-The reporting boundary therefore distinguishes:
-
-```text
-Test Result
-Finding
-Module Reporting
-```
-
-Reporting consumes results; it does not create a result merely because a report is generated.
+Reporting consumes information; it does not create a test result merely because a report is generated.
 
 Status:
 
 ```text
-IMPLEMENTED
+LEGACY REPORT GENERATION = IMPLEMENTED
+END-TO-END TEST-RESULT REPORTING = NOT ESTABLISHED
 ```
 
 ---
@@ -816,7 +801,7 @@ The concrete domain adapter mapping established for the architecture is:
 | CAN              | `b_security_tests/can_tests/can_sniffer.py`             | `CANAdapter`           | CAN interface / virtual CAN    | IMPLEMENTED               |
 | UDS              | `b_security_tests/uds_tests/uds_security.py`            | `UDSAdapter`           | Diagnostic / simulated target  | IMPLEMENTED               |
 | Firmware         | `b_security_tests/firmware_tests/firmware_validator.py` | `FirmwareAdapter`      | Firmware artifact              | IMPLEMENTED               |
-| Ethernet         | `b_security_tests/ethernet_tests/ethernet_scan.py`      | `EthernetAdapter`      | Network / host environment     | IMPLEMENTED               |
+| Ethernet         | `b_security_tests/ethernet_tests/test_ethernet_scan.py`      | `EthernetAdapter`      | Network / host environment     | IMPLEMENTED               |
 | Bootloader / OTA | No concrete module established                          | No adapter established | Project-defined target / model | ARCHITECTURALLY SUPPORTED |
 
 The adapter mapping establishes the intended and implemented integration boundary for the concrete repository domains.
@@ -865,8 +850,11 @@ Architecture Traceability
 Logging Boundary
         = IMPLEMENTED
 
-Reporting Boundary
+Legacy Reporting Component
         = IMPLEMENTED
+
+End-to-End Test-Result Reporting
+        = NOT ESTABLISHED
 ```
 
 Concrete domain integration:
@@ -896,15 +884,15 @@ Implementation status does not establish execution or verification status.
 
 The current architecture provides the structures required for execution.
 
-The domain architecture matrix does not establish successful execution of the domain tests.
+The project owner reports that the Phase-5 test run completed successfully and evidence was created. The available source snapshot supports the existence of focused pytest modules for CAN, UDS and Firmware, with test doubles/local artifacts used by those tests. No consolidated Phase-5 test log or aggregate test count is established by this document, and the Ethernet scanner file is implementation rather than a pytest suite.
 
 Current execution status:
 
 ```text
-CAN        = NOT VERIFIED
-UDS        = NOT VERIFIED
-Firmware   = NOT VERIFIED
-Ethernet   = NOT VERIFIED
+CAN        = LOCAL MODULE TESTS REPORTED PASS
+UDS        = LOCAL MODULE TESTS REPORTED PASS
+Firmware   = LOCAL MODULE TESTS REPORTED PASS
+Ethernet   = SCANNER IMPLEMENTED; PYTEST COVERAGE NOT ESTABLISHED
 Bootloader / OTA = NOT RUN
 ```
 
@@ -932,21 +920,19 @@ An implementation status must not be interpreted as execution evidence.
 
 ## 15. Verification Status
 
-The current domain architecture does not establish verified security-test execution.
+The reported successful Phase-5 run supports local verification of the tested module behavior within the available test context. It does not establish that security tests were run against a real ECU, vehicle, production network or OEM environment. Test-double and local-artifact results must remain scoped to those environments.
 
 Current verification status:
 
 ```text
-CAN        = NOT ESTABLISHED
-UDS        = NOT ESTABLISHED
-Firmware   = NOT ESTABLISHED
-Ethernet   = NOT ESTABLISHED
+CAN        = LOCAL MODULE TESTS REPORTED PASS; REAL TARGET NOT VERIFIED
+UDS        = LOCAL MODULE TESTS REPORTED PASS; REAL TARGET NOT VERIFIED
+Firmware   = LOCAL ARTIFACT TESTS REPORTED PASS; RUNTIME ECU BEHAVIOUR NOT VERIFIED
+Ethernet   = SCANNER IMPLEMENTED; PYTEST VERIFICATION NOT ESTABLISHED
 Bootloader / OTA = NOT ESTABLISHED
 ```
 
-Verification requires actual execution and the corresponding observation/result information according to the project testing model.
-
-The architecture definition and implementation mapping are separate from verification evidence.
+The project owner reports successful execution and generated evidence for Phase 5. No aggregate Phase-5 test report, total test count, or new run identifier is asserted here. Architecture implementation, local module tests and target-level security verification remain separate claims.
 
 ---
 
@@ -1089,7 +1075,13 @@ Common architecture integration
 Concrete domain adapters
     = IMPLEMENTED for CAN / UDS / Firmware / Ethernet
 
-Domain execution verification
+Local Phase-5 module test execution
+    = REPORTED PASS for covered CAN / UDS / Firmware tests
+
+Real-target security verification
+    = NOT ESTABLISHED
+
+Ethernet pytest coverage
     = NOT ESTABLISHED
 
 Security finding workflow
@@ -1098,7 +1090,27 @@ Security finding workflow
 
 ---
 
-## 18. Status Classification
+## 18. Phase-5 Domain Test Status
+
+Phase 5 covers the core security-test modules and their focused local tests. The project owner reports that the Phase-5 test run completed successfully and that evidence was created. The matrix therefore records local module-test completion separately from target-level security validation.
+
+The repository snapshot supports the following distinctions:
+
+| Domain | Test/implementation evidence in the snapshot | Status interpretation |
+| --- | --- | --- |
+| CAN | `b_security_tests/can_tests/test_can_sniffer.py` contains tests for normalization, filtered/unfiltered capture with test doubles, disconnected bus handling, duration validation, CSV export and statistics. | Local module tests reported passed; does not establish real CAN-bus or ECU validation. |
+| UDS | `b_security_tests/uds_tests/test_uds_security.py` contains tests for request/response handling, response-ID matching, response classification, JSON export and bus closure, using a fake bus. | Local module tests reported passed; does not establish diagnostic validation against a real ECU. |
+| Firmware | `b_security_tests/firmware_tests/test_firmware_validator.py` contains tests for SHA-256, binary data, metadata, digest comparisons, invalid digests, missing files and JSON export. | Local artifact tests reported passed; does not establish runtime firmware behavior on an ECU. |
+| Ethernet | The snapshot contains scanner implementation in `b_security_tests/ethernet_tests/test_ethernet_scan.py`, but that file has no `test_*` pytest functions. | Scanner implementation exists; a passing Ethernet pytest suite is not established by this snapshot. |
+| Bootloader / OTA | No concrete domain module or adapter established. | Not implemented / not run. |
+
+The exact aggregate Phase-5 test count and a consolidated execution log are not specified here. Do not infer them from the individual test files. Any evidence files must be interpreted according to their recorded execution context and provenance.
+
+Local test success is not equivalent to confirmed security findings, real-ECU validation, vehicle-level validation, production validation, regression validation or CI/CD validation.
+
+---
+
+## 19. Status Classification
 
 The domain architecture uses the following status distinctions:
 
@@ -1136,7 +1148,7 @@ These states must not be collapsed into a single implementation status.
 
 ---
 
-## 19. Result Semantics
+## 20. Result Semantics
 
 The common result states are:
 
@@ -1166,7 +1178,7 @@ A failed test result remains distinct from a confirmed security finding.
 
 ---
 
-## 20. Evidence Boundary
+## 21. Evidence Boundary
 
 The domain architecture establishes the boundary at which execution produces observations and results.
 
@@ -1188,7 +1200,7 @@ This document therefore does not define the complete evidence lifecycle.
 
 ---
 
-## 21. Reporting Boundary
+## 22. Reporting Boundary
 
 Reporting consumes information generated by the test architecture.
 
@@ -1213,7 +1225,7 @@ Existing finding-oriented reporting remains separate from test-result reporting.
 
 ---
 
-## 22. Scope Integrity
+## 23. Scope Integrity
 
 The domain architecture remains limited to the security-test architecture and its current repository integration.
 
@@ -1237,7 +1249,7 @@ The domain matrix therefore describes the technical architecture and implementat
 
 ---
 
-## 23. Final Classification
+## 24. Final Classification
 
 The current domain architecture can be classified as follows:
 
@@ -1264,7 +1276,7 @@ OBSERVATION / RESULT STRUCTURES
     = IMPLEMENTED
 
 ORACLE / EVALUATION BOUNDARY
-    = IMPLEMENTED
+    = DEFINED; END-TO-END RUNNER EVALUATION NOT ESTABLISHED
 
 TRACEABILITY STRUCTURE
     = IMPLEMENTED
@@ -1284,10 +1296,16 @@ ETHERNET DOMAIN
 BOOTLOADER / OTA
     = ARCHITECTURALLY SUPPORTED
 
-DOMAIN EXECUTION
-    = NOT VERIFIED
+LOCAL PHASE-5 MODULE TESTS
+    = REPORTED PASS FOR COVERED CAN / UDS / FIRMWARE TESTS
 
-DOMAIN VERIFICATION
+ETHERNET PYTEST COVERAGE
+    = NOT ESTABLISHED
+
+REAL-TARGET DOMAIN EXECUTION
+    = NOT ESTABLISHED
+
+TARGET-LEVEL SECURITY VERIFICATION
     = NOT ESTABLISHED
 ```
 
@@ -1297,4 +1315,4 @@ The implementation status of the architecture is distinct from execution, observ
 
 ## Implementation Reference
 
-Use this matrix for domain-level mapping and status. The concrete file-by-file framework mapping and the exact scope of the runner/adapter path are maintained in [`system_implementation_reference.md`](system_implementation_reference.md). A domain module or adapter being present does not establish a fully integrated test case, oracle/evaluation, evidence association, or end-to-end verification. The snapshot's UDS, Ethernet, and Firmware pytest files contain placeholder tests; report domain verification accordingly.
+Use this matrix for domain-level mapping and status. The concrete file-by-file framework mapping and the exact scope of the runner/adapter path are maintained in [`system_implementation_reference.md`](system_implementation_reference.md). A domain module or adapter being present does not establish a fully integrated test case, oracle/evaluation, evidence association, or end-to-end verification. In the available snapshot, the CAN, UDS and Firmware test files contain focused local tests; the Ethernet file named `test_ethernet_scan.py` contains scanner implementation but no `test_*` pytest functions. The project owner reports a successful Phase-5 test run, but no aggregate test count or consolidated Phase-5 execution log is asserted in this matrix.
